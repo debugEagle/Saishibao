@@ -18,6 +18,5 @@ myAccount2:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAL4AAADICAYAAABWD1tBAA
 
 
 }
-// wkwork;
 
 export {icons as default}
