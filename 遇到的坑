@@ -1,0 +1,55 @@
+https://www.getpostman.com/collections/48654bb99b63a9630061 
+
+
+已解决的坑：
+1.注意js文件名大小写
+2.TabBarIOS.Item 如果需要传对象，设置图片路径要用对应base64
+3.一定要设置image 的width 和 height，其中height根据 与width的比例来设定
+
+4.项目中使用NavigatorIOS隐藏tabBar的方法
+    找到RCTNavigator.m，在
+    -(void)navigationController:(UINavigationController
+    )navigationController willShowViewController:(__unused
+    UIViewController *)viewController animated:(__unused
+    BOOL)animated
+
+    函数最开始添加
+
+    if (navigationController.viewControllers.count > 1) {
+    navigationController.tabBarController.tabBar.hidden
+    = YES; } else {
+    navigationController.tabBarController.tabBar.hidden
+    = NO; }就可以了
+
+
+
+未解决的坑：
+
+2.处理rn 和 原生oc模块的通讯
+3.this  bind问题
+4.image 不同设备比例问题
+
+
+
+需要商讨的事：
+1.TabBarIOS.Item 里面的icon 未选中状态  灰色？ tabBarTintColor 颜色过重
+2.TabBarIOS.Item 有颜色的icon 会被填充掉（白色也是属于有颜色）。
+
+
+
+记录：
+1.container  flex:1时 如果不设置容器宽度，默认占满父容器
+2.用js 来实现样式 ，并非css
+3.emmet 展开 commamd+shift+e
+4.command + 点击 可实现多重光标
+5.justifyContent 相对于容器主轴
+6.alignItemn 相对于交叉轴，alignSelf 单独组件相对于交叉轴
+7.flexDirection 改变主轴 方向
+8.一定要把View 看成 div ，这样就方便布局了
+9.NavigatorIOS 需要一个组件作为初始路由,然后可以用this.props.navigator.push 来进入下一层
+10.每个tab就需要单独一个NavigatorIOS
+11.image.resizeMode contain模式自适应宽高，给出高度值即可
+                    cover铺满容器，但是会做截取
+                    stretch铺满容器，拉伸
+12.Text numberOfLines来控制行数
+13.React.PropTypes.类型 声明数据属性的合法性验证
