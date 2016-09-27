@@ -13,8 +13,6 @@ class ScheduleListContainer extends Component {
   }
 }
 
-//////
-
 const mapStateToProps = (state) => ({
   ScheduleList: state.ScheduleList,
   CityList: state.CityList
