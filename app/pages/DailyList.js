@@ -39,8 +39,7 @@ class DailyList extends Component {
 
       // 排序视图Y值
       moveCityView: new Animated.Value(0),
-      // 排序三角角度
-      angleRotation: new Animated.Value(0),
+
       // 遮盖层透明度
       coverViewOpacity: new Animated.Value(0)
     };
@@ -92,18 +91,9 @@ class DailyList extends Component {
   _handleCityViewAnimation() {
     const {DailyList, actions} = this.props;
     Animated.sequence([
-
       Animated.parallel([
         Animated.timing(this.state.moveCityView, {
-          toValue: DailyList.showCityView
-            ? 0
-            : 1,
-          duration: 500
-        }),
-        Animated.timing(this.state.angleRotation, {
-          toValue: DailyList.showCityView
-            ? 0
-            : 1,
+          toValue: DailyList.showCityView ? 0 : 1,
           duration: 500
         })
       ]),
@@ -115,24 +105,6 @@ class DailyList extends Component {
     ]).start();
     // 改变排序视图状态
     actions.changeDailyCityShowStatus();
-  }
-
-  _renderCoverView() {
-
-    return (
-      <TouchableOpacity
-        style={{position: 'absolute',top: 44}}
-        activeOpacity={1}
-        onPress={() => this._handleCityViewAnimation()}>
-
-        <Animated.View style={{
-          width: Common.window.width,
-          height: Common.window.height - 44,
-          backgroundColor: 'rgba(131, 131, 131, 0.3)',
-          opacity: this.state.coverViewOpacity}}>
-        </Animated.View>
-      </TouchableOpacity>
-    )
   }
 
   _renderCityView() {
@@ -160,6 +132,24 @@ class DailyList extends Component {
           );
         })}
       </Animated.View>
+    )
+  }
+
+  _renderCoverView() {
+
+    return (
+      <TouchableOpacity
+        style={{position: 'absolute',top: 44}}
+        activeOpacity={1}
+        onPress={() => this._handleCityViewAnimation()}>
+
+        <Animated.View style={{
+          width: Common.window.width,
+          height: Common.window.height - 44,
+          backgroundColor: 'rgba(131, 131, 131, 0.3)',
+          opacity: this.state.coverViewOpacity}}>
+        </Animated.View>
+      </TouchableOpacity>
     )
   }
 
@@ -212,11 +202,11 @@ class DailyList extends Component {
 
     return (
       <View style={styles.container}>
-      <Header title='俱乐部'/>
-      {this._renderCityBtn()}
-      {this._renderListView(this.props.DailyList.casinos)}
-      {DailyList.showCityView ? this._renderCoverView() : null}
-      {this._renderCityView()}
+        <Header title='俱乐部'/>
+        {this._renderCityBtn()}
+        {this._renderListView(this.props.DailyList.casinos)}
+        {DailyList.showCityView ? this._renderCoverView() : null}
+        {this._renderCityView()}
       </View>
     );
   }
