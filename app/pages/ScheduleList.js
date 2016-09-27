@@ -61,12 +61,11 @@ class ScheduleList extends Component {
   }
 
   _rendereSelectContentView() {
-    
+
   }
 
   _handleAreaViewAnimation() {
     console.log('test');
-
   }
 
   render() {
