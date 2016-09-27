@@ -9,6 +9,7 @@ import codePush from "react-native-code-push";
 import RegGetSmsCodeContainer from './RegGetSmsCodeContainer';
 import RegInputSmsCodeContainer from './RegInputSmsCodeContainer';
 import Common from '../common/constants';
+import ScheduleListContainer from './ScheduleListContainer'
 
 import React, { Component } from 'react';
 import {
@@ -70,7 +71,7 @@ class MainView extends Component {
     }
     else if (selectedTab === 'schedule') {
 
-      return <RegGetSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
+      return <ScheduleListContainer navigator = {this.props.navigator} {...this.props} />
       // return <RegInputSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
       // return <SwiperSample/>
     }

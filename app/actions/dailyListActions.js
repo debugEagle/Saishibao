@@ -43,7 +43,6 @@ let fetchDailies = (city) => {
 let changeDailyCityShowStatus = () => {
   return {
     type: types.CHANGE_DAILY_CITY_SHOW_STATUS,
-
   }
 }
 
