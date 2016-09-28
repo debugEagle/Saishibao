@@ -10,6 +10,7 @@ import RegGetSmsCodeContainer from './RegGetSmsCodeContainer';
 import RegInputSmsCodeContainer from './RegInputSmsCodeContainer';
 import Common from '../common/constants';
 import ScheduleListContainer from './ScheduleListContainer'
+import CasinoIntro from '../pages/CasinoIntro'
 
 import React, { Component } from 'react';
 import {
@@ -29,14 +30,14 @@ class MainView extends Component {
     super(props);
 
     this.state = {
-      selectedTab: 'schedule',
+      selectedTab: 'hot',
     }
 
   }
 
   componentDidMount(){
     // codePush.sync();
-    // codePush.sync({ updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE });
+    codePush.sync({ updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE });
   }
 
   _createTabbarItem(title,icon,icon2,selectedTab){
@@ -78,8 +79,9 @@ class MainView extends Component {
     else if (selectedTab === 'myAccount') {
 
       // return <RegGetSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
-      return <RegInputSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
+      // return <RegInputSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
       // return <SwiperSample/>
+      return <CasinoIntro  navigator = {this.props.navigator} />
     }
   }
 
