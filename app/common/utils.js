@@ -35,7 +35,7 @@ let request = (url, method='GET', timeout=5, post={}) => {
 
         resolve(res.json);
 
-          
+
 
 
       } catch (e) {
@@ -83,22 +83,32 @@ const Util = {
   key: 'LFDHSFHSFJKHJFHS-REACT-NATIVE',
 };
 
+let getMonths = () => {
+  let allMonths = [];
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
 
-// import {StyleSheet, Platform} from 'react-native';
+  let _getFullMonth = (m) => {
+    let y = year;
+    if (m <= 0) {
+      m += 12;
+      y -= 1;
+    }
+    if (m > 12) {
+      m -= 12;
+      y += 1;
+    }
+    let _month = m < 10 ? '0' + m : m;
+    let _fullMonth = `${y}${_month}`;
+    return _fullMonth
+  }
 
-// export function create(styles: Object): {[name: string]: number} {
-//   const platformStyles = {};
-//   Object.keys(styles).forEach((name) => {
-//     let {ios, android, ...style} = {...styles[name]};
-//     if (ios && Platform.OS === 'ios') {
-//       style = {...style, ...ios};
-//     }
-//     if (android && Platform.OS === 'android') {
-//       style = {...style, ...android};
-//     }
-//     platformStyles[name] = style;
-//   });
-//   return StyleSheet.create(platformStyles);
-// }
+  for (let i = 7; i >= -7; i--) {
+    allMonths.push(_getFullMonth(month-i))
+  }
 
-export { Util, request} ;
+  return allMonths
+}
+
+export { Util, request, getMonths} ;

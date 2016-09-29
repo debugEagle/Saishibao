@@ -57,10 +57,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     height: 44,
     alignItems: 'center',
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 0.5,
     backgroundColor: Common.colors.themeColor,
-
+    zIndex: 99
   },
   title: {
     fontSize: 18,

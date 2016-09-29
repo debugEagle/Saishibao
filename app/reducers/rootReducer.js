@@ -7,6 +7,7 @@ import HotDayInfo from './hotDayInfoReducer';
 import MatchSetting from './matchSettingReducer';
 import RegGetSmsCode from './regGetSmsCodeReducer';
 import RegInputSmsCode from './regInputSmsCodeReducer';
+import ScheduleList from './scheduleListReducer'
 
 
 export default rootReducer = combineReducers({
@@ -18,4 +19,5 @@ export default rootReducer = combineReducers({
   MatchSetting,
   RegGetSmsCode,
   RegInputSmsCode,
+  ScheduleList
 });

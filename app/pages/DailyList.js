@@ -29,7 +29,6 @@ class DailyList extends Component {
     super(props);
 
     this.state = {
-      loaded: true,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
@@ -80,8 +79,12 @@ class DailyList extends Component {
     return (
       <TouchableOpacity style={styles.chooseCity} onPress={() => this._handleCityViewAnimation()}>
         <View style={styles.chooseCityView}>
-          <Text style={styles.chooseCityText}>{this.props.DailyList.currentCity}</Text>
-          <Icon style={styles.chooseCityIcon} color="white" size={16} name={iconName}/>
+          <View style={styles.chooseCityTextView}>
+            <Text style={styles.chooseCityText}>{this.props.DailyList.currentCity}</Text>
+          </View>
+          <View style={styles.chooseCityIconView}>
+            <Icon color="white" size={16} name={iconName}/>
+          </View>
         </View>
       </TouchableOpacity>
     )
@@ -91,12 +94,11 @@ class DailyList extends Component {
   _handleCityViewAnimation() {
     const {DailyList, actions} = this.props;
     Animated.sequence([
-      Animated.parallel([
-        Animated.timing(this.state.moveCityView, {
-          toValue: DailyList.showCityView ? 0 : 1,
-          duration: 500
-        })
-      ]),
+      Animated.timing(this.state.moveCityView, {
+        toValue: DailyList.showCityView ? 0 : 1,
+        duration: 500
+      }),
+
       // 2)遮盖层透明度
       Animated.timing(this.state.coverViewOpacity, {
         toValue: 1,
@@ -124,7 +126,6 @@ class DailyList extends Component {
           return (
             <TouchableOpacity key={i} style={styles.city} onPress={() => {
               this._handleCityViewAnimation();
-              console.log(oCity.city);
               {actions.fetchDailies(oCity.city)};
             }}>
               <Text>{oCity.city}</Text>
@@ -163,10 +164,14 @@ class DailyList extends Component {
     return (
       <View style={styles.item}>
         <View style={styles.itemLeft}>
-          <Image style={styles.itemImg} source={{uri: item.logo_url}}/>
-          <Text style={styles.itemClubName}>
-            {item.name}
-          </Text>
+          <View style={styles.itemImgView}>
+            <Image style={styles.itemImg} source={{uri: item.logo_url}}/>
+          </View>
+          <View style={styles.itemClubNameView}>
+            <Text style={styles.itemClubName}>
+              {item.casino}
+            </Text>
+          </View>
         </View>
         <View style={styles.itemRight}>
           <View style={[styles.itemRightTop, styles.withBorderBottom]}>
@@ -219,27 +224,30 @@ const styles = StyleSheet.create({
   },
   chooseCity: {
     position: 'absolute',
-    top: 14,
-    left: 10
+    top: 16,
+    left: 16,
+    zIndex: 999,
+    height: 25,
+    width: 60,
   },
   chooseCityView: {
+    height: 25,
+    width: 60,
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  chooseCityTextView: {
+    flex: 2,
+    backgroundColor: Common.colors.themeColor
   },
   chooseCityText: {
     color: '#ffffff',
-    fontSize: 14,
-    backgroundColor: Common.colors.themeColor
+    fontSize: 16,
   },
-  chooseCityIcon: {
-    marginLeft: 4,
+  chooseCityIconView: {
+    flex: 1,
     backgroundColor: Common.colors.themeColor
-  },
-  mapMakrer: {
-    // borderWidth: 1,
-    marginTop: 5,
-    width: 30,
-    alignItems: 'center'
+
   },
   city: {
     justifyContent: 'center',
@@ -260,7 +268,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderBottomColor: '#ccc',
     width: Common.window.width,
-    paddingTop: 10
+    paddingTop: 10,
+    zIndex: 9
   },
   withBorderRight: {
     borderRightWidth: 1,
@@ -282,6 +291,11 @@ const styles = StyleSheet.create({
   },
   itemLeft: {
     flex: 1,
+    flexDirection: 'column',
+    marginTop: 20,
+    marginBottom: 10
+  },
+  itemImgView: {
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -290,11 +304,17 @@ const styles = StyleSheet.create({
     width: 100,
     resizeMode: Image.resizeMode.contain
   },
-  itemClubName: {},
+  itemClubNameView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  itemClubName: {
+
+  },
   itemRight: {
     flex: 1.5,
-    marginHorizontal: 20,
-    marginVertical: 10
+    marginHorizontal: 15,
   },
   itemRightTop: {
     flex: 1,
