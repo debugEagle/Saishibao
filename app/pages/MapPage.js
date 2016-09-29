@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import MapView from '../components/MapView';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Header from '../components/Header';
 
 import {
   Text,
@@ -26,26 +27,34 @@ class MapPage extends Component {
   }
   render() {
     let {address, latitude, longitude} = this.props.address;
+    console.log('address ' + address);
 
     return (
 
+      <View style={styles.container}>
+        <Header
+          leftIcon='angle-left'
+          leftIconAction={()=>this.props.navigator.pop()}
+          title='赛事介绍'
 
-      <MapView style={styles.map}
+        />
+        <MapView style={styles.map}
 
-        AMapKey="d66aa045c60deb8ab29e0a6e7a379a26"
-        annotation={{
-            title: address,
-            latitude: latitude,
-            longitude: longitude
-        }}>
-        <TouchableOpacity
-          //activeOpacity={0.75}
-          style={styles.leftIcon}
-          onPress={() => this._onPressBack()}
-        >
-          <Icon color="black" size={30} name='angle-left'/>
-        </TouchableOpacity>
-      </MapView>
+          AMapKey="d66aa045c60deb8ab29e0a6e7a379a26"
+          annotation={{
+              title: address,
+              latitude: latitude,
+              longitude: longitude
+          }}>
+          {/*<TouchableOpacity
+            //activeOpacity={0.75}
+            style={styles.leftIcon}
+            onPress={() => this._onPressBack()}
+          >
+            <Icon color="black" size={30} name='angle-left'/>
+          </TouchableOpacity>*/}
+        </MapView>
+      </View>
 
     );
   }
@@ -53,6 +62,9 @@ class MapPage extends Component {
 
 
 let styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   map: {
     flex: 1,
   },
