@@ -19,7 +19,7 @@ let hotDayInfo = (state = initialState, action) => {
   switch (action.type) {
     case types.FETCH_HOT_DAY_LIST:
       return Object.assign({}, state, {
-        isLoading: action.isLoading,
+        isLoading: false,
       })
     case types.RECEIVE_HOT_DAY_LIST:
       return Object.assign({}, state, {

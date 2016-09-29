@@ -9,8 +9,9 @@ import codePush from "react-native-code-push";
 import RegGetSmsCodeContainer from './RegGetSmsCodeContainer';
 import RegInputSmsCodeContainer from './RegInputSmsCodeContainer';
 import Common from '../common/constants';
-import ScheduleListContainer from './ScheduleListContainer'
-import CasinoIntro from '../pages/CasinoIntro'
+import ScheduleListContainer from './ScheduleListContainer';
+import CasinoIntro from '../pages/CasinoIntro';
+import DailyInfo from  '../pages/DailyInfo';
 
 import React, { Component } from 'react';
 import {
@@ -30,7 +31,7 @@ class MainView extends Component {
     super(props);
 
     this.state = {
-      selectedTab: 'hot',
+      selectedTab: 'myAccount',
     }
 
   }
@@ -81,7 +82,8 @@ class MainView extends Component {
       // return <RegGetSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
       // return <RegInputSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
       // return <SwiperSample/>
-      return <CasinoIntro  navigator = {this.props.navigator} />
+      return <DailyInfo  navigator = {this.props.navigator} />
+      //  return <CasinoIntro  navigator = {this.props.navigator} />
     }
   }
 
@@ -103,6 +105,8 @@ class MainView extends Component {
     );
   }
 }
+
+
 
 
 export default MainView;

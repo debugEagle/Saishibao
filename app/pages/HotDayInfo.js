@@ -28,7 +28,7 @@ import {
 
 
 
-let isLoading = true;
+// let isLoading = true;
 
 
 class HotList extends Component {
@@ -59,7 +59,7 @@ class HotList extends Component {
     InteractionManager.runAfterInteractions(() => {
 
       const { hotMatch } = this.props;
-      this.props.actions.fetchHotDays(hotMatch.bigMatchSerie_id, isLoading);
+      this.props.actions.fetchHotDays(hotMatch.bigMatchSerie_id);
 
     });
 
@@ -151,7 +151,10 @@ class HotList extends Component {
   _renderDayDetailList(bigMatch) {
     return (
 
-        <View style={styles.detailItem}>
+      <View style={styles.detailItem}>
+        <View>
+          <Text style={styles.detailRemarkText}>{bigMatch.remark}</Text>
+        </View>
           <View style={styles.detailTitle}>
             <Text style={styles.detailTitleText}>{bigMatch.name}</Text>
           </View>
@@ -256,7 +259,7 @@ class HotList extends Component {
 }
 
 
-let detailTitleColor = '#424242';
+const detailTitleColor = '#424242';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -412,12 +415,12 @@ const styles = StyleSheet.create({
   detailPrice: {
     marginTop: 15,
     flexDirection: 'row',
+  },
+
+  detailRemarkText: {
+    color: '#ff5722',
+    fontSize: 14,
   }
-
-
-
-
-
 
 
 

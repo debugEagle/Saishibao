@@ -9,7 +9,7 @@ import {
 
 
 
-let fetchHotDays = (bigMatchSerie_id, isLoading) => {
+let fetchHotDays = (bigMatchSerie_id) => {
 
   let hotDayList = [
     // {
@@ -17,6 +17,7 @@ let fetchHotDays = (bigMatchSerie_id, isLoading) => {
     //   month: 9,
     //   day: 1,
     //  bigMatch_id
+    // remark
 
     // },
 
@@ -48,6 +49,7 @@ let fetchHotDays = (bigMatchSerie_id, isLoading) => {
             detaiListItem.year = match_day.getFullYear() ;
             detaiListItem.month = match_day.getMonth() + 1;
             detaiListItem.day = match_day.getDate();
+            detaiListItem.remark = row.remark;
 
 
             hotDayDetailList.push(detaiListItem);
@@ -84,7 +86,7 @@ let fetchHotDays = (bigMatchSerie_id, isLoading) => {
           }
 
 
-          dispatch(fetchInfo(isLoading));
+          dispatch(fetchInfo());
           dispatch(receiveInfo(hotDayList, hotDayDetailList));
           dispatch(selectHotDayDetail(hotDayList[0].match_day));
 
@@ -110,10 +112,10 @@ let selectHotDayDetail = (match_day) => {
 
 
 
-let fetchInfo = (isLoading) => {
+let fetchInfo = () => {
   return {
     type: types.FETCH_HOT_DAY_LIST,
-    isLoading: isLoading,
+
   }
 }
 
