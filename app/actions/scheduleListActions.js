@@ -2,7 +2,7 @@ import * as types from './actionTypes';
 import { request } from '../common/utils.js';
 
 let fetchSchedule = (area,tour,month) => {
-  let url = 'https://www.91buyin.com/texas/big/serie?month=' + month
+  let url = 'https://www.91buyin.com/texas/big/serie?limit=10&month=' + month
   if (area !== '全部地区'){
     url += '&country=' + area;
   }

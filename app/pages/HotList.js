@@ -5,7 +5,6 @@ import HotIntroContainer from '../containers/HotIntroContainer';
 import Loading from '../components/Loading';
 import LoadMoreFooter from '../components/LoadMoreFooter';
 
-
 import React, { Component } from 'react';
 import {
   Text,
@@ -21,8 +20,6 @@ import {
   InteractionManager,
 } from 'react-native';
 
-
-
 let page = 1;
 let isLoadMore = false;
 let isLoading = true;
@@ -36,7 +33,6 @@ class HotList extends Component {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
-
     };
 
     this._renderHotList = this._renderHotList.bind(this);
@@ -46,8 +42,6 @@ class HotList extends Component {
     InteractionManager.runAfterInteractions(() => {
       this.props.actions.fetchHots(page, isLoadMore,  isLoading);
     });
-
-
   }
 
   _onPressHotItem(hotMatch) {
@@ -66,24 +60,21 @@ class HotList extends Component {
       isLoadMore = true;
     }
     // console.log('_onScroll');
-
   }
 
   // 下拉刷新
   _onRefresh() {
     page = 1;
     isLoadMore = false;
-
     this.props.actions.fetchHots(page, isLoadMore, isLoading);
-
-
   }
 
   // 上拉加载
   _onEndReach() {
     const { HotList } = this.props;
-
+    console.log(HotList.count);
     // 如果只有一页，就不刷新
+    //
     if (HotList.count <= 5) {
       return;
     }
@@ -108,7 +99,6 @@ class HotList extends Component {
     return (
       <TouchableHighlight underlayColor="rgba(34, 26, 38, 0.1)"
       onPress={() => this._onPressHotItem(hotMatch)}>
-
         <View style={styles.listItem}>
           <View>
             <Image style={styles.itemImage} source={{uri:hotMatch.url}}>
@@ -128,10 +118,8 @@ class HotList extends Component {
             </View>
             <View style={styles.separate}>
             </View>
-
           </View>
         </View>
-
       </TouchableHighlight>
     );
   }
@@ -141,41 +129,36 @@ class HotList extends Component {
     const { HotList } = this.props;
     let hotList = HotList.hotList;
 
-
     return (
-
-
       <View style={styles.container}>
         <Header
           title='热门推荐'
         />
-        {HotList.isLoading ?
-        <Loading /> :
-        <ListView
-          enableEmptySections = {true}
-          dataSource={this.state.dataSource.cloneWithRows(hotList)}
-          renderRow={this._renderHotList}
-          initialListSize={1}
-          enableEmptySections={true}
-          onEndReached={() => this._onEndReach()}
-          onEndReachedThreshold={10}
-          onScroll={() => this._onScroll()}
-          renderFooter={() => this._renderFooter()}
-
-
-          refreshControl={
-            <RefreshControl
-              refreshing={false}
-              onRefresh={() => this._onRefresh()}
-              title="正在加载中……"
-              tintColor="#ccc"
-            />
-          }
-        />
+        {HotList.isLoading
+          ?
+          <Loading />
+          :
+          <ListView
+            enableEmptySections = {true}
+            dataSource={this.state.dataSource.cloneWithRows(hotList)}
+            renderRow={this._renderHotList}
+            // initialListSize={1}
+            enableEmptySections={true}
+            onEndReached={() => this._onEndReach()}
+            onEndReachedThreshold={10}
+            onScroll={() => this._onScroll()}
+            renderFooter={() => this._renderFooter()}
+            refreshControl={
+              <RefreshControl
+                refreshing={false}
+                onRefresh={() => this._onRefresh()}
+                title="正在加载中……"
+                tintColor="#ccc"
+              />
+            }
+          />
         }
-
       </View>
-
     );
   }
 }
@@ -189,7 +172,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
   },
-
   itemImage: {
     width: imageWidth,
     height: imageHeight,

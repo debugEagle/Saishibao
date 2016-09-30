@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: (Common.window.height-80)/2,
         left: (Common.window.width-100)/2,
+        zIndex: 5
     },
 
     loadingTitle: {

@@ -30,14 +30,14 @@ class MainView extends Component {
     super(props);
 
     this.state = {
-      selectedTab: 'hot',
+      selectedTab: 'casino',
     }
 
   }
 
   componentDidMount(){
     // codePush.sync();
-    codePush.sync({ updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE });
+    // codePush.sync({ updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE });
   }
 
   _createTabbarItem(title,icon,icon2,selectedTab){
