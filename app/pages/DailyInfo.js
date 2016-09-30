@@ -3,6 +3,7 @@ import Common from '../common/constants';
 import Loading from '../components/Loading';
 import Header from '../components/Header';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MatchSettingContainer from '../containers/MatchSettingContainer';
 
 
 import React, { Component } from 'react';
@@ -25,73 +26,112 @@ import {
 class DailyInfo extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      dataSource: new ListView.DataSource({
+        rowHasChanged: (row1, row2) => row1 !== row2
+      }),
+
+    };
+    this._renderDailyInfoList = this._renderDailyInfoList.bind(this);
   }
 
-  // _renderDailyInfoList(bigMatch) {
-  //   return (
-  //
-  //
-  //
-  //
-  //   );
-  // }
+  componentDidMount() {
+    this.props.actions.fetchDailyInfo();
+  }
+
+  componentWillUnmount() {
+
+    this.props.actions.resetDailyInfo();
+  }
+
+
+  _onPressDetailStruct(bigMatch) {
+    this.props.navigator.push({
+      title: 'MatchSettingContainer',
+      component: MatchSettingContainer,
+      passProps: {
+        bigMatch
+      },
+    });
+  }
+
+  _renderDailyInfoList(item) {
+    return (
+
+      <View style={styles.detailItem}>
+        <View>
+          <Text style={styles.detailRemarkText}>{item.remark}</Text>
+        </View>
+          <View style={styles.detailTitle}>
+            <Text style={styles.detailTitleText}>{item.dailyMatchSerie.name}</Text>
+          </View>
+
+            <View style={styles.detailRow}>
+              <View style={styles.detailBlock}>
+                  <Text style={styles.detailText}>类型: {item.style}</Text>
+              </View>
+
+
+              <View style={styles.detailBlock}>
+                <Text style={styles.detailText}>参赛条件: {item.unit_price} 积分</Text>
+              </View>
+            </View>
+
+          <View style={styles.detailRow}>
+            <View style={styles.detailBlock}>
+              <Text style={styles.detailText}>开始时间: {item.start_time} </Text>
+            </View>
+            <View style={styles.detailBlock}>
+              <Text style={styles.detailText}>关闭注册: {item.close_reg_time}</Text>
+            </View>
+          </View>
+
+          <View style={styles.detailJoinAndOthers}>
+
+              <View style={styles.detailStruct}>
+                <TouchableOpacity onPress={() => this._onPressDetailStruct(item)}>
+                  <Text style={styles.detailStructText}>比赛结构表  </Text>
+                </TouchableOpacity>
+              </View>
+
+            <View style={styles.detailJoin}>
+              <Text style={styles.detailJoinText}>参加赛事  </Text>
+            </View>
+            <View style={styles.detailResult}>
+              <Text style={styles.detailResultText}>比赛结果   </Text>
+            </View>
+          </View>
+
+
+        </View>
+
+
+    );
+  }
 
   render() {
+    const { DailyInfo } = this.props;
+    let dailyInfoList = DailyInfo.dailyInfoList;
     return (
       <View style={styles.container}>
-
         <Header title='预告'
         leftIcon='angle-left'
         leftIconAction={()=>this.props.navigator.pop()}
         />
-
-        <View style={styles.detailItem}>
-          <View>
-            <Text style={styles.detailRemarkText}>优惠信息：无</Text>
-          </View>
-            <View style={styles.detailTitle}>
-              <Text style={styles.detailTitleText}>MTT常规赛</Text>
-            </View>
-
-              <View style={styles.detailRow}>
-                <View style={styles.detailBlock}>
-                    <Text style={styles.detailText}>类型: hole'em</Text>
-                </View>
+        {DailyInfo.isLoading ?
+        <Loading /> :
+        <ListView style={{height: Common.window.height - 67 - 44}}
+          enableEmptySections = {true}
+          dataSource={this.state.dataSource.cloneWithRows(dailyInfoList)}
+          renderRow={this._renderDailyInfoList}
+          initialListSize={1}
 
 
-                <View style={styles.detailBlock}>
-                  <Text style={styles.detailText}>参赛条件: 200积分</Text>
-                </View>
-              </View>
+        />
+        }
 
-            <View style={styles.detailRow}>
-              <View style={styles.detailBlock}>
-                <Text style={styles.detailText}>开始时间: 15:00</Text>
-              </View>
-              <View style={styles.detailBlock}>
-                <Text style={styles.detailText}>关闭注册: 17:00</Text>
-              </View>
-            </View>
-
-            <View style={styles.detailJoinAndOthers}>
-
-                <View style={styles.detailStruct}>
-                  <TouchableOpacity >
-                    <Text style={styles.detailStructText}>比赛结构表  </Text>
-                  </TouchableOpacity>
-                </View>
-
-              <View style={styles.detailJoin}>
-                <Text style={styles.detailJoinText}>参加赛事  </Text>
-              </View>
-              <View style={styles.detailResult}>
-                <Text style={styles.detailResultText}>比赛结果   </Text>
-              </View>
-            </View>
-
-
-          </View>
-        </View>
+      </View>
     );
   }
 }

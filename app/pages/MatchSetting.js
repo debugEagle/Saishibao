@@ -41,6 +41,13 @@ class MatchSetting extends Component {
 
   }
 
+  componentWillUnmount() {
+    this.props.actions.resetMatchSetting();
+
+  }
+
+
+
   _renderTitleRow(item1, item2, item3, item4) {
     return (
       <View style={styles.settingTitle}>
@@ -97,12 +104,14 @@ class MatchSetting extends Component {
     let match_day = new Date(bigMatch.match_day)
     let month = match_day.getMonth() + 1;
     let day = match_day.getDate();
+
+
     return (
       <View style={styles.settingItem}>
         <View style={styles.settingItemBlock}>
           <Text style={styles.settingText}>{month}月{day}日</Text>
         </View>
-        {this._renderItem(bigMatch.open_time)}
+        {bigMatch.open_time? this._renderItem(bigMatch.open_time): this._renderItem(bigMatch.start_time)}
         <View style={styles.settingItemBlock}>
           <Text style={styles.settingText}>{matchSetting.blindTime}分</Text>
         </View>
@@ -129,7 +138,7 @@ class MatchSetting extends Component {
   render() {
 
     const { MatchSetting } = this.props;
-    const { bigMatch } = this.props;
+    // const { bigMatch } = this.props;
     let matchSetting = MatchSetting.matchSetting;
 
 

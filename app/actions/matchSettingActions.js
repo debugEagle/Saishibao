@@ -130,6 +130,13 @@ let fetchMatchSetting = (isLoading) => {
   }
 }
 
+let resetMatchSetting = () => {
+
+  return {
+    type: types.RESET_MATCH_SETTING,
+  }
+}
+
 let fetchSetting = () => {
 
   return {
@@ -144,5 +151,5 @@ let receiveSetting = (matchSetting) => {
   }
 }
 export {
-  fetchMatchSetting
+  fetchMatchSetting, resetMatchSetting
 }

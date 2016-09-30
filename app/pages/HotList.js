@@ -87,7 +87,9 @@ class HotList extends Component {
     if (HotList.count <= 5) {
       return;
     }
+    console.log('page ' + page);
     if (isLoadMore) {
+
       page++;
       this.props.actions.fetchHots(page, isLoadMore, false);
       isLoadMore = false;

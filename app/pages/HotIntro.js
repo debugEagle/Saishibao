@@ -59,6 +59,7 @@ class HotIntro extends Component {
   componentWillUnmount() {
 
     this.props.actions.resetHotIntro();
+  
   }
 
 

@@ -11,7 +11,7 @@ import RegInputSmsCodeContainer from './RegInputSmsCodeContainer';
 import Common from '../common/constants';
 import ScheduleListContainer from './ScheduleListContainer';
 import CasinoIntro from '../pages/CasinoIntro';
-import DailyInfo from  '../pages/DailyInfo';
+import DailyInfoContainer from  './DailyInfoContainer';
 
 import React, { Component } from 'react';
 import {
@@ -31,7 +31,7 @@ class MainView extends Component {
     super(props);
 
     this.state = {
-      selectedTab: 'myAccount',
+      selectedTab: 'hot',
     }
 
   }
@@ -82,7 +82,7 @@ class MainView extends Component {
       // return <RegGetSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
       // return <RegInputSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
       // return <SwiperSample/>
-      return <DailyInfo  navigator = {this.props.navigator} />
+      return <DailyInfoContainer  navigator = {this.props.navigator} />
       //  return <CasinoIntro  navigator = {this.props.navigator} />
     }
   }
