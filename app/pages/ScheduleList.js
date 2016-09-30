@@ -305,16 +305,21 @@ class ScheduleList extends Component {
 
   // 赛事列表
   _renderListView(matches) {
-    return (<ListView
-      dataSource={this.state.dataSource.cloneWithRows(matches)}
-      renderRow={this._renderRow}
-      style={styles.matchListView}
-      enableEmptySections={true}/>);
+    if (matches.length === 0) {
+      return null
+    }
+    return (
+      <ListView
+        dataSource={this.state.dataSource.cloneWithRows(matches)}
+        renderRow={this._renderRow}
+        style={styles.matchListView}
+        enableEmptySections={true}/>
+    );
   }
 
   // 赛事
   _renderRow(match) {
-    const title = match.intro_title
+    const title = match.name
     const city = match.organization.casino.address.city.city
     const country = match.organization.casino.address.city.country.country
     const image_url = match.organization.casino.address.city.country.image_url
@@ -328,13 +333,13 @@ class ScheduleList extends Component {
         </View>
         <View style={styles.matchInfoView}>
           <View style={styles.matchTopicView}>
-            <Text>
+            <Text numberOfLines={1}>
               {title}
             </Text>
           </View>
           <View style={styles.matchDetailView}>
             <View style={styles.matchArea}>
-              <Text>
+              <Text style={{color:'gray'}}>
               {country}{' '}{city}
               </Text>
             </View>
@@ -346,7 +351,7 @@ class ScheduleList extends Component {
           </View>
         </View>
         <View style={styles.chevronRight}>
-          <Icon color="#e0eaff" size={16} name="chevron-right"/>
+          {/* <Icon color="#e0eaff" size={16} name="chevron-right"/> */}
         </View>
       </View>
     )
@@ -361,7 +366,7 @@ class ScheduleList extends Component {
         {this._renderSelectView()}
         {this._rendereSelectContentView()}
         {ScheduleList.showSelectContentView ? this._renderCoverView() : null}
-        {this._renderListView(ScheduleList.schedule.matches)}
+        {this.props.ScheduleList.isLoading ? <Loading /> : this._renderListView(ScheduleList.schedule.matches)}
       </View>
     );
   }

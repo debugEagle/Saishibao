@@ -16,8 +16,8 @@ let hotList = (state = initialState, action) => {
       })
     case types.RECEIVE_HOT_LIST:
       return Object.assign({}, state, {
-        hotList: state.isLoadMore ? state.hotList.concat(action.hotList) : action.hotList,
-        count: state.count,
+        hotList: action.isLoadMore ? state.hotList.concat(action.hotList) : action.hotList,
+        count: action.count,
         isLoading: false,
       })
     default:

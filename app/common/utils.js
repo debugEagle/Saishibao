@@ -19,25 +19,16 @@ let request = (url, method='GET', timeout=5, post={}) => {
       timeout: timeout,
       post: post,
     }, (error, res) => {
-
       if (error) {
         console.log('error');
         return;
       };
-
       try {
         let {
           code,
           msg,
         } = res.json;
-        console.log('code ' + code);
-        console.log('msg ' + msg);
-
         resolve(res.json);
-
-
-
-
       } catch (e) {
         console.log(e.name)
       }

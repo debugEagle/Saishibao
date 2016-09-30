@@ -2,8 +2,10 @@ import Util from '../common/utils';
 import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import MapPage from './MapPage';
+import CasinoIntro from './CasinoIntro';
 import Picker from 'react-native-picker';
+import Loading from '../components/Loading';
+import LoadMoreFooter from '../components/LoadMoreFooter';
 
 import React, {Component} from 'react';
 import {
@@ -18,6 +20,7 @@ import {
   StatusBar,
   Navigator,
   SegmentedControlIOS,
+  RefreshControl,
   ScrollView,
   Animated,
   Easing
@@ -32,6 +35,7 @@ class DailyList extends Component {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
+      showFooter: false,
 
       cityViewHeight: 500,
       cityViewMarginTop: -300,
@@ -43,35 +47,34 @@ class DailyList extends Component {
       coverViewOpacity: new Animated.Value(0)
     };
 
+    this._onPressIntroBtn = this._onPressIntroBtn.bind(this)
+    this._renderFooter = this._renderFooter.bind(this)
+  }
+
+  componentWillMount() {
+    const { actions, DailyList } = this.props;
+    actions.fetchCities();
+    actions.fetchDailies(0,DailyList.currentCity,0,5);
   }
 
   componentDidUpdate() {
     const { CityList } = this.props;
-
     this.state.cityViewHeight = (CityList.cities.length !== 0) ? ((Math.ceil(CityList.cities.length / 3) * (30 + 10) + 10)) : this.state.cityViewHeight;
   }
 
   componentDidMount() {
-    const { actions } = this.props;
-    actions.fetchCities();
-    actions.fetchDailies(this.props.DailyList.currentCity);
+    const { actions, DailyList } = this.props;
     this.state.cityViewMarginTop = 44;
   }
 
-  _onPressMapMaker(dailyMatch) {
-    let {address} = dailyMatch
+  _onPressIntroBtn(casino) {
     this.props.navigator.push({
-      // title: '俱乐部位置',
-      component: MapPage,
+      component: CasinoIntro,
       passProps: {
-        address
+        casino
       }
     });
 
-  }
-
-  _onPressHandle() {
-    this._renderCoverView();
   }
 
   _renderCityBtn() {
@@ -99,7 +102,7 @@ class DailyList extends Component {
         duration: 500
       }),
 
-      // 2)遮盖层透明度
+      // 遮盖层透明度
       Animated.timing(this.state.coverViewOpacity, {
         toValue: 1,
         duration: 1000
@@ -126,7 +129,7 @@ class DailyList extends Component {
           return (
             <TouchableOpacity key={i} style={styles.city} onPress={() => {
               this._handleCityViewAnimation();
-              {actions.fetchDailies(oCity.city)};
+              {actions.fetchDailies(1,oCity.city,0,10)};
             }}>
               <Text>{oCity.city}</Text>
             </TouchableOpacity>
@@ -154,9 +157,46 @@ class DailyList extends Component {
     )
   }
 
+  _onEndReached() {
+    const { DailyList,actions } = this.props
+    if ( DailyList.stateCode === 2 ) {
+      actions.fetchDailies(1,DailyList.currentCity,DailyList.casinos.length,10);
+    }
+  }
+
+  _renderFooter() {
+    const { DailyList } = this.props;
+    if (DailyList.isLoading && DailyList.stateCode !==0) {
+      return (
+        <LoadMoreFooter type={1} />
+      )
+    }
+    if (!DailyList.isLoading && DailyList.stateCode ===2) {
+      return (
+        <LoadMoreFooter type={0} />
+      )
+    }
+    if (!DailyList.isLoading && DailyList.stateCode ===3) {
+      return (
+        <LoadMoreFooter type={2} />
+      )
+    }
+    return null
+  }
+
   _renderListView(casinos) {
 
-    return (<ListView dataSource={this.state.dataSource.cloneWithRows(casinos)} renderRow={this._renderRow} style={styles.listView} enableEmptySections={true}/>);
+    return (
+      <ListView
+        enableEmptySections = {true}
+        dataSource={this.state.dataSource.cloneWithRows(casinos)}
+        renderRow={this._renderRow.bind(this)}
+        onEndReachedThreshold={10}
+        onEndReached={() => this._onEndReached()}
+        renderFooter={() => this._renderFooter()}
+        style={styles.listView}
+        enableEmptySections={true} />
+      );
   }
 
   _renderRow(item) {
@@ -175,22 +215,22 @@ class DailyList extends Component {
         </View>
         <View style={styles.itemRight}>
           <View style={[styles.itemRightTop, styles.withBorderBottom]}>
-            <View style={[styles.itemRightOne, styles.withBorderRight]}>
-              <Text style={{fontSize: 16}}>
-                场馆介绍
-              </Text>
-            </View>
-            <View style={[styles.itemRightOne, {alignItems: 'center'}]}>
+            <TouchableOpacity
+              style={[styles.itemRightItem, styles.withBorderRight]}
+              onPress={() => this._onPressIntroBtn(item)}>
+              <Text style={{fontSize: 16}}>场馆介绍</Text>
+            </TouchableOpacity>
+            <View style={[styles.itemRightItem, {alignItems: 'center'}]}>
               <Text style={{fontSize: 13,color: '#787878'}}>
                 昨日赛况
               </Text>
             </View>
           </View>
           <View style={styles.itemRightBottom}>
-            <View style={[styles.itemRightOne,styles.withBorderRight, {alignItems: 'center'}]}>
+            <View style={[styles.itemRightItem,styles.withBorderRight, {alignItems: 'center'}]}>
               <Text style={{fontSize: 13,color: '#787878'}}>明日预告</Text>
             </View>
-            <View style={[styles.itemRightOne, {alignItems: 'flex-end'}]}>
+            <View style={[styles.itemRightItem, {alignItems: 'flex-end'}]}>
               <Text style={{fontSize: 16}}>
                 今日赛事
               </Text>
@@ -209,7 +249,7 @@ class DailyList extends Component {
       <View style={styles.container}>
         <Header title='俱乐部'/>
         {this._renderCityBtn()}
-        {this._renderListView(this.props.DailyList.casinos)}
+        {DailyList.isLoading && DailyList.state===0 ? <Loading /> : this._renderListView(casinos)}
         {DailyList.showCityView ? this._renderCoverView() : null}
         {this._renderCityView()}
       </View>
@@ -280,7 +320,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#e0eaff'
   },
   listView: {
-    flex: 1
+    flex: 1,
   },
   item: {
     flexDirection: 'row',
@@ -324,7 +364,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row'
   },
-  itemRightOne: {
+  itemRightItem: {
     flex: 1,
     justifyContent: 'center'
   }
