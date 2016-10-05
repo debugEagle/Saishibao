@@ -37,12 +37,14 @@ class DailyInfo extends Component {
   }
 
   componentDidMount() {
-    this.props.actions.fetchDailyInfo();
+    const { casino, showDate } = this.props;
+
+    this.props.actions.fetchDailyInfo(casino.casino_id, showDate);
   }
 
   componentWillUnmount() {
 
-    this.props.actions.resetDailyInfo();
+    this.props.actions.resetDailyInfoList();
   }
 
 
@@ -96,10 +98,10 @@ class DailyInfo extends Component {
               </View>
 
             <View style={styles.detailJoin}>
-              <Text style={styles.detailJoinText}>参加赛事  </Text>
+              {/*<Text style={styles.detailJoinText}>参加赛事  </Text>*/}
             </View>
             <View style={styles.detailResult}>
-              <Text style={styles.detailResultText}>比赛结果   </Text>
+              {/*<Text style={styles.detailResultText}>比赛结果   </Text>*/}
             </View>
           </View>
 
@@ -115,7 +117,7 @@ class DailyInfo extends Component {
     let dailyInfoList = DailyInfo.dailyInfoList;
     return (
       <View style={styles.container}>
-        <Header title='预告'
+        <Header title={this.props.title}
         leftIcon='angle-left'
         leftIconAction={()=>this.props.navigator.pop()}
         />

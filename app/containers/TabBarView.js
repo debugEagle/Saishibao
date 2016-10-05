@@ -12,6 +12,10 @@ import Common from '../common/constants';
 import ScheduleListContainer from './ScheduleListContainer';
 import CasinoIntro from '../pages/CasinoIntro';
 import DailyInfoContainer from  './DailyInfoContainer';
+import DailyResult from '../pages/DailyResult';
+import RegPwdContainer from './RegPwdContainer';
+import UserLogin from '../pages/UserLogin';
+import WxTest from '../pages/WxTest';
 
 import React, { Component } from 'react';
 import {
@@ -30,6 +34,7 @@ class MainView extends Component {
   constructor(props) {
     super(props);
 
+
     this.state = {
 
       selectedTab: 'hot',
@@ -39,7 +44,7 @@ class MainView extends Component {
   }
 
   componentDidMount(){
-    // codePush.sync();
+    codePush.sync();
     // codePush.sync({ updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE });
   }
 
@@ -80,11 +85,11 @@ class MainView extends Component {
       // return <SwiperSample/>
     }
     else if (selectedTab === 'myAccount') {
-
+      // return <RegPwdContainer navigator = {this.props.navigator} {...this.props} />
       // return <RegGetSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
       // return <RegInputSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
-      // return <SwiperSample/>
-      return <DailyInfoContainer  navigator = {this.props.navigator} />
+      return <WxTest/>
+      // return <DailyResult  navigator = {this.props.navigator} />
       //  return <CasinoIntro  navigator = {this.props.navigator} />
     }
   }
@@ -97,7 +102,6 @@ class MainView extends Component {
         {this._createTabbarItem('热门',{uri: icons.hot, scale: 6},{uri: icons.hot2, scale:6}, 'hot')}
         {this._createTabbarItem('俱乐部',{uri: icons.casino, scale: 6},{uri: icons.casino2, scale: 6}, 'casino')}
         {this._createTabbarItem('赛事日历',{uri: icons.schedule, scale: 6},{uri: icons.schedule2, scale: 6},'schedule')}
-
         {this._createTabbarItem('我的账户',{uri: icons.myAccount, scale: 6},{uri: icons.myAccount2, scale: 6},'myAccount')}
       </TabBarIOS>
 

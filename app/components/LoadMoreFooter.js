@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 40,
+        // backgroundColor: 'red',
     },
 
     footerTitle: {

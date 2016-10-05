@@ -11,29 +11,20 @@ let verifySmsCode = (mobile, smsCode) => {
       if (smsCode.length < 4) {
         return
       }
-
+      dispatch(fetchToken());
       post = {mobile: mobile, smscode: smsCode};
       request(url, 'POST', 5, post).then((json) => {
 
         try {
-          let {code, msg} = json;
-
-          dispatch(receiveToken(code, msg ,json));
+          let {code, msg, value} = json;
+      
+          dispatch(receiveToken(code, msg ,value));
 
 
         } catch (e) {
           console.log(e.name);
         }
       });
-    // }
-    // promiseRequest();
-
-    // console.log('promise over222');
-    // });
-
-    // promise.then(function() {
-    //   console.log('over222.');
-    // });
 
   }
 }

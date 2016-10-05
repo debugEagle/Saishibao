@@ -7,6 +7,7 @@ import Dimensions from 'Dimensions';
 
 import {
   NativeModules,
+  AsyncStorage,
 } from 'react-native'
 
 const httpx = NativeModules.httpx;
@@ -18,6 +19,8 @@ let request = (url, method='GET', timeout=5, post={}) => {
       method: method,
       timeout: timeout,
       post: post,
+    
+
     }, (error, res) => {
       if (error) {
         console.log('error');
@@ -28,6 +31,8 @@ let request = (url, method='GET', timeout=5, post={}) => {
           code,
           msg,
         } = res.json;
+
+        console.log('code '+ code +'  '+ msg);
         resolve(res.json);
       } catch (e) {
         console.log(e.name)
@@ -102,4 +107,18 @@ let getMonths = () => {
   return allMonths
 }
 
-export { Util, request, getMonths} ;
+//返回日期字符串
+let getDataStr = (AddDayCount) =>  {
+  var dd = new Date();
+  dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+  var y = dd.getFullYear();
+  var m = dd.getMonth()+1;//获取当前月份的日期
+  var d = dd.getDate();
+  return y+"-"+m+"-"+d;
+}
+
+
+
+
+
+export { Util, request, getMonths, getDataStr} ;

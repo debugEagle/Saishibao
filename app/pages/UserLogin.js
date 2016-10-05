@@ -2,9 +2,9 @@ import Util from '../common/utils';
 import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import RegInputSmsCodeContainer from '../containers/RegInputSmsCodeContainer';
-import HotListContainer from '../containers/HotListContainer';
 import Toast, {DURATION} from 'react-native-easy-toast';
+
+
 
 
 
@@ -24,92 +24,32 @@ import {
   Animated,
   Easing,
   TextInput,
-} from 'react-native';
+  AsyncStorage,
+} from 'react-native'
 
-
-
-
-class RegGetSmsCode extends Component {
+class UserLogin extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       mobile: '',
-      interval: null,
+      pwd: '',
     }
-
-    this._checkCode = this._checkCode.bind(this);
   }
 
-
-  _onPressNextBtn() {
-    const { TimerElse } = this.props;
-
-    if (this.state.mobile.length < 11) {
-      this.refs.toast.show('手机号码长度不正确');
-      return;
-    }
-
-    if (TimerElse.isRunning) {
-      this.refs.toast.show('请稍后再注册');
-      return;
-    }
-
-    this.props.actions.getSmsCode(this.state.mobile);
-    if (this.state.interval == null) {
-      this.state.interval = setInterval(this._checkCode, 500);
-
-    }
+  _onLoginBtn() {
 
   }
-
-
-  _checkCode() {
-    const { RegGetSmsCode } = this.props;
-    if (RegGetSmsCode.code != -1) {
-
-      clearInterval(this.state.interval);
-      this.state.interval = null;
-
-      if (RegGetSmsCode.code > 0){
-          this.refs.toast.show( RegGetSmsCode.msg);
-      }
-      if (RegGetSmsCode.code == 0 ) {
-        console.log('goto');
-        this.props.navigator.push({
-
-          component: RegInputSmsCodeContainer,
-          passProps: {
-            mobile: this.state.mobile,
-          },
-        });
-      }
-    }
-
-  }
-
-
-
-
-
   render() {
     return (
       <View style={styles.container}>
         <Header
-          title='注册'
+          title='登陆'
         />
 
         <View style={styles.input}>
 
           <View style={styles.inputRowOne}>
-            <View style={styles.inputLabel}>
-              <Text style={styles.inputLabelText}>国家地区</Text>
-            </View>
-            <View style={styles.inputBlock}>
-              <Text style={styles.locationText}>中国大陆+86 ></Text>
-            </View>
-          </View>
-          <View style={styles.inputRowTwo}>
             <View style={styles.inputLabel}>
               <Text style={styles.inputLabelText}>手机号码</Text>
             </View>
@@ -128,11 +68,31 @@ class RegGetSmsCode extends Component {
             />
             </View>
           </View>
+          <View style={styles.inputRowTwo}>
+            <View style={styles.inputLabel}>
+              <Text style={styles.inputLabelText}>输入密码</Text>
+            </View>
+            <View style={styles.inputBlock}>
+            <TextInput style = {styles.inputMobile}
+              ref="1"
+              multiline={false}
+              autoFocus={true}
+              placeholder= "请输入密码"
+              keyboardType= 'number-pad'
+              maxLength={6}
+              password={true}
+              onChange={(event) => {
+                this.state.mobile = event.nativeEvent.text;
+              }}
+
+            />
+            </View>
+          </View>
 
         </View>
-        <TouchableOpacity onPress={() => this._onPressNextBtn()}>
+        <TouchableOpacity onPress={() => this._onLoginBtn()}>
           <View style={styles.nextBtn}>
-            <Text style={styles.nextBtnText}>下一步</Text>
+            <Text style={styles.nextBtnText}>登    陆</Text>
           </View>
         </TouchableOpacity>
 
@@ -141,10 +101,10 @@ class RegGetSmsCode extends Component {
 
     );
   }
-}
+  }
 
-const inputPadding = 18;
-const styles = StyleSheet.create({
+  const inputPadding = 18;
+  const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
@@ -209,6 +169,5 @@ const styles = StyleSheet.create({
 
   }
 
-});
-
-export default RegGetSmsCode;
+  });
+export default UserLogin;

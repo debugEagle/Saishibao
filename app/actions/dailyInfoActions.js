@@ -1,8 +1,12 @@
 import * as types from './actionTypes';
 import { request } from '../common/utils.js';
 
-let fetchDailyInfo = () => {
-  let url = 'https://www.91buyin.com/texas/daily/match?casino_id=31&match_day=2016-08-29';
+let fetchDailyInfo = (casino_id, match_day) => {
+  let url = 'https://www.91buyin.com/texas/daily/match?casino_id='+ casino_id + '&match_day=' + match_day;
+
+console.log('casino_id ' + casino_id);
+console.log('match_day ' + match_day);
+
   url = encodeURI(url);
   let dailyInfoList = [];
   return dispatch => {

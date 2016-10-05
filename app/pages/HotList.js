@@ -145,7 +145,7 @@ class HotList extends Component {
             dataSource={this.state.dataSource.cloneWithRows(hotList)}
             renderRow={this._renderHotList}
             // initialListSize={1}
-            enableEmptySections={true}
+
             onEndReached={() => this._onEndReach()}
             onEndReachedThreshold={10}
             onScroll={() => this._onScroll()}
@@ -159,6 +159,8 @@ class HotList extends Component {
               />
             }
           />
+
+
         }
       </View>
     );
@@ -264,4 +266,5 @@ const styles = StyleSheet.create({
 
 
 });
+
 export default HotList;

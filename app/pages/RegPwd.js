@@ -1,9 +1,9 @@
-import { Util } from '../common/utils';
+import Util from '../common/utils';
 import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast, {DURATION} from 'react-native-easy-toast';
-import RegPwdContainer from '../containers/RegPwdContainer';
+
 
 
 
@@ -25,34 +25,40 @@ import {
   Easing,
   TextInput,
   AsyncStorage,
-} from 'react-native';
+} from 'react-native'
 
-class RegInputSmsCode extends Component {
+class RegPwd extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      elseSecond: 60,
-      smsCode: '',
+      pwd : '',
+      token: '',
       interval: null,
-      intervalRePush: null,
     }
 
     this._checkCode = this._checkCode.bind(this);
-    this._checkCode_rePush = this._checkCode_rePush.bind(this);
   }
 
-  _elseSecondInterval;
+  componentWillMount() {
+    AsyncStorage.getItem(Common.token)
+      .then((value) => {
+        console.log('token ' + value);
+        this.setState({token: value});
+        console.log('this.state.token ' + this.state.token);
+
+      });
+  }
 
   _onPressNextBtn() {
-
-
-
-    if (this.state.smsCode.length < 4) {
-      this.refs.toast.show('校验码长度不正确');
+    // console.log('111');
+    if (this.state.pwd.length < 6) {
+      this.refs.toast.show('密码长度不能小于6位');
       return;
     }
-    this.props.actions.verifySmsCode(this.props.mobile, this.state.smsCode);
+
+    console.log('mobile ' + this.props.mobile);
+    this.props.actions.setRegPwd(this.props.mobile, this.state.pwd, this.state.token);
     if (this.state.interval == null) {
       this.state.interval = setInterval(this._checkCode, 500);
 
@@ -60,67 +66,32 @@ class RegInputSmsCode extends Component {
 
   }
 
-  //重发验证码
-  _onPressRePushBtn() {
-    this.props.actions.getSmsCode(this.props.mobile);
-    this.props.actions.startTimer();
-
-    if (this.state.intervalRePush == null) {
-      this.state.intervalRePush = setInterval(this._checkCode_rePush, 500);
-
-    }
-  }
-  componentDidMount() {
-    // _elseSecondInterval = setInterval(()=>this.timerElseSecond(),1000);
-    this.props.actions.startTimer();
-  }
-
-
-
-  _checkCode_rePush() {
-    const { RegGetSmsCode } = this.props;
-    if (RegGetSmsCode.code != -1) {
-
-      clearInterval(this.state.intervalRePush);
-      this.state.intervalRePush = null;
-
-      if (RegGetSmsCode.code > 0){
-          this.refs.toast.show(RegGetSmsCode.msg);
-      }
-
-    }
-
-  }
 
   _checkCode() {
-    const { RegInputSmsCode } = this.props;
-    if (RegInputSmsCode.code != -1) {
+    const { RegPwd } = this.props;
+    if (RegPwd.code != -1) {
 
       clearInterval(this.state.interval);
       this.state.interval = null;
 
-      if (RegInputSmsCode.code > 0){
-          this.refs.toast.show(RegInputSmsCode.msg);
+      if (RegPwd.code > 0){
+          this.refs.toast.show(RegPwd.msg);
       }
-      if (RegInputSmsCode.code == 0 ) {
+      if (RegPwd.code == 0 ) {
         console.log('goto');
-        AsyncStorage.setItem(Common.token, RegInputSmsCode.token);
-
-        this.props.navigator.push({
-
-          component: RegPwdContainer,
-          passProps: {
-            mobile: this.props.mobile,
-          },
-        });
+        // AsyncStorage.setItem(Common.token, RegPwd.token);
+        //
+        // this.props.navigator.push({
+        //
+        //   component: RegPwdContainer,
+        //   passProps: {
+        //     mobile: this.props.mobile,
+        //   },
+        // });
       }
     }
 
   }
-
-
-
-
 
 
 
@@ -130,38 +101,31 @@ class RegInputSmsCode extends Component {
     return (
       <View style={styles.container}>
         <Header
-          title='填写验证码'
+          title='输入密码'
           leftIcon='angle-left'
           leftIconAction={()=>this.props.navigator.pop()}
-
         />
         <View style={styles.tintRow}>
-          <Text style={styles.tintRowText}>请输入手机号{this.props.mobile}收到的短信校验码</Text>
+          <Text style={styles.tintRowText}>请输入6位数账号密码</Text>
         </View>
         <View style={styles.inputRow}>
           <View style={styles.inputLabel}>
-            <Text style={styles.inputLabelText}>校验码</Text>
+            <Text style={styles.inputLabelText}>输入密码</Text>
           </View>
           <View style={styles.inputBlock}>
             <TextInput style = {styles.inputSmsCode}
               ref="1"
               multiline={false}
               autoFocus={true}
-              placeholder= "请输入校验码"
+              placeholder= "请输入密码"
               keyboardType= 'number-pad'
-              maxLength={4}
-              onChange={(event) => { this.state.smsCode = event.nativeEvent.text}}
+              maxLength={6}
+              password={true}
+              onChange={(event) => { this.state.pwd = event.nativeEvent.text}}
 
             />
           </View>
-          <View style={styles.rePushBtn}>
-            {TimerElse.isRunning?
-              <Text style={styles.rePushBtnText}>{TimerElse.elseSeconds}秒后重新获取</Text>
-              :<TouchableOpacity onPress={() => this._onPressRePushBtn()}>
-                <Text style={[ styles.rePushBtnText, {color: Common.colors.themeColor}]}>重新获取</Text>
-              </TouchableOpacity>
-            }
-          </View>
+
         </View>
         <TouchableOpacity onPress={() => this._onPressNextBtn()}>
           <View style={styles.nextBtn}>
@@ -175,8 +139,8 @@ class RegInputSmsCode extends Component {
   }
 }
 
-const inputPadding = 18;
-const styles = StyleSheet.create({
+  const inputPadding = 18;
+  const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
@@ -255,5 +219,5 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
 
-});
-export default RegInputSmsCode;
+  });
+export default RegPwd;

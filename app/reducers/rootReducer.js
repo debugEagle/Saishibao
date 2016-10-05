@@ -9,6 +9,8 @@ import RegGetSmsCode from './regGetSmsCodeReducer';
 import RegInputSmsCode from './regInputSmsCodeReducer';
 import ScheduleList from './scheduleListReducer';
 import DailyInfo from './dailyInfoReducer';
+import TimerElse from './timerElseReducer';
+import RegPwd from './regPwdReducer';
 
 
 export default rootReducer = combineReducers({
@@ -22,4 +24,6 @@ export default rootReducer = combineReducers({
   RegInputSmsCode,
   ScheduleList,
   DailyInfo,
+  TimerElse,
+  RegPwd,
 });

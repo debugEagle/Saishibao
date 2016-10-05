@@ -14,7 +14,8 @@ class RegGetSmsCodeContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  RegGetSmsCode: state.RegGetSmsCode
+  RegGetSmsCode: state.RegGetSmsCode,
+  TimerElse: state.TimerElse
 });
 
 const mapDispatchToProps = (dispatch) => ({

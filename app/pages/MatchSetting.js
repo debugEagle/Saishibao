@@ -63,7 +63,7 @@ class MatchSetting extends Component {
   _renderTitleItem(item) {
     return (
     <View style={styles.settingTitleBlock}>
-      <Text style={styles.settingText}>{item}</Text>
+      <Text style={styles.settingTitleText}>{item}</Text>
     </View>
     );
   }
@@ -144,12 +144,12 @@ class MatchSetting extends Component {
 
     return (
       <View style={styles.container}>
-      <Header title='比赛结构表'
-      leftIcon='angle-left'
-      leftIconAction={()=>this.props.navigator.pop()}/>
-      {MatchSetting.isLoading ?
+        <Header title='比赛结构表'
+        leftIcon='angle-left'
+        leftIconAction={()=>this.props.navigator.pop()}/>
+        {MatchSetting.isLoading ?
 
-      <Loading /> :
+        <Loading /> :
 
         <ScrollView style={styles.scrollContainer}>
           {this._renderTitleRow('赛事日期', '开始时间', '涨盲时间', '初始筹码')}
@@ -169,7 +169,7 @@ class MatchSetting extends Component {
             return (<View key={i}>{this._renderSettingBonusRow(item)}</View>);
           })}
 
-
+        
         </ScrollView>
       }
       </View>
@@ -189,7 +189,8 @@ const styles = StyleSheet.create({
   },
   settingTitle: {
     flexDirection: 'row',
-    height: 54,
+    paddingTop :10,
+    paddingBottom :10,
   },
   settingItem: {
     flexDirection: 'row',
@@ -222,7 +223,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
 
   },
-  settingText:{
+  settingText: {
+    color: '#424242',
+    fontSize: 14,
+    // fontWeight: 'bold',
+  },
+  settingTitleText: {
     color: '#424242',
     fontSize: 14,
     fontWeight: 'bold',

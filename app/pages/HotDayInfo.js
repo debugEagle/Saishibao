@@ -186,10 +186,10 @@ class HotList extends Component {
               </View>
 
             <View style={styles.detailJoin}>
-              <Text style={styles.detailJoinText}>参加赛事  </Text>
+              {/*<Text style={styles.detailJoinText}>参加赛事  </Text>*/}
             </View>
             <View style={styles.detailResult}>
-              <Text style={styles.detailResultText}>比赛结果   </Text>
+              {/*<Text style={styles.detailResultText}>比赛结果   </Text>*/}
             </View>
           </View>
 

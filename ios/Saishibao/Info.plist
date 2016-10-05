@@ -4,8 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	<key>CodePushDeploymentKey</key>
-	<string>ji4nZzCNISdZjGlhFiLFcnU7lboAEJF3Rl6iW</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -29,12 +27,14 @@
 			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wx8a6e8f72dfdef4f3</string>
+				<string>wx148eb8f66f47fb36</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>4</string>
+	<key>CodePushDeploymentKey</key>
+	<string>ji4nZzCNISdZjGlhFiLFcnU7lboAEJF3Rl6iW</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

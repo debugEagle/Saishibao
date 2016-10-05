@@ -2,24 +2,23 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
-import RegInputSmsCode from '../pages/RegInputSmsCode';
+import RegPwd from '../pages/RegPwd';
 import * as ActionCreator from '../actions'
 
-class RegInputSmsCodeContainer extends Component {
+class RegPwdContainer extends Component {
     render() {
         return (
-            <RegInputSmsCode {...this.props} />
+            <RegPwd {...this.props} />
         )
     }
 }
+
 const mapStateToProps = (state) => ({
-  RegGetSmsCode: state.RegGetSmsCode,
-  RegInputSmsCode: state.RegInputSmsCode,
-  TimerElse: state.TimerElse,
+  RegPwd: state.RegPwd,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(ActionCreator, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegInputSmsCodeContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(RegPwdContainer);

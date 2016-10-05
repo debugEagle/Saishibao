@@ -35,7 +35,7 @@ class CasinoIntro extends Component {
   _onPressLbsBtn(address) {
 
     this.props.navigator.push({
-      title: '地图',
+
       component: MapPage,
       passProps: {
         address,
@@ -92,14 +92,14 @@ class CasinoIntro extends Component {
                 {casino.open_time.substring(0,5) + '-' + casino.close_time.substring(0,5)}
               </Text>
             </View>
-            <View style={styles.actionRow}>
+            {/*<View style={styles.actionRow}>
               <Image style={styles.actionImage} source={require('../imgs/casinoIntro_join.png')}/>
               <TouchableOpacity >
                 <View style={styles.joinBtn}>
                   <Text style={styles.joinBtnText}>加入比赛</Text>
                 </View>
               </TouchableOpacity>
-            </View>
+            </View>*/}
           </View>
           <View style={styles.introArea}>
             <Text style={styles.introText}>{casino.intorduction}</Text>

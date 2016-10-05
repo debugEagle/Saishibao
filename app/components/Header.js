@@ -30,7 +30,10 @@ class Header extends Component {
           style={styles.leftIcon}
           onPress={this.props.leftIconAction}
         >
-          <Icon color="white" size={30} name={this.props.leftIcon}/>
+          <View style={styles.touchArea}>
+            <Icon color="white" size={30} name={this.props.leftIcon}/>
+          </View>
+
         </TouchableOpacity>
       )
     }
@@ -70,6 +73,10 @@ const styles = StyleSheet.create({
   leftIcon: {
     marginLeft: 15,
   },
+  touchArea: {
+    width : 30,
+    height: 30,
+  }
 });
 
 export default Header;

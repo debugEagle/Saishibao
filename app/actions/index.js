@@ -8,3 +8,5 @@ export * from './cityListActions';
 export * from './dailyListActions';
 export * from './scheduleListActions';
 export * from './dailyInfoActions';
+export * from './timerElseActions';
+export * from './regPwdActions';

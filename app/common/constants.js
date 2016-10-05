@@ -12,9 +12,12 @@ let colors = {
 
 }
 
+//保存的token
+const token = 'token';
+
 
 export default {
     window: window,
-    colors: colors
-
+    colors: colors,
+    token,
 }

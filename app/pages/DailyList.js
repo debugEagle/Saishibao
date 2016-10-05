@@ -1,4 +1,4 @@
-import Util from '../common/utils';
+import { getDataStr } from '../common/utils';
 import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -6,6 +6,7 @@ import CasinoIntro from './CasinoIntro';
 import Picker from 'react-native-picker';
 import Loading from '../components/Loading';
 import LoadMoreFooter from '../components/LoadMoreFooter';
+import DailyInfoContainer from '../containers/DailyInfoContainer';
 
 import React, {Component} from 'react';
 import {
@@ -25,6 +26,16 @@ import {
   Animated,
   Easing
 } from 'react-native';
+
+// let Common.getDataStr = (AddDayCount) =>  {
+//   var dd = new Date();
+//   dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+//   var y = dd.getFullYear();
+//   var m = dd.getMonth()+1;//获取当前月份的日期
+//   var d = dd.getDate();
+//   return y+"-"+m+"-"+d;
+// }
+
 
 
 class DailyList extends Component {
@@ -47,8 +58,10 @@ class DailyList extends Component {
       coverViewOpacity: new Animated.Value(0)
     };
 
-    this._onPressIntroBtn = this._onPressIntroBtn.bind(this)
-    this._renderFooter = this._renderFooter.bind(this)
+    this._onPressIntroBtn = this._onPressIntroBtn.bind(this);
+    this._onPressTodayBtn = this._onPressTodayBtn.bind(this);
+    this._onPressTomorrowBtn = this._onPressTomorrowBtn.bind(this);
+    this._renderFooter = this._renderFooter.bind(this);
   }
 
   componentWillMount() {
@@ -67,6 +80,7 @@ class DailyList extends Component {
     this.state.cityViewMarginTop = 44;
   }
 
+
   _onPressIntroBtn(casino) {
     this.props.navigator.push({
       component: CasinoIntro,
@@ -75,6 +89,40 @@ class DailyList extends Component {
       }
     });
 
+  }
+
+  _onPressTodayBtn(casino) {
+
+    const showDate = getDataStr(0);
+    const title = '今日赛事';
+
+    this.props.navigator.push({
+
+      component: DailyInfoContainer,
+      passProps: {
+        casino,
+        showDate,
+        title
+
+      }
+    });
+  }
+
+  _onPressTomorrowBtn(casino) {
+
+    const showDate = getDataStr(1);
+    const title = '明日预告';
+
+    this.props.navigator.push({
+
+      component: DailyInfoContainer,
+      passProps: {
+        casino,
+        showDate,
+        title
+
+      }
+    });
   }
 
   _renderCityBtn() {
@@ -221,19 +269,27 @@ class DailyList extends Component {
               <Text style={{fontSize: 16}}>场馆介绍</Text>
             </TouchableOpacity>
             <View style={[styles.itemRightItem, {alignItems: 'center'}]}>
-              <Text style={{fontSize: 13,color: '#787878'}}>
+              {/*<Text style={{fontSize: 13,color: '#787878'}}>
                 昨日赛况
-              </Text>
+              </Text>*/}
             </View>
           </View>
           <View style={styles.itemRightBottom}>
             <View style={[styles.itemRightItem,styles.withBorderRight, {alignItems: 'center'}]}>
-              <Text style={{fontSize: 13,color: '#787878'}}>明日预告</Text>
+              <TouchableOpacity
+                style={[styles.itemRightItem]}
+                onPress={() => this._onPressTomorrowBtn(item)}>
+                <Text style={{fontSize: 13,color: '#787878'}}>明日预告</Text>
+              </TouchableOpacity>
             </View>
             <View style={[styles.itemRightItem, {alignItems: 'flex-end'}]}>
-              <Text style={{fontSize: 16}}>
-                今日赛事
-              </Text>
+              <TouchableOpacity
+                style={[styles.itemRightItem]}
+                onPress={() => this._onPressTodayBtn(item)}>
+                <Text style={{fontSize: 16}}>
+                  今日赛事
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -248,7 +304,7 @@ class DailyList extends Component {
     return (
       <View style={styles.container}>
         <Header title='俱乐部'/>
-        {this._renderCityBtn()}
+        {/*{this._renderCityBtn()}*/}
         {DailyList.isLoading && DailyList.state===0 ? <Loading /> : this._renderListView(casinos)}
         {DailyList.showCityView ? this._renderCoverView() : null}
         {this._renderCityView()}

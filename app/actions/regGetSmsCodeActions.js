@@ -7,6 +7,9 @@ import { request } from '../common/utils.js'
 let getSmsCode = (mobile) => {
   let url = 'https://www.91buyin.com/user/register/getsmscode';
   return dispatch => {
+    if (mobile.length < 11) {
+      return
+    }
     dispatch(fetchSmsCode());
     post = {mobile: mobile};
     request(url, 'POST', 5, post).then((json) => {

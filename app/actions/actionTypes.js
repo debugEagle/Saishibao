@@ -52,3 +52,12 @@ export const RECEIVE_SMSCODE = 'RECEIVE_SMSCODE'
 //校验验证码
 export const FETCH_TOKEN = 'FETCH_TOKEN'
 export const RECEIVE_TOKEN = 'RECEIVE_TOKEN'
+
+//倒数60秒计时器
+export const START_TIMER_ELSE = 'START_TIMER_ELSE'
+export const STOP_TIMER_ELSE = 'STOP_TIMER_ELSE'
+export const SET_ELSE_TIME = 'SET_ELSE_TIME'
+
+//注册设置密码
+export const FETCH_REGPWD = 'FETCH_REGPWD'
+export const RECEIVE_REGPWD = 'RECEIVE_REGPWD'
