@@ -2,6 +2,7 @@ import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../components/Loading';
+import PullRefreshScrollView from '../common/pullRefresh';
 
 import React, {Component} from 'react';
 
@@ -49,11 +50,16 @@ class ScheduleList extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { actions, ScheduleList } = this.props;
+    const { selected } = ScheduleList
     actions.fetchAreaList();
     actions.fetchTourList();
-    actions.fetchSchedule(ScheduleList.selected.area,ScheduleList.selected.tour,ScheduleList.selected.month)
+    actions.fetchSchedule(selected.area, selected.tour, selected.month, {all: false, offset: 0, limit: 15})
+  }
+
+  componentDidMount() {
+
   }
 
   // 控制整个下拉菜单动画
@@ -228,7 +234,7 @@ class ScheduleList extends Component {
           <TouchableOpacity style={[styles.selectItem, selectedAreaStyle]} onPress={() => {
             this._handleSelectViewAnimationVertical();
             {actions.changeScheduleSelected('全部地区', selectedTour, selectedMonth)}
-            {actions.fetchSchedule('全部地区', selectedTour, selectedMonth)};
+            {actions.fetchSchedule('全部地区', selectedTour, selectedMonth, {new: true})};
           }}>
             <Text>全部地区</Text>
           </TouchableOpacity>
@@ -238,7 +244,7 @@ class ScheduleList extends Component {
               <TouchableOpacity key={i} style={[styles.area,styles.selectItem,selectedStyle]} onPress={() => {
                 this._handleSelectViewAnimationVertical();
                 {actions.changeScheduleSelected(area.country, selectedTour, selectedMonth)}
-                {actions.fetchSchedule(area.country, selectedTour, selectedMonth)};
+                {actions.fetchSchedule(area.country, selectedTour, selectedMonth, {new: true})};
               }}>
                 <Text>{area.country}</Text>
               </TouchableOpacity>
@@ -249,7 +255,7 @@ class ScheduleList extends Component {
           <TouchableOpacity style={[styles.selectItem, selectedTourStyle]} onPress={() => {
             this._handleSelectViewAnimationVertical();
             {actions.changeScheduleSelected(selectedArea, 0, selectedMonth)}
-            {actions.fetchSchedule(selectedArea, 0, selectedMonth)};
+            {actions.fetchSchedule(selectedArea, 0, selectedMonth, {new: true})};
           }}>
             <Text>全部赛事</Text>
           </TouchableOpacity>
@@ -259,7 +265,7 @@ class ScheduleList extends Component {
               <TouchableOpacity key={i} style={[styles.tour,styles.selectItem, selectedStyle]} onPress={() => {
                 this._handleSelectViewAnimationVertical();
                 {actions.changeScheduleSelected(selectedArea, tour.bigMatchTour_id, selectedMonth)}
-                {actions.fetchSchedule(selectedArea, tour.bigMatchTour_id, selectedMonth)};
+                {actions.fetchSchedule(selectedArea, tour.bigMatchTour_id, selectedMonth, {new: true})};
               }}>
                 <Text>{tour.name}</Text>
               </TouchableOpacity>
@@ -273,7 +279,7 @@ class ScheduleList extends Component {
               <TouchableOpacity key={i} style={[styles.selectItem, selectedStyle]} onPress={() => {
                 this._handleSelectViewAnimationVertical();
                 {actions.changeScheduleSelected(selectedArea, selectedTour, month)}
-                {actions.fetchSchedule(selectedArea, selectedTour, month)};
+                {actions.fetchSchedule(selectedArea, selectedTour, month, {new: true})};
               }}>
                 <Text>{ i === 7 ? '当前月份' : month.substring(0,4) + '年' + month.substring(4) + '月' }</Text>
               </TouchableOpacity>
@@ -305,16 +311,45 @@ class ScheduleList extends Component {
 
   // 赛事列表
   _renderListView(matches) {
+    const { ScheduleList } = this.props;
     if (matches.length === 0) {
       return null
     }
+    const scrollHeight = matches.length * 70 + 84 + 48 - Common.window.height;
     return (
       <ListView
+        renderScrollComponent={
+          () =>
+            <PullRefreshScrollView
+              onRefresh={()=>this._onRefresh()}
+              onLoadmore={()=>this._onLoadmore()}
+              scrollHeight={(matches.length * 70) - (Common.window.height - 132)}
+              status={ScheduleList.status}/>}
         dataSource={this.state.dataSource.cloneWithRows(matches)}
         renderRow={this._renderRow}
+        initialListSize={15}
         style={styles.matchListView}
         enableEmptySections={true}/>
     );
+  }
+
+  // 下拉刷新事件
+  _onRefresh() {
+    const { actions, ScheduleList } = this.props;
+    const { selected } = ScheduleList
+    actions.fetchSchedule(selected.area, selected.tour, selected.month, {new: true})
+  }
+
+  // 上拉加载更多
+  _onLoadmore() {
+    const { actions, ScheduleList } = this.props;
+    const { selected } = ScheduleList
+    const obj = {
+      start: false,
+      offset: ScheduleList.schedule.matches.length,
+      limit: 10
+    }
+    actions.fetchSchedule(selected.area, selected.tour, selected.month, obj)
   }
 
   // 赛事
@@ -374,7 +409,7 @@ class ScheduleList extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: Common.window.height-64,
     backgroundColor: Common.colors.containerBgColor
   },
   selectView: {

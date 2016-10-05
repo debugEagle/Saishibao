@@ -1,12 +1,9 @@
-import { getDataStr } from '../common/utils';
+import Util from '../common/utils';
 import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CasinoIntro from './CasinoIntro';
-import Picker from 'react-native-picker';
-import Loading from '../components/Loading';
-import LoadMoreFooter from '../components/LoadMoreFooter';
-import DailyInfoContainer from '../containers/DailyInfoContainer';
+import PullRefreshScrollView from '../common/pullRefresh';
 
 import React, {Component} from 'react';
 import {
@@ -27,16 +24,6 @@ import {
   Easing
 } from 'react-native';
 
-// let Common.getDataStr = (AddDayCount) =>  {
-//   var dd = new Date();
-//   dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
-//   var y = dd.getFullYear();
-//   var m = dd.getMonth()+1;//获取当前月份的日期
-//   var d = dd.getDate();
-//   return y+"-"+m+"-"+d;
-// }
-
-
 
 class DailyList extends Component {
   constructor(props) {
@@ -46,7 +33,6 @@ class DailyList extends Component {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
-      showFooter: false,
 
       cityViewHeight: 500,
       cityViewMarginTop: -300,
@@ -58,16 +44,13 @@ class DailyList extends Component {
       coverViewOpacity: new Animated.Value(0)
     };
 
-    this._onPressIntroBtn = this._onPressIntroBtn.bind(this);
-    this._onPressTodayBtn = this._onPressTodayBtn.bind(this);
-    this._onPressTomorrowBtn = this._onPressTomorrowBtn.bind(this);
-    this._renderFooter = this._renderFooter.bind(this);
+    this._onPressIntroBtn = this._onPressIntroBtn.bind(this)
   }
 
   componentWillMount() {
     const { actions, DailyList } = this.props;
     actions.fetchCities();
-    actions.fetchDailies(0,DailyList.currentCity,0,5);
+    actions.fetchDailies(DailyList.currentCity,{start: true});
   }
 
   componentDidUpdate() {
@@ -80,7 +63,6 @@ class DailyList extends Component {
     this.state.cityViewMarginTop = 44;
   }
 
-
   _onPressIntroBtn(casino) {
     this.props.navigator.push({
       component: CasinoIntro,
@@ -89,40 +71,6 @@ class DailyList extends Component {
       }
     });
 
-  }
-
-  _onPressTodayBtn(casino) {
-
-    const showDate = getDataStr(0);
-    const title = '今日赛事';
-
-    this.props.navigator.push({
-
-      component: DailyInfoContainer,
-      passProps: {
-        casino,
-        showDate,
-        title
-
-      }
-    });
-  }
-
-  _onPressTomorrowBtn(casino) {
-
-    const showDate = getDataStr(1);
-    const title = '明日预告';
-
-    this.props.navigator.push({
-
-      component: DailyInfoContainer,
-      passProps: {
-        casino,
-        showDate,
-        title
-
-      }
-    });
   }
 
   _renderCityBtn() {
@@ -177,7 +125,7 @@ class DailyList extends Component {
           return (
             <TouchableOpacity key={i} style={styles.city} onPress={() => {
               this._handleCityViewAnimation();
-              {actions.fetchDailies(1,oCity.city,0,10)};
+              {actions.fetchDailies(oCity.city,{start: true})};
             }}>
               <Text>{oCity.city}</Text>
             </TouchableOpacity>
@@ -205,46 +153,36 @@ class DailyList extends Component {
     )
   }
 
-  _onEndReached() {
-    const { DailyList,actions } = this.props
-    if ( DailyList.stateCode === 2 ) {
-      actions.fetchDailies(1,DailyList.currentCity,DailyList.casinos.length,10);
-    }
-  }
-
-  _renderFooter() {
-    const { DailyList } = this.props;
-    if (DailyList.isLoading && DailyList.stateCode !==0) {
-      return (
-        <LoadMoreFooter type={1} />
-      )
-    }
-    if (!DailyList.isLoading && DailyList.stateCode ===2) {
-      return (
-        <LoadMoreFooter type={0} />
-      )
-    }
-    if (!DailyList.isLoading && DailyList.stateCode ===3) {
-      return (
-        <LoadMoreFooter type={2} />
-      )
-    }
-    return null
-  }
-
   _renderListView(casinos) {
+    const { DailyList } = this.props;
+    if (casinos.length === 0) {
+      return null
+    }
 
     return (
       <ListView
-        enableEmptySections = {true}
+        renderScrollComponent={
+          (props) =>
+            <PullRefreshScrollView
+              onRefresh={()=>this._onRefresh()}
+              onLoadmore={()=>this._onLoadmore()}
+              scrollHeight={(casinos.length * 150) - (Common.window.height - 92)}
+              status={DailyList.status}/>}
         dataSource={this.state.dataSource.cloneWithRows(casinos)}
-        renderRow={this._renderRow.bind(this)}
-        onEndReachedThreshold={10}
-        onEndReached={() => this._onEndReached()}
-        renderFooter={() => this._renderFooter()}
+        renderRow={this._renderRow}
         style={styles.listView}
         enableEmptySections={true} />
       );
+  }
+
+  _onRefresh() {
+    const { DailyList,actions } = this.props
+    actions.fetchDailies(DailyList.currentCity,{start: true});
+  }
+
+  _onLoadmore() {
+    const { DailyList,actions } = this.props
+    actions.fetchDailies(DailyList.currentCity,{start: false, offset: DailyList.casinos.length, limit: 10});
   }
 
   _renderRow(item) {
@@ -269,27 +207,19 @@ class DailyList extends Component {
               <Text style={{fontSize: 16}}>场馆介绍</Text>
             </TouchableOpacity>
             <View style={[styles.itemRightItem, {alignItems: 'center'}]}>
-              {/*<Text style={{fontSize: 13,color: '#787878'}}>
+              <Text style={{fontSize: 13,color: '#787878'}}>
                 昨日赛况
-              </Text>*/}
+              </Text>
             </View>
           </View>
           <View style={styles.itemRightBottom}>
             <View style={[styles.itemRightItem,styles.withBorderRight, {alignItems: 'center'}]}>
-              <TouchableOpacity
-                style={[styles.itemRightItem]}
-                onPress={() => this._onPressTomorrowBtn(item)}>
-                <Text style={{fontSize: 13,color: '#787878'}}>明日预告</Text>
-              </TouchableOpacity>
+              <Text style={{fontSize: 13,color: '#787878'}}>明日预告</Text>
             </View>
             <View style={[styles.itemRightItem, {alignItems: 'flex-end'}]}>
-              <TouchableOpacity
-                style={[styles.itemRightItem]}
-                onPress={() => this._onPressTodayBtn(item)}>
-                <Text style={{fontSize: 16}}>
-                  今日赛事
-                </Text>
-              </TouchableOpacity>
+              <Text style={{fontSize: 16}}>
+                今日赛事
+              </Text>
             </View>
           </View>
         </View>
@@ -304,8 +234,8 @@ class DailyList extends Component {
     return (
       <View style={styles.container}>
         <Header title='俱乐部'/>
-        {/*{this._renderCityBtn()}*/}
-        {DailyList.isLoading && DailyList.state===0 ? <Loading /> : this._renderListView(casinos)}
+        {this._renderCityBtn()}
+        {this._renderListView(casinos)}
         {DailyList.showCityView ? this._renderCoverView() : null}
         {this._renderCityView()}
       </View>
@@ -315,7 +245,7 @@ class DailyList extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: Common.window.height-64,
     backgroundColor: Common.colors.containerBgColor
   },
   chooseCity: {
