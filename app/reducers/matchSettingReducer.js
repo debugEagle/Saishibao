@@ -24,6 +24,8 @@ let matchSetting = (state = initialState, action) => {
         matchSetting: action.matchSetting,
         isLoading: false,
       })
+    case types.RESET_MATCH_SETTING:
+      return initialState;
     default:
       return state;
   }

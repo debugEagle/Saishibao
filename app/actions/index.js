@@ -6,4 +6,5 @@ export * from './hotDayInfoActions';
 export * from './matchSettingActions';
 export * from './cityListActions';
 export * from './dailyListActions';
-export * from './scheduleListActions'
+export * from './scheduleListActions';
+export * from './dailyInfoActions';
