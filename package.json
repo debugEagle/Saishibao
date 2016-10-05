@@ -6,7 +6,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-
+    "es6-promise": "^4.0.5",
+    "isomorphic-fetch": "^2.2.1",
     "react": "15.2.1",
     "react-native": "0.30.0",
     "react-native-code-push": "^1.14.6-beta",
@@ -14,6 +15,7 @@
     "react-native-material-kit": "^0.3.2",
     "react-native-picker": "^3.0.5",
     "react-native-progress-bar": "^0.1.2",
+    "react-native-pullrefresh-scrollview": "^1.0.7",
     "react-native-scrollable-tab-view": "^0.5.3",
     "react-native-swiper": "^1.4.11",
     "react-native-textinput-effects": "^0.1.3",

@@ -6,32 +6,20 @@ import {
 
 
 
-let fetchHots = (page, isLoadMore, isLoading) => {
-
-
-  let hots = [
-    // {
-    //   bigMatchSerie_id
-    //   type: '国内',
-    //   city:
-    //   country:
-    //   name: 'WSOP-2016',
-    //   url: require('../imgs/ept-test.jpg'),
-    //   startData: '6.21',
-    //   endData: '6.28',
-    // },
-    // count
-  ];
-
-
-  let url = 'https://www.91buyin.com/texas/big/serie/hot?offset=' + (page * 5 - 5);
-
-  console.log(url);
+let fetchHots = (args) => {
+  let hots = [];
+  let oArguments = {
+    start: true,
+    offset: 0,
+    limit: 5
+  }
+  if (!args.start) {
+    oArguments = Object.assign({}, oArguments, args)
+  }
+  let url = 'https://www.91buyin.com/texas/big/serie/hot?offset=' + oArguments.offset + '&limit=' + oArguments.limit;
   return dispatch => {
-    dispatch(fetchHotList(isLoadMore, isLoading));
-
+    dispatch(fetchHotList(oArguments.start));
     request(url).then((json) => {
-
       try {
         let {
           code,
@@ -40,18 +28,16 @@ let fetchHots = (page, isLoadMore, isLoading) => {
             rows: rows
           }
         } = json;
-
         if (code === '0') {
           for (let row of rows) {
             let listItem = {};
-
             listItem.city = row.organization.casino.address.city.city;
             listItem.country = row.organization.casino.address.city.country.country;
-
-
             listItem.bigMatchSerie_id = row.bigMatchSerie_id;
             listItem.name = row.name;
-            listItem.url = row.image_url ? row.image_url : '';
+            listItem.url = row.image_url
+            ? row.image_url
+            : '';
 
             if (row.type === 1) {
               listItem.type = '国际';
@@ -60,34 +46,25 @@ let fetchHots = (page, isLoadMore, isLoading) => {
             } else if (row.type === 3) {
               listItem.type = '俱乐部';
             }
-
             let startDate = new Date(row.start_date);
             listItem.startDate = startDate.getMonth() + 1 + '.' + startDate.getDate();
             let endDate = new Date(row.end_date);
             listItem.endDate = endDate.getMonth() + 1 + '.' + endDate.getDate();
-
             hots.push(listItem);
           }
-
-
           dispatch(receiveFeedList(hots, count));
-
         }
-
-
       } catch (e) {
         console.log(e.name)
       }
     });
   }
-
 }
 
-let fetchHotList = (isLoadMore, isRefreshing, isLoading) => {
+let fetchHotList = (start) => {
   return {
     type: types.FETCH_HOT_LIST,
-    isLoadMore: isLoadMore,
-    isLoading: isLoading,
+    start: start,
   }
 }
 

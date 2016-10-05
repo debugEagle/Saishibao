@@ -1,18 +1,29 @@
 import * as types from './actionTypes';
 import { request } from '../common/utils.js';
 
-let fetchSchedule = (area,tour,month) => {
-  let url = 'https://www.91buyin.com/texas/big/serie?limit=10&month=' + month
+let fetchSchedule = (area,tour,month,args) => {
+  let oArguments = {
+    start: true,
+    offset: 0,
+    limit: 15
+  }
+  let url = 'https://www.91buyin.com/texas/big/serie?&month=' + month
   if (area !== '全部地区'){
     url += '&country=' + area;
   }
   if (tour !== 0){
     url += '&tour=' + tour;
   }
+  if (!args.start) {
+    oArguments = Object.assign({}, oArguments, args)
+  }
+  url = url + '&offset=' + oArguments.offset + '&limit=' + oArguments.limit
+
   url = encodeURI(url);
   let matches = [];
+  let count = 0;
   return dispatch => {
-    dispatch(fetchScheduleList());
+    dispatch(fetchScheduleList(oArguments.start));
     request(url).then((json) => {
       try {
         let {
@@ -23,9 +34,10 @@ let fetchSchedule = (area,tour,month) => {
           },
         } = json;
         if (code === '0') {
+          count = iCount;
           matches = aMatches;
         }
-        dispatch(receiveScheduleList(matches));
+        dispatch(receiveScheduleList(count,matches));
       } catch (e) {
         console.log(e.name)
       }
@@ -77,15 +89,17 @@ let fetchTourList = () => {
   };
 }
 
-let fetchScheduleList = () => {
+let fetchScheduleList = (start) => {
   return {
     type: types.FETCH_SCHEDULE_LIST,
+    start: start
   }
 }
 
-let receiveScheduleList = (matches) => {
+let receiveScheduleList = (count,matches) => {
   return {
     type: types.RECEIVE_SCHEDULE_LIST,
+    count: count,
     matches: matches
   }
 }

@@ -64,24 +64,20 @@ class MainView extends Component {
   _renderComponent(selectedTab){
 
     if (selectedTab === 'hot') {
+
       return <HotListContainer navigator = {this.props.navigator} {...this.props}/>
     }
     else if (selectedTab === 'casino') {
+
       return <DailyListContainer navigator = {this.props.navigator} {...this.props}/>
-      // return <MapPage/>
     }
     else if (selectedTab === 'schedule') {
 
-      return <ScheduleListContainer navigator = {this.props.navigator} {...this.props} />
-      // return <RegInputSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
-      // return <SwiperSample/>
+      return <ScheduleListContainer navigator = {this.props.navigator} {...this.props}/>
     }
     else if (selectedTab === 'myAccount') {
 
-      // return <RegGetSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
-      // return <RegInputSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
-      // return <SwiperSample/>
-      return <CasinoIntro  navigator = {this.props.navigator} />
+      return <selectedTab  navigator = {this.props.navigator} />
     }
   }
 
@@ -89,11 +85,10 @@ class MainView extends Component {
 
     return (
 
-      <TabBarIOS barTintColor={tabBarTintColor} tintColor={tabTintColor} >
+      <TabBarIOS barTintColor={tabBarTintColor} tintColor={tabTintColor}>
         {this._createTabbarItem('热门',{uri: icons.hot, scale: 6},{uri: icons.hot2, scale:6}, 'hot')}
         {this._createTabbarItem('俱乐部',{uri: icons.casino, scale: 6},{uri: icons.casino2, scale: 6}, 'casino')}
         {this._createTabbarItem('赛事日历',{uri: icons.schedule, scale: 6},{uri: icons.schedule2, scale: 6},'schedule')}
-
         {this._createTabbarItem('我的账户',{uri: icons.myAccount, scale: 6},{uri: icons.myAccount2, scale: 6},'myAccount')}
       </TabBarIOS>
 

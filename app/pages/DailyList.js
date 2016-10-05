@@ -3,9 +3,7 @@ import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CasinoIntro from './CasinoIntro';
-import Picker from 'react-native-picker';
-import Loading from '../components/Loading';
-import LoadMoreFooter from '../components/LoadMoreFooter';
+import PullRefreshScrollView from '../common/pullRefresh';
 
 import React, {Component} from 'react';
 import {
@@ -35,7 +33,6 @@ class DailyList extends Component {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
-      showFooter: false,
 
       cityViewHeight: 500,
       cityViewMarginTop: -300,
@@ -48,13 +45,12 @@ class DailyList extends Component {
     };
 
     this._onPressIntroBtn = this._onPressIntroBtn.bind(this)
-    this._renderFooter = this._renderFooter.bind(this)
   }
 
   componentWillMount() {
     const { actions, DailyList } = this.props;
     actions.fetchCities();
-    actions.fetchDailies(0,DailyList.currentCity,0,5);
+    actions.fetchDailies(DailyList.currentCity,{start: true});
   }
 
   componentDidUpdate() {
@@ -129,7 +125,7 @@ class DailyList extends Component {
           return (
             <TouchableOpacity key={i} style={styles.city} onPress={() => {
               this._handleCityViewAnimation();
-              {actions.fetchDailies(1,oCity.city,0,10)};
+              {actions.fetchDailies(oCity.city,{start: true})};
             }}>
               <Text>{oCity.city}</Text>
             </TouchableOpacity>
@@ -157,46 +153,36 @@ class DailyList extends Component {
     )
   }
 
-  _onEndReached() {
-    const { DailyList,actions } = this.props
-    if ( DailyList.stateCode === 2 ) {
-      actions.fetchDailies(1,DailyList.currentCity,DailyList.casinos.length,10);
-    }
-  }
-
-  _renderFooter() {
-    const { DailyList } = this.props;
-    if (DailyList.isLoading && DailyList.stateCode !==0) {
-      return (
-        <LoadMoreFooter type={1} />
-      )
-    }
-    if (!DailyList.isLoading && DailyList.stateCode ===2) {
-      return (
-        <LoadMoreFooter type={0} />
-      )
-    }
-    if (!DailyList.isLoading && DailyList.stateCode ===3) {
-      return (
-        <LoadMoreFooter type={2} />
-      )
-    }
-    return null
-  }
-
   _renderListView(casinos) {
+    const { DailyList } = this.props;
+    if (casinos.length === 0) {
+      return null
+    }
 
     return (
       <ListView
-        enableEmptySections = {true}
+        renderScrollComponent={
+          (props) =>
+            <PullRefreshScrollView
+              onRefresh={()=>this._onRefresh()}
+              onLoadmore={()=>this._onLoadmore()}
+              scrollHeight={(casinos.length * 150) - (Common.window.height - 92)}
+              status={DailyList.status}/>}
         dataSource={this.state.dataSource.cloneWithRows(casinos)}
-        renderRow={this._renderRow.bind(this)}
-        onEndReachedThreshold={10}
-        onEndReached={() => this._onEndReached()}
-        renderFooter={() => this._renderFooter()}
+        renderRow={this._renderRow}
         style={styles.listView}
         enableEmptySections={true} />
       );
+  }
+
+  _onRefresh() {
+    const { DailyList,actions } = this.props
+    actions.fetchDailies(DailyList.currentCity,{start: true});
+  }
+
+  _onLoadmore() {
+    const { DailyList,actions } = this.props
+    actions.fetchDailies(DailyList.currentCity,{start: false, offset: DailyList.casinos.length, limit: 10});
   }
 
   _renderRow(item) {
@@ -249,7 +235,7 @@ class DailyList extends Component {
       <View style={styles.container}>
         <Header title='俱乐部'/>
         {this._renderCityBtn()}
-        {DailyList.isLoading && DailyList.state===0 ? <Loading /> : this._renderListView(casinos)}
+        {this._renderListView(casinos)}
         {DailyList.showCityView ? this._renderCoverView() : null}
         {this._renderCityView()}
       </View>
@@ -259,7 +245,7 @@ class DailyList extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    height: Common.window.height-64,
     backgroundColor: Common.colors.containerBgColor
   },
   chooseCity: {

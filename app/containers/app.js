@@ -11,19 +11,14 @@ import {
 } from 'react-native';
 
 
-
-
-
-
 class App extends Component {
 
   render() {
     return(
 
-
     <View style={{flex: 1}}>
       <StatusBarIOS barStyle="light-content"/>
-      {/*<MatchSchedule />*/}
+
       <Navigator
         initialRoute={{name: 'TabBarView', component: TabBarView}}
         configureScene={()=>{
@@ -41,7 +36,5 @@ class App extends Component {
     );
   }
 }
-
-
 
 export default App;
