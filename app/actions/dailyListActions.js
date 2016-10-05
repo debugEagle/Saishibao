@@ -9,15 +9,22 @@ import {
 
 const httpx = NativeModules.httpx;
 
-// code: 0:初次加载 1:加载更多
-let fetchDailies = (typeCode,city,offset,limit) => {
-  let url = 'https://www.91buyin.com/casino?country=中国&city=' + city + '&offset=' + offset + '&limit=' + limit;
+let fetchDailies = (city,args) => {
+  let oArguments = {
+    start: true,
+    offset: 0,
+    limit: 15
+  }
+  if (!args.start) {
+    oArguments = Object.assign({}, oArguments, args)
+  }
+  let url = 'https://www.91buyin.com/casino?country=中国&city=' + city + '&offset=' + oArguments.offset + '&limit=' + oArguments.limit;
   url = encodeURI(url);
   let casinos = [];
   let count = 0;
 
   return dispatch => {
-    dispatch(fetchDailyList(typeCode, city));
+    dispatch(fetchDailyList(oArguments.start, city));
     request(url).then((json) => {
       try {
         let {
@@ -47,10 +54,10 @@ let changeDailyCityShowStatus = () => {
 }
 
 
-let fetchDailyList = (typeCode, city) => {
+let fetchDailyList = (start, city) => {
   return {
     type: types.FETCH_DAILY_LIST,
-    typeCode: typeCode,
+    start: start,
     selectCity: city,
   }
 }

@@ -7,11 +7,12 @@ const initialState = {
   schedule: {
     areas: [],
     tours: [],
-    months: months,
-    matches: []
+    months,
+    matches: [],
+    mCount: 0
   },
   showSelectContentView: false,
-  isLoading: false,
+  status: 'null',
   selected: {
     area: '全部地区',
     tour: 0,
@@ -34,14 +35,19 @@ let scheduleList = (state = initialState, action) => {
         })
       })
     case types.FETCH_SCHEDULE_LIST:
+      const status = action.start ? 'refreshing' : 'loading'
       return Object.assign({}, state, {
-        isLoading: true
+        status: status
       })
     case types.RECEIVE_SCHEDULE_LIST:
+      let matches = state.status === 'refreshing' ? [] : state.schedule.matches
+      matches = matches.concat(action.matches)
+      let s = matches.length < action.count ? 'loaded' : 'finished'
       return Object.assign({}, state, {
-        isLoading: false,
+        status: s,
         schedule: Object.assign({}, state.schedule, {
-          matches: action.matches
+          matches: matches,
+          mCount: action.count
         })
       })
     case types.CHANGE_SCHEDULE_SELECTED:

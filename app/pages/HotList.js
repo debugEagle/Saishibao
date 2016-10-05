@@ -4,6 +4,7 @@ import Common from '../common/constants';
 import HotIntroContainer from '../containers/HotIntroContainer';
 import Loading from '../components/Loading';
 import LoadMoreFooter from '../components/LoadMoreFooter';
+import PullRefreshScrollView from '../common/pullRefresh';
 
 import React, { Component } from 'react';
 import {
@@ -20,11 +21,6 @@ import {
   InteractionManager,
 } from 'react-native';
 
-let page = 1;
-let isLoadMore = false;
-let isLoading = true;
-
-
 class HotList extends Component {
   constructor(props) {
     super(props);
@@ -35,13 +31,11 @@ class HotList extends Component {
       }),
     };
 
-    this._renderHotList = this._renderHotList.bind(this);
+    this._renderRow = this._renderRow.bind(this);
   }
 
-  componentDidMount() {
-    InteractionManager.runAfterInteractions(() => {
-      this.props.actions.fetchHots(page, isLoadMore,  isLoading);
-    });
+  componentWillMount(){
+    this.props.actions.fetchHots({start: true});
   }
 
   _onPressHotItem(hotMatch) {
@@ -54,48 +48,35 @@ class HotList extends Component {
     });
   }
 
-
-  _onScroll() {
-    if (!isLoadMore) {
-      isLoadMore = true;
-    }
-    // console.log('_onScroll');
-  }
-
-  // 下拉刷新
-  _onRefresh() {
-    page = 1;
-    isLoadMore = false;
-    this.props.actions.fetchHots(page, isLoadMore, isLoading);
-  }
-
-  // 上拉加载
-  _onEndReach() {
+  _renderListView() {
     const { HotList } = this.props;
-    console.log(HotList.count);
-    // 如果只有一页，就不刷新
-    //
-    if (HotList.count <= 5) {
-      return;
-    }
-    if (isLoadMore) {
-      page++;
-      this.props.actions.fetchHots(page, isLoadMore, false);
-      isLoadMore = false;
-    }
+    let hotList = HotList.hotList;
+
+    return (
+      <ListView
+        enableEmptySections = {true}
+        dataSource={this.state.dataSource.cloneWithRows(hotList)}
+        renderRow={this._renderRow}
+        renderScrollComponent={
+          (props) =>
+            <PullRefreshScrollView
+              onRefresh={()=>this._onRefresh()}
+              onLoadmore={()=>this._onLoadmore()}
+              scrollHeight={(hotList.length * listItemHeight) - (Common.window.height - 92)}
+              status={HotList.status}/>}
+      />
+    )
   }
 
-  //listView 底部
-  _renderFooter() {
-    const {
-      HotList
-    } = this.props;
-    if (HotList.isLoadMore) {
-      return <LoadMoreFooter />
-    }
+  _onRefresh(){
+    this.props.actions.fetchHots({start: true});
   }
 
-  _renderHotList(hotMatch) {
+  _onLoadmore(){
+    this.props.actions.fetchHots({start: false, offset: this.props.HotList.hotList.length, limit: 5});
+  }
+
+  _renderRow(hotMatch) {
     return (
       <TouchableHighlight underlayColor="rgba(34, 26, 38, 0.1)"
       onPress={() => this._onPressHotItem(hotMatch)}>
@@ -124,40 +105,14 @@ class HotList extends Component {
     );
   }
 
-
   render() {
-    const { HotList } = this.props;
-    let hotList = HotList.hotList;
 
     return (
       <View style={styles.container}>
         <Header
           title='热门推荐'
         />
-        {HotList.isLoading
-          ?
-          <Loading />
-          :
-          <ListView
-            enableEmptySections = {true}
-            dataSource={this.state.dataSource.cloneWithRows(hotList)}
-            renderRow={this._renderHotList}
-            // initialListSize={1}
-            enableEmptySections={true}
-            onEndReached={() => this._onEndReach()}
-            onEndReachedThreshold={10}
-            onScroll={() => this._onScroll()}
-            renderFooter={() => this._renderFooter()}
-            refreshControl={
-              <RefreshControl
-                refreshing={false}
-                onRefresh={() => this._onRefresh()}
-                title="正在加载中……"
-                tintColor="#ccc"
-              />
-            }
-          />
-        }
+        {this._renderListView()}
       </View>
     );
   }
@@ -167,10 +122,11 @@ class HotList extends Component {
 const listPadding = 25;
 const imageWidth = Common.window.width-listPadding * 2;
 const imageHeight = 179/328 * (Common.window.width-listPadding * 2 );
+const listItemHeight = imageHeight + 80
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: Common.colors.containerBgColor
   },
   itemImage: {
     width: imageWidth,
@@ -182,10 +138,8 @@ const styles = StyleSheet.create({
     paddingRight: listPadding,
     paddingTop: 20,
     alignItems: 'center',
-
     width: Common.window.width ,
-    backgroundColor: '#ffffff',
-    flex: 1,
+    height: listItemHeight,
   },
 
   titleText: {
@@ -262,4 +216,5 @@ const styles = StyleSheet.create({
 
 
 });
+
 export default HotList;
