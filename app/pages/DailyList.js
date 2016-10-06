@@ -1,4 +1,3 @@
-import Util from '../common/utils';
 import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -169,7 +168,7 @@ class DailyList extends Component {
               scrollHeight={(casinos.length * 150) - (Common.window.height - 92)}
               status={DailyList.status}/>}
         dataSource={this.state.dataSource.cloneWithRows(casinos)}
-        renderRow={this._renderRow}
+        renderRow={this._renderRow.bind(this)}
         style={styles.listView}
         enableEmptySections={true} />
       );
