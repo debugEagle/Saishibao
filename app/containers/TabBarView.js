@@ -1,21 +1,12 @@
+import codePush from "react-native-code-push";
+
 import icons from '../assets/icons';
+import Common from '../common/constants';
+
 import HotListContainer from './HotListContainer';
 import DailyListContainer from './DailyListContainer';
-import HotDayInfo from '../pages/HotDayInfo';
-import MapPage from '../pages/MapPage'
-import MatchSettingContainer from './MatchSettingContainer';
-import SwiperSample from '../../test'
-import codePush from "react-native-code-push";
-import RegGetSmsCodeContainer from './RegGetSmsCodeContainer';
-import RegInputSmsCodeContainer from './RegInputSmsCodeContainer';
-import Common from '../common/constants';
-import ScheduleListContainer from './ScheduleListContainer';
-import CasinoIntro from '../pages/CasinoIntro';
-import DailyInfoContainer from  './DailyInfoContainer';
-import DailyResult from '../pages/DailyResult';
-import RegPwdContainer from './RegPwdContainer';
-import UserLogin from '../pages/UserLogin';
-import WxTest from '../pages/WxTest';
+import ScheduleListContainer from './ScheduleListContainer'
+import Account from '../pages/Account'
 
 import React, { Component } from 'react';
 import {
@@ -34,17 +25,14 @@ class MainView extends Component {
   constructor(props) {
     super(props);
 
-
     this.state = {
-
-      selectedTab: 'hot',
-
+      selectedTab: 'myAccount',
     }
 
   }
 
   componentDidMount(){
-    codePush.sync();
+    // codePush.sync();
     // codePush.sync({ updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE });
   }
 
@@ -72,47 +60,34 @@ class MainView extends Component {
   _renderComponent(selectedTab){
 
     if (selectedTab === 'hot') {
+
       return <HotListContainer navigator = {this.props.navigator} {...this.props}/>
     }
     else if (selectedTab === 'casino') {
+
       return <DailyListContainer navigator = {this.props.navigator} {...this.props}/>
-      // return <MapPage/>
     }
     else if (selectedTab === 'schedule') {
 
-      return <ScheduleListContainer navigator = {this.props.navigator} {...this.props} />
-      // return <RegInputSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
-      // return <SwiperSample/>
+      return <ScheduleListContainer navigator = {this.props.navigator} {...this.props}/>
     }
     else if (selectedTab === 'myAccount') {
-      // return <RegPwdContainer navigator = {this.props.navigator} {...this.props} />
-      // return <RegGetSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
-      // return <RegInputSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
-      return <WxTest/>
-      // return <DailyResult  navigator = {this.props.navigator} />
-      //  return <CasinoIntro  navigator = {this.props.navigator} />
+
+      return <Account  navigator = {this.props.navigator} {...this.props}/>
     }
   }
 
   render() {
 
     return (
-
-      <TabBarIOS barTintColor={tabBarTintColor} tintColor={tabTintColor} >
+      <TabBarIOS barTintColor={tabBarTintColor} tintColor={tabTintColor}>
         {this._createTabbarItem('热门',{uri: icons.hot, scale: 6},{uri: icons.hot2, scale:6}, 'hot')}
         {this._createTabbarItem('俱乐部',{uri: icons.casino, scale: 6},{uri: icons.casino2, scale: 6}, 'casino')}
         {this._createTabbarItem('赛事日历',{uri: icons.schedule, scale: 6},{uri: icons.schedule2, scale: 6},'schedule')}
         {this._createTabbarItem('我的账户',{uri: icons.myAccount, scale: 6},{uri: icons.myAccount2, scale: 6},'myAccount')}
       </TabBarIOS>
-
-
-
-
     );
   }
 }
-
-
-
 
 export default MainView;
