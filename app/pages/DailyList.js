@@ -2,6 +2,10 @@ import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../components/Loading';
+import DailyInfoContainer from '../containers/DailyInfoContainer';
+import { getDataStr } from '../common/utils';
+
+
 
 import CasinoIntro from './CasinoIntro';
 
@@ -39,7 +43,44 @@ class DailyList extends Component {
       coverViewOpacity: new Animated.Value(0)
     };
 
-    this._onPressIntroBtn = this._onPressIntroBtn.bind(this)
+    this._onPressIntroBtn = this._onPressIntroBtn.bind(this);
+    this._onPressTodayBtn = this._onPressTodayBtn.bind(this);
+    this._onPressTomorrowBtn = this._onPressTomorrowBtn.bind(this);
+
+  }
+
+  _onPressTodayBtn(casino) {
+
+    const showDate = getDataStr(0);
+    const title = '今日赛事';
+
+    this.props.navigator.push({
+
+      component: DailyInfoContainer,
+      passProps: {
+        casino,
+        showDate,
+        title
+
+      }
+    });
+  }
+
+  _onPressTomorrowBtn(casino) {
+
+    const showDate = getDataStr(1);
+    const title = '明日预告';
+
+    this.props.navigator.push({
+
+      component: DailyInfoContainer,
+      passProps: {
+        casino,
+        showDate,
+        title
+
+      }
+    });
   }
 
   componentWillMount() {
@@ -212,12 +253,22 @@ class DailyList extends Component {
           </View>
           <View style={styles.itemRightBottom}>
             <View style={[styles.itemRightItem,styles.withBorderRight, {alignItems: 'center'}]}>
-              <Text style={{fontSize: 13,color: '#787878'}}>明日预告</Text>
+              <TouchableOpacity
+                style={[styles.itemRightItem]}
+                onPress={() => this._onPressTomorrowBtn(item)}>
+                <Text style={{fontSize: 13,color: '#787878'}}>明日预告</Text>
+              </TouchableOpacity>
+
             </View>
             <View style={[styles.itemRightItem, {alignItems: 'flex-end'}]}>
-              <Text style={{fontSize: 16}}>
-                今日赛事
-              </Text>
+              <TouchableOpacity
+                style={[styles.itemRightItem]}
+                onPress={() => this._onPressTodayBtn(item)}>
+                <Text style={{fontSize: 16}}>
+                  今日赛事
+                </Text>
+              </TouchableOpacity>
+
             </View>
           </View>
         </View>
