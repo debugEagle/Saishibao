@@ -25,8 +25,6 @@ import {
 } from 'react-native';
 
 
-
-
 class HotIntro extends Component {
 
   constructor(props) {
@@ -35,38 +33,29 @@ class HotIntro extends Component {
   }
 
   _onPressHotDayInfo(hotIntro) {
-    const {hotMatch} = this.props;
-      this.props.navigator.push({
-        title: '赛事详情',
-        component: HotDayInfo,
-        passProps: { hotIntro, hotMatch },
-      });
-
+    const {hotMatch, hotList} = this.props;
+    this.props.navigator.push({
+      title: '赛事详情',
+      component: HotDayInfo,
+      passProps: { hotIntro, hotMatch },
+    });
   }
 
-  componentDidMount() {
-
+  componentWillMount() {
     InteractionManager.runAfterInteractions(() => {
-
       const {hotMatch} = this.props;
       this.props.actions.fetchHotIntro(hotMatch.bigMatchSerie_id);
-
     });
-
-
   }
 
   componentWillUnmount() {
-
     this.props.actions.resetHotIntro();
-  
   }
 
-
   render() {
-    const {hotMatch} = this.props;
-    const {HotIntro} = this.props;
-    let hotIntro = HotIntro.intro;
+    console.log(this.props);
+    const {hotMatch ,HotList} = this.props;
+    let hotIntro = HotList.hotIntro.intro;
 
     return (
       <View style={styles.container}>
@@ -76,7 +65,7 @@ class HotIntro extends Component {
           title='赛事介绍'
 
         />
-        {HotIntro.isLoading ?
+        {HotList.hotIntro.isLoading ?
         <Loading />:
         <View style={styles.introArea}>
           <ScrollView>
