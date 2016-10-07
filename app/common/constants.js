@@ -7,7 +7,7 @@ let window = {
 
 let colors = {
     themeColor: '#4256a6',
-    containerBgColor: '#F5FCFF',
+    containerBgColor: 'white',
     itemColor: '#85b1f2',
 
 }

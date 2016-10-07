@@ -10,7 +10,6 @@ import {
     Text,
     Image,
     StyleSheet,
-    AsyncStorage,
     Animated,
     Easing,
     ScrollView,
@@ -20,7 +19,8 @@ import {
 // 外部引用需要提供：
 // onRefresh(): 上拉刷新所调用方法
 // onLoadmore(): 下拉加载所调用方法
-// scrollHeight: 可拉动高度(首屏底部距离list底部的距离)
+// viewHeight: 可视区域大小
+// listviewHeight: listview总长度
 // status: 网络获取数据状态，必须提供对应四个：
 //          'loading': 上拉加载中
 //          'refreshing': 全新加载中，即初次加载数据过程中
@@ -67,7 +67,7 @@ export default class PullRefreshScrollView extends Component {
               easing: Easing.inOut(Easing.quad)
           }).start();
       // scrollHeight 表示本scroll可以正常滑动的高度， 50表示到底部后继续上拉的距离
-      } else if (y >= this.props.scrollHeight + 50 && this.props.status !== 'finished') {
+      } else if (y >= (this.props.listHeight-this.props.viewHeight) + 50 && this.props.status !== 'finished') {
         this.setState({
           plState:1
         });
@@ -132,7 +132,7 @@ export default class PullRefreshScrollView extends Component {
       }
     }
     if (this.state.plState === 1) {
-      this.scrollView.scrollTo({x:0,y:(this.props.scrollHeight + 40),animated:true});
+      this.scrollView.scrollTo({x:0,y:((this.props.listHeight-this.props.viewHeight) + 40),animated:true});
       this.setState({
         plTitle: this.loadingText,
         plLoading: true,
@@ -195,7 +195,10 @@ export default class PullRefreshScrollView extends Component {
 
     if(!top) {
       _default.outputRange = ['-180deg', '0deg'];
-      _default.style = styles.pullLoadmore;
+      _default.style = [styles.pullLoadmore];
+      if ((this.props.listHeight-this.props.viewHeight) < 0) {
+        _default.style.push({top: this.props.viewHeight})
+      }
       _default.title = this.state.plTitle;
       _default.loading = this.state.plLoading;
     }

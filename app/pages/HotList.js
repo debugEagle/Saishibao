@@ -51,7 +51,8 @@ class HotList extends Component {
   _renderListView() {
     const { HotList } = this.props;
     let hotList = HotList.hotList;
-
+    const listHeight = hotList.length * listItemHeight;
+    const viewHeight = Common.window.height - 92;
     return (
       <ListView
         enableEmptySections = {true}
@@ -62,7 +63,8 @@ class HotList extends Component {
             <PullRefreshScrollView
               onRefresh={()=>this._onRefresh()}
               onLoadmore={()=>this._onLoadmore()}
-              scrollHeight={(hotList.length * listItemHeight) - (Common.window.height - 92)}
+              listHeight={listHeight}
+              viewHeight={viewHeight}
               status={HotList.status}/>}
       />
     )
