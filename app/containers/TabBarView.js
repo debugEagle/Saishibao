@@ -9,6 +9,7 @@ import ScheduleListContainer from './ScheduleListContainer'
 import AccountInfo from '../pages/AccountInfo'
 import Account from '../pages/Account'
 import AccountGift from '../pages/AccountGift'
+import ScheduleDetail from '../pages/ScheduleDetail'
 
 import React, { Component } from 'react';
 import {
@@ -28,7 +29,7 @@ class MainView extends Component {
     super(props);
 
     this.state = {
-      selectedTab: 'myAccount',
+      selectedTab: 'schedule',
     }
 
   }

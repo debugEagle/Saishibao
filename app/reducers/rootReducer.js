@@ -8,6 +8,7 @@ import MatchSetting from './matchSettingReducer';
 import RegGetSmsCode from './regGetSmsCodeReducer';
 import RegInputSmsCode from './regInputSmsCodeReducer';
 import ScheduleList from './scheduleListReducer';
+import ScheduleDetail from './scheduleDetailReducer'
 import DailyInfo from './dailyInfoReducer';
 import TimerElse from './timerElseReducer';
 import RegPwd from './regPwdReducer';
@@ -26,4 +27,5 @@ export default rootReducer = combineReducers({
   DailyInfo,
   TimerElse,
   RegPwd,
+  ScheduleDetail
 });
