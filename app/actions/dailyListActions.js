@@ -20,6 +20,7 @@ let fetchDailies = (city,args) => {
   }
   let url = 'https://www.91buyin.com/casino?country=中国&city=' + city + '&offset=' + oArguments.offset + '&limit=' + oArguments.limit;
   url = encodeURI(url);
+  console.log(url);
   let casinos = [];
   let count = 0;
 

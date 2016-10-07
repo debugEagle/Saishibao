@@ -6,7 +6,9 @@ import Common from '../common/constants';
 import HotListContainer from './HotListContainer';
 import DailyListContainer from './DailyListContainer';
 import ScheduleListContainer from './ScheduleListContainer'
+import AccountInfo from '../pages/AccountInfo'
 import Account from '../pages/Account'
+import AccountGift from '../pages/AccountGift'
 
 import React, { Component } from 'react';
 import {
@@ -73,7 +75,7 @@ class MainView extends Component {
     }
     else if (selectedTab === 'myAccount') {
 
-      return <Account  navigator = {this.props.navigator} {...this.props}/>
+      return <Account navigator = {this.props.navigator} {...this.props}/>
     }
   }
 

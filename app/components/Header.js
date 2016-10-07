@@ -18,9 +18,6 @@ class Header extends Component {
   render() {
     let NavigationBar = [];
 
-
-
-
     // 左边图片按钮
     if (this.props.leftIcon != undefined) {
       NavigationBar.push(
@@ -71,7 +68,10 @@ const styles = StyleSheet.create({
 
   },
   leftIcon: {
-    marginLeft: 15,
+    position: 'absolute',
+    top: 7,
+    left: 15,
+    zIndex: 999
   },
   touchArea: {
     width : 30,

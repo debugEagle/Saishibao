@@ -1,26 +1,22 @@
 import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Loading from '../components/Loading';
+
 import CasinoIntro from './CasinoIntro';
-import PullRefreshScrollView from '../common/pullRefresh';
 
 import React, {Component} from 'react';
+import PullRefreshScrollView from '../common/pullRefresh';
+
 import {
   Text,
   View,
   Image,
   ListView,
-  ActivityIndicator,
-  TouchableHighlight,
   TouchableOpacity,
   StyleSheet,
-  StatusBar,
   Navigator,
-  SegmentedControlIOS,
-  RefreshControl,
-  ScrollView,
   Animated,
-  Easing
 } from 'react-native';
 
 
@@ -138,7 +134,7 @@ class DailyList extends Component {
 
     return (
       <TouchableOpacity
-        style={{position: 'absolute',top: 44}}
+        style={{position: 'absolute', top: 44, zIndex: 1,}}
         activeOpacity={1}
         onPress={() => this._handleCityViewAnimation()}>
 
@@ -157,6 +153,8 @@ class DailyList extends Component {
     if (casinos.length === 0) {
       return null
     }
+    const listHeight = casinos.length * 150;
+    const viewHeight = Common.window.height - 92;
 
     return (
       <ListView
@@ -165,7 +163,8 @@ class DailyList extends Component {
             <PullRefreshScrollView
               onRefresh={()=>this._onRefresh()}
               onLoadmore={()=>this._onLoadmore()}
-              scrollHeight={(casinos.length * 150) - (Common.window.height - 92)}
+              listHeight={listHeight}
+              viewHeight={viewHeight}
               status={DailyList.status}/>}
         dataSource={this.state.dataSource.cloneWithRows(casinos)}
         renderRow={this._renderRow.bind(this)}
@@ -234,9 +233,9 @@ class DailyList extends Component {
       <View style={styles.container}>
         <Header title='俱乐部'/>
         {this._renderCityBtn()}
-        {this._renderListView(casinos)}
         {DailyList.showCityView ? this._renderCoverView() : null}
         {this._renderCityView()}
+        {casinos.length === 0 && (DailyList.status === 'refreshing' || DailyList.status === 'loading') ? <Loading /> : this._renderListView(casinos)}
       </View>
     );
   }
@@ -245,7 +244,7 @@ class DailyList extends Component {
 const styles = StyleSheet.create({
   container: {
     height: Common.window.height-64,
-    backgroundColor: Common.colors.containerBgColor
+    backgroundColor: Common.colors.containerBgColor,
   },
   chooseCity: {
     position: 'absolute',

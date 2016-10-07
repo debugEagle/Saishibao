@@ -2,25 +2,18 @@ import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../components/Loading';
-import PullRefreshScrollView from '../common/pullRefresh';
 
 import React, {Component} from 'react';
-
+import PullRefreshScrollView from '../common/pullRefresh';
 import {
   Text,
   View,
   Image,
   ListView,
-  ActivityIndicator,
-  TouchableHighlight,
   TouchableOpacity,
   StyleSheet,
-  StatusBar,
   Navigator,
-  SegmentedControlIOS,
-  ScrollView,
   Animated,
-  Easing
 } from 'react-native';
 
 class ScheduleList extends Component {
@@ -169,39 +162,36 @@ class ScheduleList extends Component {
 
     return (
       <View style={[styles.selectView,styles.withBorderBottom]}>
-        <TouchableOpacity
-          style={[styles.selectViewItem,styles.withBorderRight]}
-          onPress={() => this._handleAreasViewAnimation()}
-          >
-          <View style={styles.selectViewItemView}>
+        <View style={[styles.selectViewItem,styles.withBorderRight]}>
+          <TouchableOpacity
+            style={styles.selectViewItemView}
+            onPress={() => this._handleAreasViewAnimation()}>
             <Text style={styles.selectViewItemText}>选择地区</Text>
             <View style={styles.selectViewItemIcon}>
              <Icon color="#e0eaff" size={16} name= {this.state.showAreasView ? 'chevron-up' : 'chevron-down'}/>
             </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.selectViewItem,styles.withBorderRight]}
-          onPress={() => this._handleToursViewAnimation()}
-          >
-          <View style={styles.selectViewItemView}>
+          </TouchableOpacity>
+        </View>
+        <View style={[styles.selectViewItem,styles.withBorderRight]}>
+          <TouchableOpacity
+            style={styles.selectViewItemView}
+            onPress={() => this._handleToursViewAnimation()}>
             <Text style={styles.selectViewItemText}>选择赛事</Text>
             <View style={styles.selectViewItemIcon}>
              <Icon color="#e0eaff" size={16} name= {this.state.showToursView ? 'chevron-up' : 'chevron-down'}/>
             </View>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.selectViewItem}
-          onPress={() => this._handleMonthsViewAnimation()}
-          >
-          <View style={styles.selectViewItemView}>
+          </TouchableOpacity>
+        </View>
+        <View style={[styles.selectViewItem,styles.withBorderRight]}>
+          <TouchableOpacity
+            style={styles.selectViewItemView}
+            onPress={() => this._handleMonthsViewAnimation()}>
             <Text style={styles.selectViewItemText}>选择时间</Text>
             <View style={styles.selectViewItemIcon}>
               <Icon color="#e0eaff" size={16} name= {this.state.showMonthsView ? 'chevron-up' : 'chevron-down'}/>
             </View>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -315,7 +305,10 @@ class ScheduleList extends Component {
     if (matches.length === 0) {
       return null
     }
-    const scrollHeight = matches.length * 70 + 84 + 48 - Common.window.height;
+    const viewHeight = Common.window.height - 132
+    const listHeight = matches.length * 70
+    const scrollHeight = listHeight - viewHeight;
+
     return (
       <ListView
         renderScrollComponent={
@@ -323,7 +316,9 @@ class ScheduleList extends Component {
             <PullRefreshScrollView
               onRefresh={()=>this._onRefresh()}
               onLoadmore={()=>this._onLoadmore()}
-              scrollHeight={(matches.length * 70) - (Common.window.height - 132)}
+              viewHeight={viewHeight}
+              listHeight={listHeight}
+              scrollHeight={scrollHeight}
               status={ScheduleList.status}/>}
         dataSource={this.state.dataSource.cloneWithRows(matches)}
         renderRow={this._renderRow}
@@ -401,7 +396,7 @@ class ScheduleList extends Component {
         {this._renderSelectView()}
         {this._rendereSelectContentView()}
         {ScheduleList.showSelectContentView ? this._renderCoverView() : null}
-        {this.props.ScheduleList.isLoading ? <Loading /> : this._renderListView(ScheduleList.schedule.matches)}
+        {ScheduleList.schedule.matches.length === 0 && (ScheduleList.status === 'refreshing' || ScheduleList.status === 'loading') ? <Loading /> : this._renderListView(ScheduleList.schedule.matches)}
       </View>
     );
   }
@@ -409,7 +404,7 @@ class ScheduleList extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: Common.window.height-64,
+    height: Common.window.height-68,
     backgroundColor: Common.colors.containerBgColor
   },
   selectView: {
