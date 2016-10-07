@@ -2,6 +2,8 @@ import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../components/Loading';
+import ScheduleDetailContainer from '../containers/ScheduleDetailContainer';
+
 
 import React, {Component} from 'react';
 import PullRefreshScrollView from '../common/pullRefresh';
@@ -40,6 +42,7 @@ class ScheduleList extends Component {
 
       // 遮盖层透明度
       coverViewOpacity: new Animated.Value(0)
+
     }
   }
 
@@ -321,7 +324,7 @@ class ScheduleList extends Component {
               scrollHeight={scrollHeight}
               status={ScheduleList.status}/>}
         dataSource={this.state.dataSource.cloneWithRows(matches)}
-        renderRow={this._renderRow}
+        renderRow={this._renderRow.bind(this)}
         initialListSize={15}
         style={styles.matchListView}
         enableEmptySections={true}/>
@@ -347,6 +350,24 @@ class ScheduleList extends Component {
     actions.fetchSchedule(selected.area, selected.tour, selected.month, obj)
   }
 
+  _onPressMatch(match) {
+    const matchInfo = {
+      bigMatchSerieId: match.bigMatchSerie_id,
+      bigMatchSerieName: match.name,
+      casino: match.organization.casino.casino,
+      address: match.organization.casino.address.address,
+      tel: match.organization.casino.contact_phone,
+      website: match.organization.casino.web_url,
+    }
+    this.props.navigator.push({
+      title: '赛事详情',
+      component: ScheduleDetailContainer,
+      passProps: {
+        matchInfo
+      },
+    });
+  }
+
   // 赛事
   _renderRow(match) {
     const title = match.name
@@ -357,7 +378,9 @@ class ScheduleList extends Component {
     let end_date = match.end_date.substring(5,7) + '.' + match.end_date.substring(8)
     let match_date = start_date + '-' + end_date
     return (
-      <View style={[styles.matchItemView, styles.withBorderBottom]}>
+      <TouchableOpacity
+        onPress={() => this._onPressMatch(match)}
+        style={[styles.matchItemView, styles.withBorderBottom]}>
         <View style={styles.matchImageView}>
           <Image style={styles.matchImage} source={{uri: image_url}}/>
         </View>
@@ -383,7 +406,7 @@ class ScheduleList extends Component {
         <View style={styles.chevronRight}>
           {/* <Icon color="#e0eaff" size={16} name="chevron-right"/> */}
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 
