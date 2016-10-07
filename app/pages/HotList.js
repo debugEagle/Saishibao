@@ -36,6 +36,8 @@ class HotList extends Component {
 
   componentWillMount(){
     this.props.actions.fetchHots({start: true});
+    // this.props.actions.startUserLoginWithToken();
+
   }
 
   _onPressHotItem(hotMatch) {

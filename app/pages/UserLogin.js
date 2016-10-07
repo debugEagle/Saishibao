@@ -85,11 +85,13 @@ class UserLogin extends Component {
         AsyncStorage.setItem(Common.userToken, UserLogin.userToken);
         console.log(UserLogin.userToken);
 
-        Common.defaultTab ='hot';
+        this.props.navigator.pop();
 
-        this.props.navigator.push({
-          component: TabBarView,
-        });
+        // Common.defaultTab ='hot';
+        //
+        // this.props.navigator.push({
+        //   component: TabBarView,
+        // });
 
 
       }
@@ -104,6 +106,8 @@ class UserLogin extends Component {
       <View style={styles.container}>
         <Header
           title='登陆'
+          leftIcon='angle-left'
+          leftIconAction={()=>this.props.navigator.pop()}
         />
 
         <View style={styles.input}>

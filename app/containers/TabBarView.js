@@ -16,7 +16,8 @@ import DailyResult from '../pages/DailyResult';
 import RegPwdContainer from './RegPwdContainer';
 import UserLoginContainer from './UserLoginContainer';
 import WxTest from '../pages/WxTest';
-import RegSuccess from '../pages/RegSuccess'
+import RegSuccess from '../pages/RegSuccess';
+import AccountContainer from './AccountContainer';
 
 import React, { Component } from 'react';
 import {
@@ -97,7 +98,8 @@ class MainView extends Component {
       // return <DailyResult  navigator = {this.props.navigator} />
       //  return <CasinoIntro  navigator = {this.props.navigator} />
       // return <RegSuccess navigator = {this.props.navigator} />
-      return <UserLoginContainer navigator = {this.props.navigator} {...this.props}/>
+      return <AccountContainer navigator = {this.props.navigator} {...this.props}/>
+      // return <Account />
     }
 
   }

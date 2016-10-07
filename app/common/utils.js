@@ -13,14 +13,19 @@ import {
 
 const httpx = NativeModules.httpx;
 
-let request = (url, method='GET', timeout=5, post={}) => {
+let request = (url, method='GET', timeout=5, post={}, userToken='') => {
+  console.log('userToken111  ' + userToken);
   let promise = new Promise((resolve, reject) => {
     httpx.request({
       url: url,
       method: method,
       timeout: timeout,
       post: post,
-    
+      header: {
+        'authorization': 'Bearer ' + userToken,
+        'Content-Type': 'application/json'
+      },
+
 
     }, (error, res) => {
       if (error) {

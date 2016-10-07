@@ -1,5 +1,6 @@
 import Header from '../components/Header';
 import Common from '../common/constants';
+import UserLoginContainer from '../containers//UserLoginContainer';
 
 import React, { Component } from 'react';
 import {
@@ -7,7 +8,8 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  View
+  View,
+  AsyncStorage
 } from 'react-native';
 
 const mockData = {
@@ -20,7 +22,24 @@ class Account extends Component {
     super(props);
   }
 
+  componentWillMount() {
+    // this.props.actions.startUserLoginWithToken();
+  }
+
+  _onPressLoginBtn() {
+    this.props.navigator.push({
+
+      component: UserLoginContainer,
+      passProps: {
+      },
+    });
+
+
+  }
+
   render() {
+    const { UserLogin } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -28,9 +47,14 @@ class Account extends Component {
         </View>
         <View style={styles.content}>
           <View style={styles.statusArea}>
-            <TouchableOpacity style={styles.stateView}>
-                <Text style={styles.stateText}>点击登陆或注册</Text>
-            </TouchableOpacity>
+            {!UserLogin.haveLogined?
+              <TouchableOpacity style={styles.stateView} onPress={() => this._onPressLoginBtn()}>
+                  <Text style={styles.stateText}>点击登陆</Text>
+              </TouchableOpacity>
+            :
+              <Text style={styles.stateText}>已登陆</Text>
+            }
+
           </View>
           <View style={styles.menuArea}>
             <View style={styles.menuView}>

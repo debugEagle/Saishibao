@@ -16,7 +16,7 @@ let colors = {
 const token = 'token';
 const userToken = 'userToken';
 
-let defaultTab = 'myAccount';
+let defaultTab = 'hot';
 
 
 export default {

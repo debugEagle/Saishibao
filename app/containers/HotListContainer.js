@@ -20,7 +20,8 @@ class HotListContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  HotList: state.HotList
+  HotList: state.HotList,
+  UserLogin: state.UserLogin,
 });
 
 const mapDispatchToProps = (dispatch) => ({

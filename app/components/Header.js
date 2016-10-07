@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     height: 44,
     alignItems: 'center',
     backgroundColor: Common.colors.themeColor,
-    // zIndex: 99
+    zIndex: 99
 
   },
   title: {
