@@ -1,6 +1,7 @@
 import icons from '../assets/icons';
 import HotListContainer from './HotListContainer';
 import DailyListContainer from './DailyListContainer';
+<<<<<<< HEAD
 import HotDayInfo from '../pages/HotDayInfo';
 import MapPage from '../pages/MapPage'
 import MatchSettingContainer from './MatchSettingContainer';
@@ -18,6 +19,13 @@ import UserLoginContainer from './UserLoginContainer';
 import WxTest from '../pages/WxTest';
 import RegSuccess from '../pages/RegSuccess';
 import AccountContainer from './AccountContainer';
+
+import ScheduleListContainer from './ScheduleListContainer'
+import AccountInfo from '../pages/AccountInfo'
+import Account from '../pages/Account'
+import AccountGift from '../pages/AccountGift'
+import ScheduleDetail from '../pages/ScheduleDetail'
+
 
 import React, { Component } from 'react';
 import {

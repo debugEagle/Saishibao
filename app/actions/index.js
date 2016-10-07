@@ -11,3 +11,4 @@ export * from './dailyInfoActions';
 export * from './timerElseActions';
 export * from './regPwdActions';
 export * from './userLoginActions'
+export * from './scheduleDetailActions'
