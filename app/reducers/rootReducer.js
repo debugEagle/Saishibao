@@ -11,6 +11,7 @@ import ScheduleList from './scheduleListReducer';
 import DailyInfo from './dailyInfoReducer';
 import TimerElse from './timerElseReducer';
 import RegPwd from './regPwdReducer';
+import UserLogin from './userLoginReducer'
 
 
 export default rootReducer = combineReducers({
@@ -26,4 +27,5 @@ export default rootReducer = combineReducers({
   DailyInfo,
   TimerElse,
   RegPwd,
+  UserLogin,
 });

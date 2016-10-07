@@ -14,8 +14,9 @@ import CasinoIntro from '../pages/CasinoIntro';
 import DailyInfoContainer from  './DailyInfoContainer';
 import DailyResult from '../pages/DailyResult';
 import RegPwdContainer from './RegPwdContainer';
-import UserLogin from '../pages/UserLogin';
+import UserLoginContainer from './UserLoginContainer';
 import WxTest from '../pages/WxTest';
+import RegSuccess from '../pages/RegSuccess'
 
 import React, { Component } from 'react';
 import {
@@ -37,7 +38,7 @@ class MainView extends Component {
 
     this.state = {
 
-      selectedTab: 'hot',
+      selectedTab: Common.defaultTab,
 
     }
 
@@ -48,12 +49,16 @@ class MainView extends Component {
     // codePush.sync({ updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE });
   }
 
+
+
   _createTabbarItem(title,icon,icon2,selectedTab){
     return (
       <TabBarIOS.Item
         title={title}
         icon={icon}
         selected={this.state.selectedTab === selectedTab}
+        //selected='myAccount'
+
 
         onPress={() => {
           this.setState({
@@ -88,10 +93,13 @@ class MainView extends Component {
       // return <RegPwdContainer navigator = {this.props.navigator} {...this.props} />
       // return <RegGetSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
       // return <RegInputSmsCodeContainer navigator = {this.props.navigator} {...this.props} />
-      return <WxTest/>
+      // return <WxTest/>
       // return <DailyResult  navigator = {this.props.navigator} />
       //  return <CasinoIntro  navigator = {this.props.navigator} />
+      // return <RegSuccess navigator = {this.props.navigator} />
+      return <UserLoginContainer navigator = {this.props.navigator} {...this.props}/>
     }
+
   }
 
   render() {

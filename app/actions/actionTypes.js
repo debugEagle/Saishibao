@@ -61,3 +61,7 @@ export const SET_ELSE_TIME = 'SET_ELSE_TIME'
 //注册设置密码
 export const FETCH_REGPWD = 'FETCH_REGPWD'
 export const RECEIVE_REGPWD = 'RECEIVE_REGPWD'
+
+//用户登陆
+export const FETCH_USERLOGIN = 'FETCH_USERLOGIN'
+export const RECEIVE_USERLOGIN  = 'RECEIVE_USERLOGIN'

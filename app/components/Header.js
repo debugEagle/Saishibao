@@ -27,22 +27,26 @@ class Header extends Component {
         <TouchableOpacity
           key={'leftIcon'}
           activeOpacity={0.75}
-          style={styles.leftIcon}
+          //style={styles.leftIcon}
           onPress={this.props.leftIconAction}
         >
           <View style={styles.touchArea}>
-            <Icon color="white" size={30} name={this.props.leftIcon}/>
+            <Icon style={styles.touchArea} color="white" size={30} name={this.props.leftIcon}/>
           </View>
 
         </TouchableOpacity>
       )
     }
+
     // 标题
     if (this.props.title != undefined) {
       NavigationBar.push(
         <Text key='title' style={styles.title}>{this.props.title}</Text>
       )
     }
+
+
+
 
     return (
 
@@ -61,7 +65,8 @@ const styles = StyleSheet.create({
     height: 44,
     alignItems: 'center',
     backgroundColor: Common.colors.themeColor,
-    zIndex: 99
+    // zIndex: 99
+
   },
   title: {
     fontSize: 18,
@@ -70,12 +75,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
 
   },
-  leftIcon: {
-    marginLeft: 15,
-  },
+  // leftIcon: {
+  //   marginLeft: 15,
+  // },
   touchArea: {
     width : 30,
     height: 30,
+    marginLeft: 10,
   }
 });
 

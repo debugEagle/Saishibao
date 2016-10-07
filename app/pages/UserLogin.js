@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast, {DURATION} from 'react-native-easy-toast';
+import TabBarView from '../containers/TabBarView';
 
 
 
@@ -34,12 +35,70 @@ class UserLogin extends Component {
     this.state = {
       mobile: '',
       pwd: '',
+      interval: null,
     }
+
+    this._checkCode = this._checkCode.bind(this);
+
   }
 
   _onLoginBtn() {
+    // if (this.state.pwd.length < 6) {
+    //   this.refs.toast.show('密码长度不能小于6位');
+    //   return;
+    // }
+    //
+    // if (this.state.mobile.length < 11) {
+    //   this.refs.toast.show('手机号码长度不正确');
+    //   return;
+    // }
+
+    this.props.actions.startUserLogin('18840822722' ,'123465');
+
+    if (this.state.interval == null) {
+      this.state.interval = setInterval(this._checkCode, 500);
+
+    }
+
+
+    // Common.defaultTab ='myAccount';
+    // // let selectedTab = {selectedTab: 'hot'};
+    // this.props.navigator.push({
+    //   // title: '赛事详情',
+    //   component: TabBarView,
+    //   // passProps: { selectedTab: 'hot'},
+    // });
 
   }
+
+  _checkCode() {
+    const { UserLogin } = this.props;
+    if (UserLogin.code != -1) {
+
+      clearInterval(this.state.interval);
+      this.state.interval = null;
+
+      if (UserLogin.code > 0){
+          this.refs.toast.show( UserLogin.msg);
+      }
+      if (UserLogin.code == 0 ) {
+        AsyncStorage.setItem(Common.userToken, UserLogin.userToken);
+        console.log(UserLogin.userToken);
+
+        Common.defaultTab ='hot';
+
+        this.props.navigator.push({
+          component: TabBarView,
+        });
+
+
+      }
+    }
+
+  }
+
+
+
   render() {
     return (
       <View style={styles.container}>
@@ -76,13 +135,13 @@ class UserLogin extends Component {
             <TextInput style = {styles.inputMobile}
               ref="1"
               multiline={false}
-              autoFocus={true}
+              //autoFocus={true}
               placeholder= "请输入密码"
-              keyboardType= 'number-pad'
+              keyboardType= 'ascii-capable'
               maxLength={6}
               password={true}
               onChange={(event) => {
-                this.state.mobile = event.nativeEvent.text;
+                this.state.pwd = event.nativeEvent.text;
               }}
 
             />
