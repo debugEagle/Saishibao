@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import HotList from './hotList';
-// import HotIntro from './hotIntroReducer';
+import HotList from './hotListReducer';
+import HotIntro from './hotIntroReducer';
 import CityList from './cityListReducer'
 import DailyList from './dailyListReducer';
-// import HotDayInfo from './hotDayInfoReducer';
+import HotDayInfo from './hotDayInfoReducer';
 import MatchSetting from './matchSettingReducer';
 import RegGetSmsCode from './regGetSmsCodeReducer';
 import RegInputSmsCode from './regInputSmsCodeReducer';
@@ -16,9 +16,9 @@ import RegPwd from './regPwdReducer';
 export default rootReducer = combineReducers({
   CityList,
   HotList,
-  // HotIntro,
+  HotIntro,
   DailyList,
-  // HotDayInfo,
+  HotDayInfo,
   MatchSetting,
   RegGetSmsCode,
   RegInputSmsCode,

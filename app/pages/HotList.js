@@ -1,8 +1,7 @@
 import Util from '../common/utils';
 import Header from '../components/Header';
 import Common from '../common/constants';
-import HotIntro from './HotIntro';
-// import HotIntroContainer from '../containers/HotIntroContainer';
+import HotIntroContainer from '../containers/HotIntroContainer';
 import Loading from '../components/Loading';
 import LoadMoreFooter from '../components/LoadMoreFooter';
 import PullRefreshScrollView from '../common/pullRefresh';
@@ -41,11 +40,10 @@ class HotList extends Component {
 
   _onPressHotItem(hotMatch) {
     this.props.navigator.push({
-      component: HotIntro,
+      title: 'MatchIntro',
+      component: HotIntroContainer,
       passProps: {
-        hotMatch,
-        HotList: this.props.HotList,
-        actions: this.props.actions
+        hotMatch
       },
     });
   }

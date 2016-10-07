@@ -5,6 +5,8 @@ import {
 } from 'react-native'
 
 
+
+
 const initialState = {
     hotDayList: [],
     hotDayDetailList: [],
