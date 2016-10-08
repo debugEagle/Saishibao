@@ -1,6 +1,6 @@
 
 import Util from '../common/utils';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import { fetchMatchSetting } from '../actions/matchSettingActions';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -78,9 +78,7 @@ class DailyResult extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header title='赛事结果'
-        leftIcon='angle-left'
-        leftIconAction={()=>this.props.navigator.pop()}/>
+        <NavBar name='赛事结果' navigator={this.props.navigator}/>
         <View style={styles.itemView}>
           <View style={styles.matchName}>
             <Text style={styles.matchNameText}>

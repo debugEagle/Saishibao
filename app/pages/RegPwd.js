@@ -1,5 +1,5 @@
 import Util from '../common/utils';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast, {DURATION} from 'react-native-easy-toast';
@@ -100,11 +100,7 @@ class RegPwd extends Component {
 
     return (
       <View style={styles.container}>
-        <Header
-          title='输入密码'
-          leftIcon='angle-left'
-          leftIconAction={()=>this.props.navigator.pop()}
-        />
+        <NavBar name='输入密码' navigator={this.props.navigator}/>
         <View style={styles.tintRow}>
           <Text style={styles.tintRowText}>请输入6位数账号密码</Text>
         </View>

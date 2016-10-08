@@ -1,5 +1,5 @@
 import Util from '../common/utils';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast, {DURATION} from 'react-native-easy-toast';
@@ -104,11 +104,7 @@ class UserLogin extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header
-          title='登陆'
-          leftIcon='angle-left'
-          leftIconAction={()=>this.props.navigator.pop()}
-        />
+        <NavBar name='登陆' navigator={this.props.navigator}/>
 
         <View style={styles.input}>
 

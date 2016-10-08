@@ -1,9 +1,7 @@
-
-
 import Util from '../common/utils';
 import Common from '../common/constants';
 import Loading from '../components/Loading';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MatchSettingContainer from '../containers/MatchSettingContainer';
 
@@ -214,15 +212,9 @@ class HotList extends Component {
     return (
 
       <View style={styles.container}>
-
-        <Header title={hotIntro.intro_title}
-        leftIcon='angle-left'
-        leftIconAction={()=>this.props.navigator.pop()}
-        />
+        <NavBar name={hotIntro.intro_title} navigator={this.props.navigator}/>
         {HotDayInfo.isLoading ?
         <Loading /> :
-
-
         <View>
             <View>
               <ListView
@@ -231,27 +223,16 @@ class HotList extends Component {
                 renderRow={this._renderDayList}
                 initialListSize={1}
                 horizontal={true}
-
               />
             </View>
-
-
-
-
             <ListView style={{height: Common.window.height - 67 - 44}}
               enableEmptySections = {true}
               dataSource={this.state.daysDataSource.cloneWithRows(selectedList)}
               renderRow={this._renderDayDetailList}
               initialListSize={1}
-
-
             />
-
-
         </View>
-
         }
-
       </View>
 
     );

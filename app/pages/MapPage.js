@@ -1,8 +1,7 @@
-
 import React, { Component } from 'react';
 import MapView from '../components/MapView';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 
 import {
   Text,
@@ -32,12 +31,7 @@ class MapPage extends Component {
     return (
 
       <View style={styles.container}>
-        <Header
-          leftIcon='angle-left'
-          leftIconAction={()=>this.props.navigator.pop()}
-          title='赛事介绍'
-
-        />
+        <NavBar name= '赛事介绍' navigator={this.props.navigator}/>
         <MapView style={styles.map}
 
           AMapKey="d66aa045c60deb8ab29e0a6e7a379a26"

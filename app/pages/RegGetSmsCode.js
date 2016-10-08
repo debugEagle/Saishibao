@@ -1,5 +1,5 @@
 import Util from '../common/utils';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RegInputSmsCodeContainer from '../containers/RegInputSmsCodeContainer';
@@ -95,9 +95,7 @@ class RegGetSmsCode extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header
-          title='注册'
-        />
+        <NavBar name='注册' navigator={this.props.navigator}/>
 
         <View style={styles.input}>
 

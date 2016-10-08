@@ -1,7 +1,7 @@
 import Util from '../common/utils';
 import Common from '../common/constants';
 import Loading from '../components/Loading';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MatchSettingContainer from '../containers/MatchSettingContainer';
 
@@ -117,10 +117,7 @@ class DailyInfo extends Component {
     let dailyInfoList = DailyInfo.dailyInfoList;
     return (
       <View style={styles.container}>
-        <Header title={this.props.title}
-        leftIcon='angle-left'
-        leftIconAction={()=>this.props.navigator.pop()}
-        />
+        <NavBar name={this.props.title} navigator={this.props.navigator}/>
         {DailyInfo.isLoading ?
         <Loading /> :
         <ListView style={{height: Common.window.height - 67 - 44}}
@@ -128,11 +125,8 @@ class DailyInfo extends Component {
           dataSource={this.state.dataSource.cloneWithRows(dailyInfoList)}
           renderRow={this._renderDailyInfoList}
           initialListSize={1}
-
-
         />
         }
-
       </View>
     );
   }

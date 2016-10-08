@@ -1,5 +1,5 @@
 import Util from '../common/utils';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Common from '../common/constants';
 import HotIntroContainer from '../containers/HotIntroContainer';
 import Loading from '../components/Loading';
@@ -54,7 +54,7 @@ class HotList extends Component {
     const { HotList } = this.props;
     let hotList = HotList.hotList;
     const listHeight = hotList.length * listItemHeight;
-    const viewHeight = Common.window.height - 92;
+    const viewHeight = Common.window.height - 112;
     return (
       <ListView
         enableEmptySections = {true}
@@ -109,13 +109,15 @@ class HotList extends Component {
     );
   }
 
+  _test() {
+    console.log('test');
+  }
+
   render() {
 
     return (
       <View style={styles.container}>
-        <Header
-          title='热门推荐'
-        />
+        <NavBar name='热门推荐' navigator={this.props.navigator} />
         {this._renderListView()}
       </View>
     );

@@ -1,4 +1,4 @@
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../components/Loading';
@@ -308,7 +308,7 @@ class ScheduleList extends Component {
     if (matches.length === 0) {
       return null
     }
-    const viewHeight = Common.window.height - 132
+    const viewHeight = Common.window.height - 152
     const listHeight = matches.length * 70
     const scrollHeight = listHeight - viewHeight;
 
@@ -415,7 +415,7 @@ class ScheduleList extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title='赛事日历'/>
+        <NavBar name='赛事日历' navigator={this.props.navigator}/>
         {this._renderSelectView()}
         {this._rendereSelectContentView()}
         {ScheduleList.showSelectContentView ? this._renderCoverView() : null}

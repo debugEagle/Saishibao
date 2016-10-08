@@ -1,4 +1,4 @@
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -21,9 +21,7 @@ class AccountInfo extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title='礼品兑换' leftIcon='angle-left'
-          leftIconAction={()=>this.props.navigator.pop()}
-          />
+        <NavBar name='礼品兑换' navigator={this.props.navigator}/>
         <View style={styles.top}>
           <Image style={styles.image} source={{uri: mockData.img}}/>
         </View>

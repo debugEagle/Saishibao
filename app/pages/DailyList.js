@@ -1,4 +1,4 @@
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../components/Loading';
@@ -195,7 +195,7 @@ class DailyList extends Component {
       return null
     }
     const listHeight = casinos.length * 150;
-    const viewHeight = Common.window.height - 92;
+    const viewHeight = Common.window.height - 112;
 
     return (
       <ListView
@@ -282,7 +282,7 @@ class DailyList extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title='俱乐部'/>
+        <NavBar name='俱乐部' navigator={this.props.navigator}/>
         {this._renderCityBtn()}
         {DailyList.showCityView ? this._renderCoverView() : null}
         {this._renderCityView()}

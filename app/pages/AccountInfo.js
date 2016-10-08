@@ -1,4 +1,4 @@
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -20,9 +20,7 @@ class AccountInfo extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title='俱乐部' leftIcon='angle-left'
-          leftIconAction={()=>this.props.navigator.pop()}
-          />
+        <NavBar name='俱乐部' navigator={this.props.navigator}/>
         <View style={styles.spaceTop} />
         <View style={styles.infoItems}>
           <View style={[styles.infoItem,styles.headImageItem,styles.withBorderBottom]}>

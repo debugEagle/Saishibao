@@ -1,4 +1,3 @@
-import Header from '../components/Header';
 import Common from '../common/constants';
 import UserLoginContainer from '../containers//UserLoginContainer';
 

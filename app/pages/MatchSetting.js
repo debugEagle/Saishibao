@@ -1,6 +1,6 @@
 
 import Util from '../common/utils';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import { fetchMatchSetting } from '../actions/matchSettingActions';
 import Constants from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -144,9 +144,7 @@ class MatchSetting extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title='比赛结构表'
-        leftIcon='angle-left'
-        leftIconAction={()=>this.props.navigator.pop()}/>
+        <NavBar name='比赛结构表' navigator={this.props.navigator}/>
         {MatchSetting.isLoading ?
 
         <Loading /> :
@@ -169,7 +167,7 @@ class MatchSetting extends Component {
             return (<View key={i}>{this._renderSettingBonusRow(item)}</View>);
           })}
 
-        
+
         </ScrollView>
       }
       </View>

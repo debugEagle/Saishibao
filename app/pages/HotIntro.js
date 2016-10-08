@@ -1,8 +1,5 @@
-
-
-
 import Util from '../common/utils';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -59,7 +56,7 @@ class HotIntro extends Component {
   componentWillUnmount() {
 
     this.props.actions.resetHotIntro();
-  
+
   }
 
 
@@ -70,12 +67,7 @@ class HotIntro extends Component {
 
     return (
       <View style={styles.container}>
-        <Header
-          leftIcon='angle-left'
-          leftIconAction={()=>this.props.navigator.pop()}
-          title='赛事介绍'
-
-        />
+        <NavBar name='赛事介绍' navigator={this.props.navigator}/>
         {HotIntro.isLoading ?
         <Loading />:
         <View style={styles.introArea}>

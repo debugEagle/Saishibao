@@ -1,4 +1,4 @@
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -147,9 +147,7 @@ class AccountInfo extends Component {
 
     return (
       <View style={styles.container}>
-        <Header title='赛事详情' leftIcon='angle-left'
-          leftIconAction={()=>this.props.navigator.pop()}
-          />
+        <NavBar name='赛事详情' navigator={this.props.navigator}/>
         <View style={styles.detail}>
           {this._renderListTitle()}
           {this._renderListView(this.props.ScheduleDetail.matches)}

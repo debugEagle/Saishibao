@@ -1,5 +1,5 @@
 import Util from '../common/utils';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from '../components/swiper.dist'
@@ -60,11 +60,7 @@ class CasinoIntro extends Component {
 
     return (
       <View style={styles.container}>
-        <Header
-          leftIcon='angle-left'
-          leftIconAction={()=>this.props.navigator.pop()}
-          title={casino.casino}
-        />
+        <NavBar name={casino.casino} navigator={this.props.navigator}/>
         <ScrollView style={styles.scrollContainer}>
           <Swiper  height={imageHeight} horizontal={true} autoplay={false}>
             {this._renderImages(casino.casinoImages)}

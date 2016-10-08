@@ -1,5 +1,5 @@
 import { Util } from '../common/utils';
-import Header from '../components/Header';
+import NavBar from '../components/NavBar';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast, {DURATION} from 'react-native-easy-toast';
@@ -129,12 +129,7 @@ class RegInputSmsCode extends Component {
 
     return (
       <View style={styles.container}>
-        <Header
-          title='填写验证码'
-          leftIcon='angle-left'
-          leftIconAction={()=>this.props.navigator.pop()}
-
-        />
+        <NavBar title='填写验证码' navigator={this.props.navigator}/>
         <View style={styles.tintRow}>
           <Text style={styles.tintRowText}>请输入手机号{this.props.mobile}收到的短信校验码</Text>
         </View>
