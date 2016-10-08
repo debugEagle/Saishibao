@@ -103,8 +103,13 @@ class MainView extends Component {
       // return <WxTest/>
       // return <DailyResult  navigator = {this.props.navigator} />
       //  return <CasinoIntro  navigator = {this.props.navigator} />
-      // return <RegSuccess navigator = {this.props.navigator} />
-      return <AccountContainer navigator = {this.props.navigator} {...this.props}/>
+      return <RegSuccess navigator = {this.props.navigator} />
+      // return <AccountContainer navigator = {this.props.navigator} {...this.props}/>
+
+      // return <UserLoginContainer navigator = {this.props.navigator} {...this.props}/>
+
+
+
       // return <Account />
     }
 

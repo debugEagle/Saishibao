@@ -18,35 +18,28 @@ class Header extends Component {
   render() {
     let NavigationBar = [];
 
-
-
-
     // 左边图片按钮
     if (this.props.leftIcon != undefined) {
       NavigationBar.push(
         <TouchableOpacity
           key={'leftIcon'}
           activeOpacity={0.75}
-          //style={styles.leftIcon}
+          style={styles.leftIcon}
           onPress={this.props.leftIconAction}
         >
           <View style={styles.touchArea}>
-            <Icon style={styles.touchArea} color="white" size={30} name={this.props.leftIcon}/>
+            <Icon color="white" size={30} name={this.props.leftIcon}/>
           </View>
 
         </TouchableOpacity>
       )
     }
-
     // 标题
     if (this.props.title != undefined) {
       NavigationBar.push(
         <Text key='title' style={styles.title}>{this.props.title}</Text>
       )
     }
-
-
-
 
     return (
 
@@ -66,7 +59,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Common.colors.themeColor,
     zIndex: 99
-
   },
   title: {
     fontSize: 18,
@@ -75,13 +67,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
 
   },
-  // leftIcon: {
-  //   marginLeft: 15,
-  // },
+  leftIcon: {
+    position: 'absolute',
+    top: 7,
+    left: 15,
+    zIndex: 999
+  },
   touchArea: {
     width : 30,
     height: 30,
-    marginLeft: 10,
   }
 });
 

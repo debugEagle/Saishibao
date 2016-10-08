@@ -4,6 +4,7 @@ import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast, {DURATION} from 'react-native-easy-toast';
 import TabBarView from '../containers/TabBarView';
+import RegGetSmsCodeContainer from '../containers/RegGetSmsCodeContainer';
 
 
 
@@ -61,14 +62,15 @@ class UserLogin extends Component {
     }
 
 
-    // Common.defaultTab ='myAccount';
-    // // let selectedTab = {selectedTab: 'hot'};
-    // this.props.navigator.push({
-    //   // title: '赛事详情',
-    //   component: TabBarView,
-    //   // passProps: { selectedTab: 'hot'},
-    // });
 
+
+  }
+
+  _onRegBtn() {
+    this.props.navigator.push({
+      component: RegGetSmsCodeContainer,
+
+    });
   }
 
   _checkCode() {
@@ -87,11 +89,7 @@ class UserLogin extends Component {
 
         this.props.navigator.pop();
 
-        // Common.defaultTab ='hot';
-        //
-        // this.props.navigator.push({
-        //   component: TabBarView,
-        // });
+
 
 
       }
@@ -109,6 +107,17 @@ class UserLogin extends Component {
           leftIcon='angle-left'
           leftIconAction={()=>this.props.navigator.pop()}
         />
+        <View >
+        <View style={styles.linkReg}>
+        <TouchableOpacity onPress={() => this._onRegBtn()}>
+          <Text style={styles.linkRegText}>
+            注     册
+          </Text>
+        </TouchableOpacity>
+        </View>
+
+        </View>
+
 
         <View style={styles.input}>
 
@@ -151,15 +160,18 @@ class UserLogin extends Component {
             />
             </View>
           </View>
-
         </View>
-        <TouchableOpacity onPress={() => this._onLoginBtn()}>
-          <View style={styles.nextBtn}>
-            <Text style={styles.nextBtnText}>登    陆</Text>
-          </View>
-        </TouchableOpacity>
 
-         <Toast ref="toast" position='top'/>
+
+
+
+        <View style={{flex: 1, alignItems: 'center'}}>
+          <TouchableOpacity style={styles.nextBtn} onPress={() => this._onLoginBtn()}>
+            <Text style={styles.nextBtnText}>登        陆</Text>
+          </TouchableOpacity>
+        </View>
+
+        <Toast ref="toast" position='top'/>
       </View>
 
     );
@@ -169,13 +181,13 @@ class UserLogin extends Component {
   const inputPadding = 18;
   const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#ffffff',
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   input: {
     marginTop: 40,
-
+    marginHorizontal: inputPadding,
     height: 100,
     width: Common.window.width - inputPadding * 2,
     borderRadius: 8,
@@ -220,7 +232,7 @@ class UserLogin extends Component {
     width: 260,
     height: 46,
     backgroundColor: '#5c6bc0',
-    marginTop: 30,
+    marginTop: 40,
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center'
@@ -230,6 +242,17 @@ class UserLogin extends Component {
     color: '#ffffff',
     fontWeight: 'bold',
 
+  },
+  linkReg: {
+    position: 'absolute',
+    marginTop: 10,
+    marginBottom: 10,
+    left: 200,
+    // borderWidth: 1,
+    left: Common.window.width - 80,
+  },
+  linkRegText: {
+    color: '#5c6bc0',
   }
 
   });

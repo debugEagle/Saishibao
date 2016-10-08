@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast, {DURATION} from 'react-native-easy-toast';
+import RegSuccess  from './RegSuccess';
 
 
 
@@ -81,13 +82,13 @@ class RegPwd extends Component {
         console.log('goto');
         // AsyncStorage.setItem(Common.token, RegPwd.token);
         //
-        // this.props.navigator.push({
-        //
-        //   component: RegPwdContainer,
-        //   passProps: {
-        //     mobile: this.props.mobile,
-        //   },
-        // });
+        this.props.navigator.push({
+
+          component: RegSuccess,
+          // passProps: {
+          //   mobile: this.props.mobile,
+          // },
+        });
       }
     }
 
@@ -118,7 +119,7 @@ class RegPwd extends Component {
               multiline={false}
               autoFocus={true}
               placeholder= "请输入密码"
-              keyboardType= 'number-pad'
+              keyboardType= 'ascii-capable'
               maxLength={6}
               password={true}
               onChange={(event) => { this.state.pwd = event.nativeEvent.text}}
@@ -127,10 +128,8 @@ class RegPwd extends Component {
           </View>
 
         </View>
-        <TouchableOpacity onPress={() => this._onPressNextBtn()}>
-          <View style={styles.nextBtn}>
-            <Text style={styles.nextBtnText}>下一步</Text>
-          </View>
+        <TouchableOpacity style={styles.nextBtn} onPress={() => this._onPressNextBtn()}>
+          <Text style={styles.nextBtnText}>下一步</Text>
         </TouchableOpacity>
         <Toast ref="toast" position='top'/>
       </View>
