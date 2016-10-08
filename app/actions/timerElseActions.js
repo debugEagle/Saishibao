@@ -20,7 +20,7 @@ let startTimer = () => {
         console.log('elseSeconds ' + elseSeconds);
 
     }
-    elseSeconds = 10
+    elseSeconds = 60;
     elseSecondInterval = setInterval(()=>timerElseSecond(),1000);
 
   }

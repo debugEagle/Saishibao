@@ -128,10 +128,8 @@ class RegGetSmsCode extends Component {
           </View>
 
         </View>
-        <TouchableOpacity onPress={() => this._onPressNextBtn()}>
-          <View style={styles.nextBtn}>
+        <TouchableOpacity style={styles.nextBtn} onPress={() => this._onPressNextBtn()}>
             <Text style={styles.nextBtnText}>下一步</Text>
-          </View>
         </TouchableOpacity>
 
          <Toast ref="toast" position='top'/>

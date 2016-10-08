@@ -34,6 +34,8 @@ class RegSuccess extends Component {
   }
 
   _onPressLaterBtn() {
+
+    Common.defaultTab ='myAccount';
     this.props.navigator.push({
       // title: '赛事详情',
       component: TabBarView,
@@ -78,17 +80,13 @@ class RegSuccess extends Component {
 
         <View style={styles.btnArea}>
           <View style={styles.btnBlock}>
-            <TouchableOpacity  onPress={() => this._onPressCompleteBtn()}>
-              <View style={styles.nextBtn}>
-                <Text style={styles.nextBtnText}>完善信息</Text>
-              </View>
+            <TouchableOpacity  style={styles.nextBtn} onPress={() => this._onPressCompleteBtn()}>
+              <Text style={styles.nextBtnText}>完善信息</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.btnBlock}>
-            <TouchableOpacity  onPress={() => this._onPressLaterBtn()}>
-              <View style={styles.nextBtn}>
-                <Text style={styles.nextBtnText}>以后填写</Text>
-              </View>
+            <TouchableOpacity style={styles.nextBtn} onPress={() => this._onPressLaterBtn()}>
+              <Text style={styles.nextBtnText}>以后填写</Text>
             </TouchableOpacity>
           </View>
         </View>
