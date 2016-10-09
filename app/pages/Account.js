@@ -1,5 +1,8 @@
 import Common from '../common/constants';
 import UserLoginContainer from '../containers//UserLoginContainer';
+import AccountInfo from './AccountInfo'
+import AccountTicket from './AccountTicket'
+import AccountGift from './AccountGift'
 
 import React, { Component } from 'react';
 import {
@@ -10,11 +13,6 @@ import {
   View,
   AsyncStorage
 } from 'react-native';
-
-const mockData = {
-  img: 'http://ssb-oss.oss-cn-hangzhou.aliyuncs.com/casino/logo/%E4%BA%AC%E6%89%91%E5%85%8B-130.png',
-
-}
 
 class Account extends Component {
   constructor(props) {
@@ -27,13 +25,37 @@ class Account extends Component {
 
   _onPressLoginBtn() {
     this.props.navigator.push({
-
       component: UserLoginContainer,
       passProps: {
       },
     });
+  }
 
+  _onPressMyInfo() {
+    this.props.navigator.push({
+        title: '我的信息',
+        component: AccountInfo,
+        passProps: {
+      },
+    });
+  }
 
+  _onPressMyTicket() {
+    this.props.navigator.push({
+        title: '门票验证',
+        component: AccountTicket,
+        passProps: {
+      },
+    });
+  }
+
+  _onPressMyGift() {
+    this.props.navigator.push({
+        title: '门票兑换',
+        component: AccountGift,
+        passProps: {
+      },
+    });
   }
 
   render() {
@@ -42,23 +64,26 @@ class Account extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Image style={styles.headImage} source={{uri: mockData.img}}/>
+          <Image style={styles.headImage} source={require('../imgs/headImage_default.png')}/>
         </View>
         <View style={styles.content}>
           <View style={styles.statusArea}>
             {!UserLogin.haveLogined?
-              <TouchableOpacity style={styles.stateView} onPress={() => this._onPressLoginBtn()}>
-                  <Text style={styles.stateText}>点击登陆</Text>
+              <TouchableOpacity
+                  style={styles.stateView}
+                  onPress={() => this._onPressLoginBtn()}>
+                <Text style={styles.stateText}>点击登陆</Text>
               </TouchableOpacity>
             :
               <Text style={styles.stateText}>已登陆</Text>
             }
-
           </View>
           <View style={styles.menuArea}>
             <View style={styles.menuView}>
               <View style={[styles.menuRow, styles.withBorderBottom, {marginTop:35}]}>
-                <TouchableOpacity style={[styles.menuItem, styles.withBorderRight]}>
+                <TouchableOpacity
+                    onPress={()=>this._onPressMyInfo()}
+                    style={[styles.menuItem, styles.withBorderRight]}>
                   <View style={[styles.menuImageView, {marginLeft: -20}]}>
                     <Image style={styles.menuImage} source={require('../imgs/account_info.png')}/>
                   </View>
@@ -68,7 +93,9 @@ class Account extends Component {
                     </Text>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.menuItem, styles.withBorderRight, {flex: 1.2}]}>
+                <TouchableOpacity
+                    style={[styles.menuItem, styles.withBorderRight, {flex: 1.2}]}
+                    onPress={()=>this._onPressMyTicket()}>
                   <View style={styles.menuImageView}>
                     <Image style={styles.menuImage} source={require('../imgs/account_ticket_verification.png')}/>
                   </View>
@@ -90,7 +117,9 @@ class Account extends Component {
                 </TouchableOpacity>
               </View>
               <View style={[styles.menuRow, {marginBottom:35}]}>
-                <TouchableOpacity style={[styles.menuItem, styles.withBorderRight]}>
+                <TouchableOpacity
+                    onPress={()=>this._onPressMyGift()}
+                    style={[styles.menuItem, styles.withBorderRight]}>
                   <View style={[styles.menuImageView, {marginLeft: -20}]}>
                     <Image style={styles.menuImage} source={require('../imgs/account_gift.png')}/>
                   </View>
@@ -160,7 +189,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: headImageWidth /2,
-    backgroundColor: 'red',
+    backgroundColor: 'white',
     resizeMode: Image.resizeMode.contain
   },
   content: {
