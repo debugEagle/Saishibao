@@ -321,4 +321,5 @@ PullRefreshScrollView.defaultProps = {
     onRefresh: '',
     onLoadmore: '',
 };
+
 Object.assign(PullRefreshScrollView.prototype, ScrollableMixin);

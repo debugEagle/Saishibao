@@ -1,30 +1,12 @@
-import HotListContainer from './HotListContainer';
-import DailyListContainer from './DailyListContainer';
-import HotDayInfo from '../pages/HotDayInfo';
-import MapPage from '../pages/MapPage'
-import MatchSettingContainer from './MatchSettingContainer';
-import SwiperSample from '../../test'
-import codePush from "react-native-code-push";
-import RegGetSmsCodeContainer from './RegGetSmsCodeContainer';
-import RegInputSmsCodeContainer from './RegInputSmsCodeContainer';
-import Common from '../common/constants';
-import ScheduleListContainer from './ScheduleListContainer';
-import CasinoIntro from '../pages/CasinoIntro';
-import DailyInfoContainer from  './DailyInfoContainer';
-import DailyResult from '../pages/DailyResult';
-import RegPwdContainer from './RegPwdContainer';
-import UserLoginContainer from './UserLoginContainer';
-import WxTest from '../pages/WxTest';
-import RegSuccess from '../pages/RegSuccess';
-import AccountContainer from './AccountContainer';
-
-import AccountInfo from '../pages/AccountInfo'
-import Account from '../pages/Account'
-import AccountGift from '../pages/AccountGift'
-import ScheduleDetail from '../pages/ScheduleDetail'
+import HotList from '../pages/Hot/HotList';
+import DailyList from '../pages/Daily/DailyList';
+import ScheduleList from '../pages/Schedule/ScheduleList';
+import Account from '../pages/Account/Account'
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import TabBar from '../components/TabBar'
+
+import codePush from "react-native-code-push";
 
 import React, { Component } from 'react';
 import {
@@ -32,7 +14,6 @@ import {
   Text,
   View
 } from 'react-native';
-
 
 class MainView extends Component {
 
@@ -55,13 +36,13 @@ class MainView extends Component {
 
     return (
       <ScrollableTabView
-          initialPage={3}
-          renderTabBar={() => <TabBar tabNames={tabNames} tabIconNames={tabIconNames} />}
-          tabBarPosition='bottom'>
-        <HotListContainer tabLable='hot' navigator = {this.props.navigator} {...this.props}/>
-        <DailyListContainer tabLable='casino' navigator = {this.props.navigator} {...this.props}/>
-        <ScheduleListContainer tabLable='schedule' navigator = {this.props.navigator} {...this.props} />
-        <AccountContainer tabLable='myAccount' navigator = {this.props.navigator} {...this.props}/>
+        initialPage={0}
+        renderTabBar={() => <TabBar tabNames={tabNames} tabIconNames={tabIconNames} />}
+        tabBarPosition='bottom'>
+        <HotList tabLable='hot' navigator = {this.props.navigator} {...this.props}/>
+        <DailyList tabLable='casino' navigator = {this.props.navigator} {...this.props}/>
+        <ScheduleList tabLable='schedule' navigator = {this.props.navigator} {...this.props} />
+        <Account tabLable='myAccount' navigator = {this.props.navigator} {...this.props}/>
       </ScrollableTabView>
     )
   }

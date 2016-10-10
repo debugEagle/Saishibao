@@ -26,7 +26,7 @@ class TabBarInner extends Component {
     if (!i%2) {
       return null
     } else {
-      return <View style={verticalLineStyle} />
+      return <View key={i} style={verticalLineStyle} />
     }
   }
 
