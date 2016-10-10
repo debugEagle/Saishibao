@@ -2,6 +2,9 @@ import NavBar from '../components/NavBar';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import * as ActionCreator from '../actions'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -162,7 +165,8 @@ class AccountInfo extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    height: Common.window.height - 64
+    flex: 1,
+    backgroundColor: Common.colors.containerBgColor
   },
   spaceTop: {
     height: 10,
@@ -232,4 +236,13 @@ const styles = StyleSheet.create({
   }
 });
 
-export default AccountInfo
+const mapStateToProps = (state) => ({
+  Account: state.HotList,
+  UserLogin: state.UserLogin,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(ActionCreator, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountInfo)

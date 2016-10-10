@@ -75,6 +75,7 @@ const containerHeight = Common.window.height - 64;
 // const imageWidth = Common.window.width - 30;
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: Common.colors.containerBgColor,
     height: containerHeight = containerHeight,
   },
   top: {

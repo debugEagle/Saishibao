@@ -1,7 +1,8 @@
 import Common from '../common/constants';
 import UserLoginContainer from '../containers//UserLoginContainer';
-import AccountGift from './AccountGift';
-import AccountInfo from './AccountInfo';
+import AccountInfo from './AccountInfo'
+import AccountTicket from './AccountTicket'
+import AccountGift from './AccountGift'
 
 import React, { Component } from 'react';
 import {
@@ -10,14 +11,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  InteractionManager,
   AsyncStorage
 } from 'react-native';
-
-const mockData = {
-  img: 'http://ssb-oss.oss-cn-hangzhou.aliyuncs.com/casino/logo/%E4%BA%AC%E6%89%91%E5%85%8B-130.png',
-
-}
 
 class Account extends Component {
   constructor(props) {
@@ -26,64 +21,41 @@ class Account extends Component {
 
   componentWillMount() {
     // this.props.actions.startUserLoginWithToken();
-    console.log('startUserLoginWithToken');
-  }
-  componentDidUpdate() {
-    // this.props.actions.startUserLoginWithToken();
-    console.log('componentDidUpdate');
   }
 
-  componentWillReceiveProps() {
-    // this.props.actions.startUserLoginWithToken();
-
-    console.log('componentWillReceiveProps');
-
-  }
-
-  //判断是否已经登陆，
-  _checkHaveLogined() {
-    const {UserLogin} = this.props;
-
-    return UserLogin.haveLogined;
-
-
-
-  }
   _onPressLoginBtn() {
     this.props.navigator.push({
-
       component: UserLoginContainer,
-
+      passProps: {
+      },
     });
-
-
   }
 
-  _onPressLogoutBtn() {
-    this.props.actions.userLogout();
-  }
-
-  _onPressExchangeBtn() {
+  _onPressMyInfo() {
     this.props.navigator.push({
-      component: AccountGift,
+        title: '我的信息',
+        component: AccountInfo,
+        passProps: {
+      },
     });
   }
 
-  _onPressInfoBtn() {
+  _onPressMyTicket() {
+    this.props.navigator.push({
+        title: '门票验证',
+        component: AccountTicket,
+        passProps: {
+      },
+    });
+  }
 
-    if (this._checkHaveLogined) {
-      InteractionManager.runAfterInteractions(() => {
-
-        this.props.navigator.push({
-          component: AccountInfo,
-
-        });
-      });
-
-    }
-    else {
-      this._onPressLoginBtn();
-    }
+  _onPressMyGift() {
+    this.props.navigator.push({
+        title: '门票兑换',
+        component: AccountGift,
+        passProps: {
+      },
+    });
   }
 
   render() {
@@ -92,27 +64,26 @@ class Account extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Image style={styles.headImage} source={{uri: mockData.img}}/>
+          <Image style={styles.headImage} source={require('../imgs/headImage_default.png')}/>
         </View>
         <View style={styles.content}>
           <View style={styles.statusArea}>
             {!UserLogin.haveLogined?
-              <TouchableOpacity style={styles.stateView} onPress={() => this._onPressLoginBtn()}>
-                  <Text style={styles.stateText}>点击登陆</Text>
+              <TouchableOpacity
+                  style={styles.stateView}
+                  onPress={() => this._onPressLoginBtn()}>
+                <Text style={styles.stateText}>点击登陆</Text>
               </TouchableOpacity>
             :
-              <TouchableOpacity style={styles.stateView} onPress={() => this._onPressLogoutBtn()}>
-                  <Text style={styles.stateText}>已登陆/点击登出</Text>
-              </TouchableOpacity>
-
+              <Text style={styles.stateText}>已登陆</Text>
             }
-
           </View>
           <View style={styles.menuArea}>
             <View style={styles.menuView}>
               <View style={[styles.menuRow, styles.withBorderBottom, {marginTop:35}]}>
-                <TouchableOpacity style={[styles.menuItem, styles.withBorderRight]}
-                  onPress={() => this._onPressInfoBtn()}>
+                <TouchableOpacity
+                    onPress={()=>this._onPressMyInfo()}
+                    style={[styles.menuItem, styles.withBorderRight]}>
                   <View style={[styles.menuImageView, {marginLeft: -20}]}>
                     <Image style={styles.menuImage} source={require('../imgs/account_info.png')}/>
                   </View>
@@ -122,7 +93,9 @@ class Account extends Component {
                     </Text>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.menuItem, styles.withBorderRight, {flex: 1.2}]}>
+                <TouchableOpacity
+                    style={[styles.menuItem, styles.withBorderRight, {flex: 1.2}]}
+                    onPress={()=>this._onPressMyTicket()}>
                   <View style={styles.menuImageView}>
                     <Image style={styles.menuImage} source={require('../imgs/account_ticket_verification.png')}/>
                   </View>
@@ -144,8 +117,9 @@ class Account extends Component {
                 </TouchableOpacity>
               </View>
               <View style={[styles.menuRow, {marginBottom:35}]}>
-                <TouchableOpacity style={[styles.menuItem, styles.withBorderRight]}
-                  onPress={() => this._onPressExchangeBtn()}>
+                <TouchableOpacity
+                    onPress={()=>this._onPressMyGift()}
+                    style={[styles.menuItem, styles.withBorderRight]}>
                   <View style={[styles.menuImageView, {marginLeft: -20}]}>
                     <Image style={styles.menuImage} source={require('../imgs/account_gift.png')}/>
                   </View>
@@ -215,7 +189,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: headImageWidth /2,
-    backgroundColor: 'red',
+    backgroundColor: 'white',
     resizeMode: Image.resizeMode.contain
   },
   content: {
@@ -237,9 +211,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20
-  },
-  stateView2: {
-    flexDirection: 'row',
   },
   stateText: {
     fontSize: 15,
