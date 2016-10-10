@@ -22,15 +22,14 @@ import {
 } from 'react-native';
 
 
-const listPadding = 20;
-const imageWidth = Common.window.width-listPadding * 2;
-const imageHeight = 179/328 * (Common.window.width-listPadding * 2 );
 
 class CasinoIntro extends Component {
   constructor(props) {
     super(props);
 
   }
+
+
 
   _onPressLbsBtn(address) {
 
@@ -88,14 +87,14 @@ class CasinoIntro extends Component {
                 {casino.open_time.substring(0,5) + '-' + casino.close_time.substring(0,5)}
               </Text>
             </View>
-            {/*<View style={styles.actionRow}>
+            <View style={styles.actionRow}>
               <Image style={styles.actionImage} source={require('../imgs/casinoIntro_join.png')}/>
               <TouchableOpacity >
                 <View style={styles.joinBtn}>
                   <Text style={styles.joinBtnText}>加入比赛</Text>
                 </View>
               </TouchableOpacity>
-            </View>*/}
+            </View>
           </View>
           <View style={styles.introArea}>
             <Text style={styles.introText}>{casino.intorduction}</Text>
@@ -106,6 +105,11 @@ class CasinoIntro extends Component {
     );
   }
 }
+
+
+const listPadding = 20;
+const imageWidth = Common.window.width-listPadding * 2;
+const imageHeight = 179/328 * (Common.window.width-listPadding * 2 );
 
 
 const styles = StyleSheet.create({

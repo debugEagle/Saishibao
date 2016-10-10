@@ -1,6 +1,8 @@
 import NavBar from '../components/NavBar';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Swiper from '../components/swiper.dist';
+
 
 import React, { Component } from 'react';
 import {
@@ -8,23 +10,36 @@ import {
   TouchableOpacity,
   Text,
   View,
-  Image
+  Image,
 } from 'react-native';
 
 const mockData = {
   img: 'http://ssb-oss.oss-cn-hangzhou.aliyuncs.com/%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE/ipo-1.jpg',
 
+  img1: require('../imgs/gift_1.png'),
+  img2: require('../imgs/gift_2.png'),
 }
 
+
 class AccountInfo extends Component {
+
+
   render() {
 
     return (
       <View style={styles.container}>
         <NavBar name='礼品兑换' navigator={this.props.navigator}/>
-        <View style={styles.top}>
+        {/*<View style={styles.top}>
           <Image style={styles.image} source={{uri: mockData.img}}/>
-        </View>
+        </View>*/}
+        <Swiper  height={imageHeight} horizontal={true} autoplay={false}>
+          <View  style={styles.slide}>
+            <Image style={styles.image} source={mockData.img1} />
+          </View>
+          <View  style={styles.slide}>
+            <Image style={styles.image} source={mockData.img2} />
+          </View>
+        </Swiper>
         <View style={styles.border} />
         <View style={styles.bottom}>
           <View style={styles.stamps}>
@@ -52,9 +67,12 @@ class AccountInfo extends Component {
   }
 }
 
+const listPadding = 20;
+const imageWidth = Common.window.width-listPadding * 2;
+const imageHeight = 179/328 * (Common.window.width-listPadding * 2 );
 const containerHeight = Common.window.height - 64;
-const imageHeight = (containerHeight * 2 / 3) + 30;
-const imageWidth = Common.window.width - 30;
+// const imageHeight = (containerHeight * 2 / 3) + 30;
+// const imageWidth = Common.window.width - 30;
 const styles = StyleSheet.create({
   container: {
     height: containerHeight = containerHeight,
@@ -119,7 +137,17 @@ const styles = StyleSheet.create({
   exchangeBtnText: {
     fontSize: 16,
     color: 'white',
-  }
+  },
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'transparent'
+  },
+  image: {
+    height: imageHeight,
+    width: Common.window.width,
+    resizeMode: Image.resizeMode.cover
+  },
 });
 
 export default AccountInfo

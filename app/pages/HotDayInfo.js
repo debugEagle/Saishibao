@@ -53,7 +53,7 @@ class HotList extends Component {
 
   }
 
-  componentDidMount() {
+  componentWillMount() {
     InteractionManager.runAfterInteractions(() => {
 
       const { hotMatch } = this.props;
@@ -95,15 +95,17 @@ class HotList extends Component {
     );
   }
 
-  _onPressDetailStruct(bigMatch) {
-
-    this.props.navigator.push({
-      title: 'MatchSettingContainer',
-      component: MatchSettingContainer,
-      passProps: {
-        bigMatch
-      },
-    });
+  _onPressDetailStruct(bigMatch, isStruct) {
+    // InteractionManager.runAfterInteractions(() => {
+      this.props.navigator.push({
+        title: 'MatchSettingContainer',
+        component: MatchSettingContainer,
+        passProps: {
+          bigMatch,
+          isStruct: isStruct,
+        },
+      });
+    // });
   }
 
   _rederUnselectedDate(hotDay) {
@@ -177,18 +179,17 @@ class HotList extends Component {
 
           <View style={styles.detailJoinAndOthers}>
 
-              <View style={styles.detailStruct}>
-                <TouchableOpacity onPress={() => this._onPressDetailStruct(bigMatch)}>
-                  <Text style={styles.detailStructText}>比赛结构表  </Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity style={styles.detailStruct} onPress={() => this._onPressDetailStruct(bigMatch, true)}>
+                <Text style={styles.detailStructText}>比赛结构表</Text>
+              </TouchableOpacity>
 
             <View style={styles.detailJoin}>
-              {/*<Text style={styles.detailJoinText}>参加赛事  </Text>*/}
+              <Text style={styles.detailJoinText}>参加赛事  </Text>
             </View>
-            <View style={styles.detailResult}>
-              {/*<Text style={styles.detailResultText}>比赛结果   </Text>*/}
-            </View>
+
+            <TouchableOpacity style={styles.detailResult} onPress={() => this._onPressDetailStruct(bigMatch, false)}>
+              <Text style={styles.detailResultText}>奖金结构表</Text>
+            </TouchableOpacity>
           </View>
 
 
@@ -225,7 +226,7 @@ class HotList extends Component {
                 horizontal={true}
               />
             </View>
-            <ListView style={{height: Common.window.height - 67 - 44}}
+            <ListView style={{backgroundColor: '#e0eaff', height: Common.window.height - 67 - 44}}
               enableEmptySections = {true}
               dataSource={this.state.daysDataSource.cloneWithRows(selectedList)}
               renderRow={this._renderDayDetailList}
@@ -245,6 +246,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Common.colors.containerBgColor,
+    // backgroundColor: '#e0eaff',
   },
   dateContainer: {
 
@@ -291,7 +293,7 @@ const styles = StyleSheet.create({
   detailTitle: {
     paddingTop: 5,
     borderBottomWidth: 1,
-    borderBottomColor: '#e0eaff',
+    borderBottomColor: '#e0e0e0',
     alignItems: 'center',
     height: 65,
     marginLeft: 60,

@@ -16,11 +16,13 @@ const mockData = {
 }
 
 class AccountInfo extends Component {
+
+  
   render() {
 
     return (
       <View style={styles.container}>
-        <NavBar name='俱乐部' navigator={this.props.navigator}/>
+        <NavBar name='俱乐部' navigator={this.props.navigator}  />
         <View style={styles.spaceTop} />
         <View style={styles.infoItems}>
           <View style={[styles.infoItem,styles.headImageItem,styles.withBorderBottom]}>
@@ -32,9 +34,9 @@ class AccountInfo extends Component {
             <View style={styles.itemValue}>
               <Image style={styles.headImage} source={{uri:mockData.img}}/>
             </View>
-            <View style={styles.itemArrow}>
+            {/*<View style={styles.itemArrow}>
               <Icon color="#e0eaff" size={16} name="chevron-right"/>
-            </View>
+            </View>*/}
           </View>
           <View style={[styles.infoItem,styles.withBorderBottom]}>
             <View style={styles.itemLabel}>

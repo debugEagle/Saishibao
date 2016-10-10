@@ -33,11 +33,11 @@ class MatchSetting extends Component {
   }
 
 
-  componentDidMount() {
-    InteractionManager.runAfterInteractions(() => {
+  componentWillMount() {
+    // InteractionManager.runAfterInteractions(() => {
       this.props.actions.fetchMatchSetting();
 
-    });
+    // });
 
   }
 
@@ -135,38 +135,46 @@ class MatchSetting extends Component {
   }
 
 
+
+
   render() {
 
     const { MatchSetting } = this.props;
-    // const { bigMatch } = this.props;
     let matchSetting = MatchSetting.matchSetting;
+    const isStruct = this.props.isStruct;
 
+    let title = isStruct? '比赛结构表': '奖金结构表';
 
     return (
       <View style={styles.container}>
-        <NavBar name='比赛结构表' navigator={this.props.navigator}/>
+        <NavBar name={title} navigator={this.props.navigator}/>
         {MatchSetting.isLoading ?
 
         <Loading /> :
 
         <ScrollView style={styles.scrollContainer}>
-          {this._renderTitleRow('赛事日期', '开始时间', '涨盲时间', '初始筹码')}
-          {this._renderInfoRow(matchSetting)}
-          {this._renderTitleRow('级别', '小盲', '大盲', '前注')}
+          {isStruct
+          ?
+          <View>
+            {this._renderTitleRow('赛事日期', '开始时间', '涨盲时间', '初始筹码')}
+            {this._renderInfoRow(matchSetting)}
+            {this._renderTitleRow('级别', '小盲', '大盲', '前注')}
 
 
-          {matchSetting.items.map((item, i) => {
-            return (<View key={i}>{this._renderItemRow(item)}</View>);
-          })}
+            {matchSetting.items.map((item, i) => {
+              return (<View key={i}>{this._renderItemRow(item)}</View>);
+            })}
+          </View>:
+          <View>
+            {/*<View style={styles.settingBonusRow}>
+              <Text style={styles.settingInfoRowText}>奖金结构表</Text>
+            </View>*/}
 
-          <View style={styles.settingBonusRow}>
-            <Text style={styles.settingInfoRowText}>奖金结构表</Text>
+            {matchSetting.bonuses.map((item, i) => {
+              return (<View key={i}>{this._renderSettingBonusRow(item)}</View>);
+            })}
           </View>
-
-          {matchSetting.bonuses.map((item, i) => {
-            return (<View key={i}>{this._renderSettingBonusRow(item)}</View>);
-          })}
-
+        }
 
         </ScrollView>
       }

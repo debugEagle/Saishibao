@@ -37,6 +37,10 @@ let startUserLoginWithToken = () => {
 
     AsyncStorage.getItem(Common.userToken)
       .then((value) => {
+        if (!value) {
+          console.log('userToken exit');
+          // return
+        }
         console.log('userToken ' + value);
 
         // let value = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNDc1ODQwMDk0LCJleHAiOjE0ODM2MTYwOTR9.oJ6D90eSEAnFUt-7qmDaHVsEdSXQj4d6ZV5_ZcsL3L4';
@@ -58,6 +62,41 @@ let startUserLoginWithToken = () => {
 
   }
 }
+
+let userLogout = () => {
+  let url = 'https://www.91buyin.com/user';
+  return dispatch => {
+    console.log('userLogout');
+    AsyncStorage.setItem(Common.userToken, '');
+    dispatch(receiveLogout());
+  //
+  //   dispatch(fetchUserLoginWithToken());
+  //
+  //   AsyncStorage.getItem(Common.userToken)
+  //     .then((value) => {
+  //       console.log('userToken ' + value);
+  //
+  //       // let value = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNDc1ODQwMDk0LCJleHAiOjE0ODM2MTYwOTR9.oJ6D90eSEAnFUt-7qmDaHVsEdSXQj4d6ZV5_ZcsL3L4';
+  //       request(url, 'GET', 5, {}, value).then((json) => {
+  //
+  //         try {
+  //           let {code, msg} = json;
+  //           dispatch(receiveUserLoginWithToken(code, msg));
+  //
+  //
+  //         } catch (e) {
+  //           console.log(e.name);
+  //         }
+  //       });
+  //
+  //
+  //     });
+  //
+  //
+  }
+}
+
+
 
 
 
@@ -95,10 +134,17 @@ let fetchUserLoginWithToken = () => {
   }
 }
 
+let receiveLogout = () => {
+  return {
+    type: types.RECEIVE_USERLOGOUT,
+
+  }
+}
+
 
 
 
 
 export {
-  startUserLogin, startUserLoginWithToken
+  startUserLogin, startUserLoginWithToken, userLogout
 }

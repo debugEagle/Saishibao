@@ -48,15 +48,19 @@ class DailyInfo extends Component {
   }
 
 
-  _onPressDetailStruct(bigMatch) {
+  _onPressDetailStruct(bigMatch, isStruct) {
+    console.log('isStruct '+ isStruct);
     this.props.navigator.push({
       title: 'MatchSettingContainer',
       component: MatchSettingContainer,
       passProps: {
-        bigMatch
+        bigMatch,
+        isStruct: isStruct
       },
     });
   }
+
+
 
   _renderDailyInfoList(item) {
     return (
@@ -91,18 +95,19 @@ class DailyInfo extends Component {
 
           <View style={styles.detailJoinAndOthers}>
 
-              <View style={styles.detailStruct}>
-                <TouchableOpacity onPress={() => this._onPressDetailStruct(item)}>
-                  <Text style={styles.detailStructText}>比赛结构表  </Text>
-                </TouchableOpacity>
-              </View>
+            <TouchableOpacity style={styles.detailStruct} onPress={() => this._onPressDetailStruct(item, true)}>
+              <Text style={styles.detailStructText}>比赛结构表</Text>
+            </TouchableOpacity>
 
             <View style={styles.detailJoin}>
-              {/*<Text style={styles.detailJoinText}>参加赛事  </Text>*/}
+              <Text style={styles.detailJoinText}>参加赛事</Text>
             </View>
-            <View style={styles.detailResult}>
-              {/*<Text style={styles.detailResultText}>比赛结果   </Text>*/}
-            </View>
+            <TouchableOpacity style={styles.detailResult} onPress={() => this._onPressDetailStruct(item, false)}>
+
+              <Text style={styles.detailResultText}>奖金结构表</Text>
+            </TouchableOpacity>
+
+
           </View>
 
 
@@ -120,7 +125,7 @@ class DailyInfo extends Component {
         <NavBar name={this.props.title} navigator={this.props.navigator}/>
         {DailyInfo.isLoading ?
         <Loading /> :
-        <ListView style={{height: Common.window.height - 67 - 44}}
+        <ListView style={{backgroundColor: '#e0eaff', height: Common.window.height - 67 - 44}}
           enableEmptySections = {true}
           dataSource={this.state.dataSource.cloneWithRows(dailyInfoList)}
           renderRow={this._renderDailyInfoList}

@@ -44,17 +44,17 @@ class UserLogin extends Component {
   }
 
   _onLoginBtn() {
-    // if (this.state.pwd.length < 6) {
-    //   this.refs.toast.show('密码长度不能小于6位');
-    //   return;
-    // }
-    //
-    // if (this.state.mobile.length < 11) {
-    //   this.refs.toast.show('手机号码长度不正确');
-    //   return;
-    // }
+    if (this.state.pwd.length < 6) {
+      this.refs.toast.show('密码长度不能小于6位');
+      return;
+    }
 
-    this.props.actions.startUserLogin('18840822722' ,'123465');
+    if (this.state.mobile.length < 11) {
+      this.refs.toast.show('手机号码长度不正确');
+      return;
+    }
+
+    this.props.actions.startUserLogin(this.state.mobile, this.state.pwd);
 
     if (this.state.interval == null) {
       this.state.interval = setInterval(this._checkCode, 500);

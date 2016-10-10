@@ -14,7 +14,6 @@ import {
 const httpx = NativeModules.httpx;
 
 let request = (url, method='GET', timeout=5, post={}, userToken='') => {
-  console.log('userToken111  ' + userToken);
   let promise = new Promise((resolve, reject) => {
     httpx.request({
       url: url,
@@ -115,11 +114,14 @@ let getMonths = () => {
 
 //返回日期字符串
 let getDataStr = (AddDayCount) =>  {
-  var dd = new Date();
+  let dd = new Date();
   dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
-  var y = dd.getFullYear();
-  var m = dd.getMonth()+1;//获取当前月份的日期
-  var d = dd.getDate();
+  let y = dd.getFullYear();
+  let m = dd.getMonth()+1;//获取当前月份的日期
+  let d = dd.getDate();
+
+  m = m<10 ? '0'+m : m;
+  d = d<10 ? '0'+d : d;
   return y+"-"+m+"-"+d;
 }
 

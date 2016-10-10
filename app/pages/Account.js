@@ -1,5 +1,7 @@
 import Common from '../common/constants';
 import UserLoginContainer from '../containers//UserLoginContainer';
+import AccountGift from './AccountGift';
+import AccountInfo from './AccountInfo';
 
 import React, { Component } from 'react';
 import {
@@ -8,6 +10,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  InteractionManager,
   AsyncStorage
 } from 'react-native';
 
@@ -23,17 +26,64 @@ class Account extends Component {
 
   componentWillMount() {
     // this.props.actions.startUserLoginWithToken();
+    console.log('startUserLoginWithToken');
+  }
+  componentDidUpdate() {
+    // this.props.actions.startUserLoginWithToken();
+    console.log('componentDidUpdate');
   }
 
+  componentWillReceiveProps() {
+    // this.props.actions.startUserLoginWithToken();
+
+    console.log('componentWillReceiveProps');
+
+  }
+
+  //判断是否已经登陆，
+  _checkHaveLogined() {
+    const {UserLogin} = this.props;
+
+    return UserLogin.haveLogined;
+
+
+
+  }
   _onPressLoginBtn() {
     this.props.navigator.push({
 
       component: UserLoginContainer,
-      passProps: {
-      },
+
     });
 
 
+  }
+
+  _onPressLogoutBtn() {
+    this.props.actions.userLogout();
+  }
+
+  _onPressExchangeBtn() {
+    this.props.navigator.push({
+      component: AccountGift,
+    });
+  }
+
+  _onPressInfoBtn() {
+
+    if (this._checkHaveLogined) {
+      InteractionManager.runAfterInteractions(() => {
+
+        this.props.navigator.push({
+          component: AccountInfo,
+
+        });
+      });
+
+    }
+    else {
+      this._onPressLoginBtn();
+    }
   }
 
   render() {
@@ -51,14 +101,18 @@ class Account extends Component {
                   <Text style={styles.stateText}>点击登陆</Text>
               </TouchableOpacity>
             :
-              <Text style={styles.stateText}>已登陆</Text>
+              <TouchableOpacity style={styles.stateView} onPress={() => this._onPressLogoutBtn()}>
+                  <Text style={styles.stateText}>已登陆/点击登出</Text>
+              </TouchableOpacity>
+
             }
 
           </View>
           <View style={styles.menuArea}>
             <View style={styles.menuView}>
               <View style={[styles.menuRow, styles.withBorderBottom, {marginTop:35}]}>
-                <TouchableOpacity style={[styles.menuItem, styles.withBorderRight]}>
+                <TouchableOpacity style={[styles.menuItem, styles.withBorderRight]}
+                  onPress={() => this._onPressInfoBtn()}>
                   <View style={[styles.menuImageView, {marginLeft: -20}]}>
                     <Image style={styles.menuImage} source={require('../imgs/account_info.png')}/>
                   </View>
@@ -90,7 +144,8 @@ class Account extends Component {
                 </TouchableOpacity>
               </View>
               <View style={[styles.menuRow, {marginBottom:35}]}>
-                <TouchableOpacity style={[styles.menuItem, styles.withBorderRight]}>
+                <TouchableOpacity style={[styles.menuItem, styles.withBorderRight]}
+                  onPress={() => this._onPressExchangeBtn()}>
                   <View style={[styles.menuImageView, {marginLeft: -20}]}>
                     <Image style={styles.menuImage} source={require('../imgs/account_gift.png')}/>
                   </View>
@@ -182,6 +237,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20
+  },
+  stateView2: {
+    flexDirection: 'row',
   },
   stateText: {
     fontSize: 15,

@@ -10,41 +10,6 @@ import {
   View,
 } from 'react-native';
 
-const styles = StyleSheet.create({
-  leftButton: {
-    marginLeft: 5,
-  },
-  rightButton: {
-    marginRight: 5,
-  },
-  button: {
-    width: 44,
-    height: 44,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  nav: {
-    backgroundColor: Common.colors.themeColor,
-    flexDirection: 'row',
-    alignItems: 'center',
-    zIndex: 99
-  },
-  title: {
-    flex: 1,
-    height: 44,
-    justifyContent: 'center',
-  },
-  btnText: {
-    fontSize: 16,
-    marginRight: 10,
-    color: '#ffffff',
-  },
-  titleText: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: '#ffffff',
-  }
-});
 
 class RightButton extends Component {
   render() {
@@ -92,5 +57,42 @@ class NavBar extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  leftButton: {
+    marginLeft: 5,
+  },
+  rightButton: {
+    marginRight: 5,
+  },
+  button: {
+    width: 44,
+    height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  nav: {
+    backgroundColor: Common.colors.themeColor,
+    flexDirection: 'row',
+    alignItems: 'center',
+    zIndex: 99
+  },
+  title: {
+    flex: 1,
+    height: 44,
+    justifyContent: 'center',
+  },
+  btnText: {
+    fontSize: 16,
+    marginRight: 10,
+    color: '#ffffff',
+  },
+  titleText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#ffffff',
+  }
+});
+
 
 export default NavBar

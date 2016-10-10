@@ -47,6 +47,8 @@ let userLogin = (state = initialState, action) => {
           msg: action.msg,
           haveLogined: haveLogined,
         })
+        case types.FETCH_USERLOGOUT:
+          return initialState
 
     default:
       return state;

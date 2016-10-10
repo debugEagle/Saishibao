@@ -36,11 +36,13 @@ class HotList extends Component {
 
   componentWillMount(){
     this.props.actions.fetchHots({start: true});
-    // this.props.actions.startUserLoginWithToken();
+    this.props.actions.startUserLoginWithToken();
 
   }
 
   _onPressHotItem(hotMatch) {
+    // InteractionManager.runAfterInteractions(() => {
+
     this.props.navigator.push({
       title: 'MatchIntro',
       component: HotIntroContainer,
@@ -48,6 +50,7 @@ class HotList extends Component {
         hotMatch
       },
     });
+  // });
   }
 
   _renderListView() {
