@@ -1,49 +1,38 @@
 import * as types from '../actionTypes';
-import { request } from '../../common/utils.js'
+import HTTPUtil from '../../common/utils/HTTPUtil'
 
-
-
-import {
-  NativeModules,
-} from 'react-native'
-
-const httpx = NativeModules.httpx;
-
-let fetchDailies = (city,args) => {
-  let oArguments = {
+let fetchDailies = (city, args, success=()=>{}, error=()=>{}) => {
+  let params = {
     start: true,
     offset: 0,
     limit: 15
   }
   if (!args.start) {
-    oArguments = Object.assign({}, oArguments, args)
+    params = Object.assign({}, params, args)
   }
-  let url = 'https://www.91buyin.com/casino?country=中国&city=' + city + '&offset=' + oArguments.offset + '&limit=' + oArguments.limit;
-  url = encodeURI(url);
-  console.log(url);
-  let casinos = [];
-  let count = 0;
+  let start = params.start
+  delete params.start
+  params.city = city
+  let url = 'http://www.91buyin.com/casino?country=中国'
+  let iCount = 0
+  let casinos = []
 
   return dispatch => {
-    dispatch(fetchDailyList(oArguments.start, city));
-    request(url).then((json) => {
+    dispatch(fetchDailyList(start, city));
+    HTTPUtil.get(url, params).then((json) => {
       try {
-        let {
-          code,
-          value: {
-            count: iCount,
-            rows: aCasinos
-          },
-        } = json;
-        if (code === '0') {
-          casinos = aCasinos;
-          count = iCount;
-          dispatch(receiveDailyList(count,casinos));
+        if (json.code === '0') {
+          iCount = json.value.count
+          casinos = json.value.rows
+          success();
         }
-      }
-      catch (e) {
+        dispatch(receiveDailyList(iCount,casinos));
+      } catch (e) {
         console.log(e.name)
       }
+    },(connect_error)=>{
+      console.log(connect_error.msg);
+      error();
     });
   }
 }

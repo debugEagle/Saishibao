@@ -60,7 +60,7 @@
     [request release];
   }];
   
-  [request setFailedBlock:^{
+  [request seterrorBlock:^{
     handler(request.error, nil);
     [request release];
   }];

@@ -1860,11 +1860,11 @@ CGImageRef YYCGImageCreateWithWebPData(CFDataRef webpData,
     _apngSource = nil;
     
     [self _updateSourceImageIO]; // decode first frame
-    if (_frameCount == 0) return; // png decode failed
+    if (_frameCount == 0) return; // png decode error
     if (!_finalized) return; // ignore multi-frame before finalized
     
     yy_png_info *apng = yy_png_info_create(_data.bytes, (uint32_t)_data.length);
-    if (!apng) return; // apng decode failed
+    if (!apng) return; // apng decode error
     if (apng->apng_frame_num == 0 ||
         (apng->apng_frame_num == 1 && apng->apng_first_frame_is_cover)) {
         yy_png_info_release(apng);
@@ -2777,7 +2777,7 @@ CGImageRef YYCGImageCreateWithWebPData(CFDataRef webpData,
     if (!newImageRef) return self;
     UIImage *newImage = [[self.class alloc] initWithCGImage:newImageRef scale:self.scale orientation:self.imageOrientation];
     CGImageRelease(newImageRef);
-    if (!newImage) newImage = self; // decode failed, return self.
+    if (!newImage) newImage = self; // decode error, return self.
     newImage.yy_isDecodedForDisplay = YES;
     return newImage;
 }

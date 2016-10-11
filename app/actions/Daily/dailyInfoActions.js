@@ -1,37 +1,30 @@
 import * as types from '../actionTypes';
-import { request } from '../../common/utils.js';
+import HTTPUtil from '../../common/utils/HTTPUtil';
 
-let fetchDailyInfo = (casino_id, match_day) => {
-  let url = 'https://www.91buyin.com/texas/daily/match?casino_id='+ casino_id + '&match_day=' + match_day;
-
-console.log('casino_id ' + casino_id);
-console.log('match_day ' + match_day);
-
-  url = encodeURI(url);
-  let dailyInfoList = [];
+let fetchDailyInfo = (casino_id, match_day, success=()=>{}, error=()=>{}) => {
+  let url = 'http://www.91buyin.com/texas/daily/match'
+  let params = {
+    casino_id,
+    match_day
+  }
+  let dailyInfoList = []
   return dispatch => {
     dispatch(fetchDailyInfoList());
-    request(url).then((json) => {
+    HTTPUtil.get(url, params).then((json) => {
       try {
-        let {
-          code,
-          value: {
-            rows: rows
-          }
-        } = json;
-
-
-        if (code === '0') {
-          dailyInfoList = rows;
-          console.log(rows.length);
-          dispatch(receiveDailyInfoList(dailyInfoList));
+        if (json.code === '0') {
+          dailyInfoList = json.value.rows
+          success();
         }
-
+        dispatch(receiveDailyInfoList(dailyInfoList));
       } catch (e) {
         console.log(e.name)
       }
+    },(connect_error)=>{
+      console.log(connect_error.msg);
+      error();
     });
-  };
+  }
 }
 
 let fetchDailyInfoList = () => {

@@ -301,7 +301,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 	// Called on the delegate (if implemented) when the request completes successfully. Default is requestFinished:
 	SEL didFinishSelector;
 	
-	// Called on the delegate (if implemented) when the request fails. Default is requestFailed:
+	// Called on the delegate (if implemented) when the request fails. Default is requesterror:
 	SEL didFailSelector;
 	
 	// Called on the delegate (if implemented) when the request receives data. Default is request:didReceiveData:
@@ -555,7 +555,7 @@ typedef void (^ASIDataBlock)(NSData *data);
 - (void)setStartedBlock:(ASIBasicBlock)aStartedBlock;
 - (void)setHeadersReceivedBlock:(ASIHeadersBlock)aReceivedBlock;
 - (void)setCompletionBlock:(ASIBasicBlock)aCompletionBlock;
-- (void)setFailedBlock:(ASIBasicBlock)aFailedBlock;
+- (void)seterrorBlock:(ASIBasicBlock)aerrorBlock;
 - (void)setBytesReceivedBlock:(ASIProgressBlock)aBytesReceivedBlock;
 - (void)setBytesSentBlock:(ASIProgressBlock)aBytesSentBlock;
 - (void)setDownloadSizeIncrementedBlock:(ASISizeBlock) aDownloadSizeIncrementedBlock;

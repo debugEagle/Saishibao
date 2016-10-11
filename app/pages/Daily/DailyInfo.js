@@ -42,7 +42,6 @@ class DailyInfo extends Component {
 
   componentDidMount() {
     const { casino, showDate } = this.props;
-
     this.props.actions.fetchDailyInfo(casino.casino_id, showDate);
   }
 

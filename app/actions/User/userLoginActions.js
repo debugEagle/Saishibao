@@ -5,7 +5,7 @@ import { AsyncStorage } from 'react-native';
 import Common from '../../common/constants';
 
 
-let startUserLogin = (mobile, password, success=()=>{}, failed=()=>{}) => {
+let startUserLogin = (mobile, password, success=()=>{}, error=()=>{}) => {
   let url = 'http://www.91buyin.com/user/login';
   post = {mobile: mobile, password: password};
   return dispatch => {
@@ -21,11 +21,11 @@ let startUserLogin = (mobile, password, success=()=>{}, failed=()=>{}) => {
         success();
       } catch (e) {
         console.log(e.name)
-          failed();
+          error();
       }
-    },(error)=>{
-      console.log(error.message);
-      failed();
+    },(connect_error)=>{
+      console.log(connect_error.msg);
+      error();
     });
   }
 }

@@ -8,6 +8,7 @@ import UserLogin from '../User/UserLogin';
 import AccountInfo from './AccountInfo'
 import AccountTicket from './AccountTicket'
 import AccountGift from './AccountGift'
+import AccountOrder from './AccountOrder'
 
 import React, { Component } from 'react';
 import {
@@ -31,35 +32,30 @@ class Account extends Component {
   _onPressLoginBtn() {
     this.props.navigator.push({
       component: UserLogin,
-      passProps: {
-      },
     });
   }
 
   _onPressMyInfo() {
     this.props.navigator.push({
-        title: '我的信息',
         component: AccountInfo,
-        passProps: {
-      },
     });
   }
 
   _onPressMyTicket() {
     this.props.navigator.push({
-        title: '门票验证',
         component: AccountTicket,
-        passProps: {
-      },
     });
   }
 
   _onPressMyGift() {
     this.props.navigator.push({
-        title: '门票兑换',
         component: AccountGift,
-        passProps: {
-      },
+    });
+  }
+
+  _onPressMyOrder() {
+    this.props.navigator.push({
+        component: AccountOrder,
     });
   }
 
@@ -75,11 +71,11 @@ class Account extends Component {
           <View style={styles.statusArea}>
             {!UserLogin.haveLogined?
               <TouchableOpacity
-                  style={styles.stateView}
-                  onPress={() => this._onPressLoginBtn()}>
+                style={styles.stateView}
+                onPress={() => this._onPressLoginBtn()}>
                 <Text style={styles.stateText}>点击登陆</Text>
               </TouchableOpacity>
-            :
+              :
               <Text style={styles.stateText}>已登陆</Text>
             }
           </View>
@@ -87,50 +83,52 @@ class Account extends Component {
             <View style={styles.menuView}>
               <View style={[styles.menuRow, styles.withBorderBottom, {marginTop:35}]}>
                 <TouchableOpacity
-                    onPress={()=>this._onPressMyInfo()}
-                    style={[styles.menuItem, styles.withBorderRight]}>
+                  onPress={()=>this._onPressMyInfo()}
+                  style={[styles.menuItem, styles.withBorderRight]}>
                   <View style={[styles.menuImageView, {marginLeft: -20}]}>
                     <Image style={styles.menuImage} source={require('../../imgs/account_info.png')}/>
                   </View>
                   <View style={[styles.menuTextView, {marginLeft: -20}]}>
                     <Text style={styles.menuText}>
-                    我的信息
+                      我的信息
                     </Text>
                   </View>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={[styles.menuItem, styles.withBorderRight, {flex: 1.2}]}
-                    onPress={()=>this._onPressMyTicket()}>
+                  style={[styles.menuItem, styles.withBorderRight, {flex: 1.2}]}
+                  onPress={()=>this._onPressMyTicket()}>
                   <View style={styles.menuImageView}>
                     <Image style={styles.menuImage} source={require('../../imgs/account_ticket_verification.png')}/>
                   </View>
                   <View style={styles.menuTextView}>
                     <Text style={styles.menuText}>
-                    门票验证
+                      门票验证
                     </Text>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem}>
+                <TouchableOpacity
+                  style={styles.menuItem}
+                  onPress={()=>this._onPressMyOrder()}>
                   <View style={[styles.menuImageView, {marginRight: -20}]}>
                     <Image style={styles.menuImage} source={require('../../imgs/account_orders.png')}/>
                   </View>
                   <View style={[styles.menuTextView, {marginRight: -20}]}>
                     <Text style={styles.menuText}>
-                    我的订单
+                      我的订单
                     </Text>
                   </View>
                 </TouchableOpacity>
               </View>
               <View style={[styles.menuRow, {marginBottom:35}]}>
                 <TouchableOpacity
-                    onPress={()=>this._onPressMyGift()}
-                    style={[styles.menuItem, styles.withBorderRight]}>
+                  onPress={()=>this._onPressMyGift()}
+                  style={[styles.menuItem, styles.withBorderRight]}>
                   <View style={[styles.menuImageView, {marginLeft: -20}]}>
                     <Image style={styles.menuImage} source={require('../../imgs/account_gift.png')}/>
                   </View>
                   <View style={[styles.menuTextView, {marginLeft: -20}]}>
                     <Text style={styles.menuText}>
-                    点券兑换
+                      点券兑换
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -140,7 +138,7 @@ class Account extends Component {
                   </View>
                   <View style={styles.menuTextView}>
                     <Text style={styles.menuText}>
-                    问题反馈
+                      问题反馈
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -150,7 +148,7 @@ class Account extends Component {
                   </View>
                   <View style={[styles.menuTextView, {marginRight: -20}]}>
                     <Text style={styles.menuText}>
-                    关于我们
+                      关于我们
                     </Text>
                   </View>
                 </TouchableOpacity>

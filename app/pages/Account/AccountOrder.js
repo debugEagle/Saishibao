@@ -61,7 +61,7 @@ const mockData = [
   },
 ]
 
-class AccountTicket extends Component {
+class AccountOrder extends Component {
 
   constructor(props) {
     super(props)
@@ -76,7 +76,7 @@ class AccountTicket extends Component {
 
     return (
       <TouchableOpacity style={styles.ticket}>
-        <Image style={styles.ticketBgImg} source={require('../../imgs/account_ticket_bg.png')}>
+        <Image style={styles.ticketBgImg} source={require('../../imgs/account_order_bg.png')}>
           <View style={styles.ticketDetail}>
             <Text style={{fontSize: 16, fontWeight: '900', color: '#636363'}}>京扑克俱乐部</Text>
             <Text style={{fontSize: 14, fontWeight: '400', color: '#787878'}}>晚场暖身赛</Text>
@@ -88,15 +88,15 @@ class AccountTicket extends Component {
     )
   }
 
-  _renderTickets(tickets) {
+  _renderOrders(orders) {
 
     return (
       <ListView
 
-        dataSource={this.state.dataSource.cloneWithRows(tickets)}
+        dataSource={this.state.dataSource.cloneWithRows(orders)}
         renderRow={this._renderTicket.bind(this)}
         initialListSize={15}
-        style={styles.tickets}
+        style={styles.orders}
         enableEmptySections={true}/>
     )
   }
@@ -108,10 +108,10 @@ class AccountTicket extends Component {
         marginTop: 10,
       }} renderTabBar={() => <TabBarInner tabNames={['未验证', '已验证']}/>}>
         <View tabLabel='false' style={{flex: 1}}>
-          {this._renderTickets(mockData)}
+          {this._renderOrders(mockData)}
         </View>
         <View tabLabel='true' style={{flex: 1}}>
-          {this._renderTickets(mockData)}
+          {this._renderOrders(mockData)}
         </View>
       </ScrollableTabView>
     )
@@ -121,7 +121,7 @@ class AccountTicket extends Component {
 
     return (
       <View style={styles.container}>
-        <NavBar name='门票验证' navigator={this.props.navigator}/>
+        <NavBar name='我的订单' navigator={this.props.navigator}/>
         {this._renderScrollTabView()}
       </View>
     );
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Common.colors.containerBgColor
   },
-  tickets: {
+  orders: {
     marginTop: 15,
   },
   ticket: {
@@ -163,13 +163,4 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => ({
-    Account: state.HotList,
-    UserLogin: state.UserLogin
-  });
-
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(ActionCreator, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AccountTicket)
+export default AccountOrder

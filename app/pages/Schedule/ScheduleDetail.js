@@ -67,7 +67,6 @@ class AccountInfo extends Component {
   }
 
   _renderRow(item) {
-    console.log('1234');
     let c_code = item.exchangeRate.currency_code.toLowerCase()
     let real_buyin = item.real_buyin
     if (item.rake_buyin !== 0) {

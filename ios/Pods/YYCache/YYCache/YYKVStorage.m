@@ -111,7 +111,7 @@ static UIApplication *_YYSharedApplication() {
         _dbOpenErrorCount++;
         
         if (_errorLogsEnabled) {
-            NSLog(@"%s line:%d sqlite open failed (%d).", __FUNCTION__, __LINE__, result);
+            NSLog(@"%s line:%d sqlite open error (%d).", __FUNCTION__, __LINE__, result);
         }
         return NO;
     }
@@ -141,7 +141,7 @@ static UIApplication *_YYSharedApplication() {
             }
         } else if (result != SQLITE_OK) {
             if (_errorLogsEnabled) {
-                NSLog(@"%s line:%d sqlite close failed (%d).", __FUNCTION__, __LINE__, result);
+                NSLog(@"%s line:%d sqlite close error (%d).", __FUNCTION__, __LINE__, result);
             }
         }
     } while (retry);
@@ -719,7 +719,7 @@ static UIApplication *_YYSharedApplication() {
         }
         return nil;
     }
-    [self _fileEmptyTrashInBackground]; // empty the trash if failed at last time
+    [self _fileEmptyTrashInBackground]; // empty the trash if error at last time
     return self;
 }
 

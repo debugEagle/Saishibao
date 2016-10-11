@@ -1,7 +1,7 @@
 import * as types from '../../actions/actionTypes';
 
 const initialState = {
-    intro: [],
+    intro: {},
     isLoading: true,
 };
 

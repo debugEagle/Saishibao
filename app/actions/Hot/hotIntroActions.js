@@ -1,19 +1,7 @@
 import * as types from '../actionTypes';
-import {
-  request
-} from '../../common/utils.js'
+import HTTPUtil from '../../common/utils/HTTPUtil'
 
-
-import {
-  NativeModules,
-  AlertIOS,
-} from 'react-native'
-
-const httpx = NativeModules.httpx;
-
-
-
-let fetchHotIntro = (bigMatchSerie_id, isLoading) => {
+let fetchHotIntro = (bigMatchSerie_id, isLoading, success=()=>{}, error=()=>{}) => {
 
   let intro = {
     // bigMatchSerie_id:
@@ -21,47 +9,27 @@ let fetchHotIntro = (bigMatchSerie_id, isLoading) => {
     // intro_title: 'APPT 韩国首尔',
     // intro_content: '',
   }
-  let url = 'https://www.91buyin.com/texas/big/serie/' + bigMatchSerie_id;
-
+  let url = 'http://www.91buyin.com/texas/big/serie/' + bigMatchSerie_id;
 
   return dispatch => {
     dispatch(fetchIntro());
-
-    request(url).then((json) => {
-
+    HTTPUtil.get(url).then((json) => {
       try {
-        let {
-          code,
-          value: {
-            intro_image_url,
-            intro_title,
-            intro_content,
-          }
-        } = json;
-
-        if (code === '0') {
-          
-          intro = {
-            intro_image_url,
-            intro_title,
-            intro_content,
-            bigMatchSerie_id,
-          };
-
-          dispatch(receiveIntro(intro));
-
-
+        if (json.code === '0') {
+          intro.intro_image_url = json.value.intro_image_url
+          intro.intro_title = json.value.intro_title
+          intro.intro_content = json.value.intro_content
+          intro.bigMatchSerie_id = json.value.bigMatchSerie_id
+          success();
         }
-
-
+        dispatch(receiveIntro(intro));
       } catch (e) {
         console.log(e.name)
       }
+    },(connect_error)=>{
+      console.log(connect_error.msg);
+      error();
     });
-
-
-
-
   }
 }
 
@@ -84,7 +52,6 @@ let resetHotIntro = () => {
 
   }
 }
-
 
 export {
   fetchHotIntro,

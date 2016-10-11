@@ -90,7 +90,7 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 			[fileManager createDirectoryAtPath:directory withIntermediateDirectories:NO attributes:nil error:nil];
 			if (![fileManager fileExistsAtPath:directory]) {
 				[[self accessLock] unlock];
-				[NSException raise:@"FailedToCreateCacheDirectory" format:@"Failed to create a directory for the cache at '%@'",directory];
+				[NSException raise:@"errorToCreateCacheDirectory" format:@"error to create a directory for the cache at '%@'",directory];
 			}
 		}
 	}
@@ -412,13 +412,13 @@ static NSArray *fileExtensionsToHandleAsHTML = nil;
 	NSArray *cacheFiles = [fileManager contentsOfDirectoryAtPath:path error:&error];
 	if (error) {
 		[[self accessLock] unlock];
-		[NSException raise:@"FailedToTraverseCacheDirectory" format:@"Listing cache directory failed at path '%@'",path];	
+		[NSException raise:@"errorToTraverseCacheDirectory" format:@"Listing cache directory error at path '%@'",path];	
 	}
 	for (NSString *file in cacheFiles) {
 		[fileManager removeItemAtPath:[path stringByAppendingPathComponent:file] error:&error];
 		if (error) {
 			[[self accessLock] unlock];
-			[NSException raise:@"FailedToRemoveCacheFile" format:@"Failed to remove cached data at path '%@'",path];
+			[NSException raise:@"errorToRemoveCacheFile" format:@"error to remove cached data at path '%@'",path];
 		}
 	}
 	[[self accessLock] unlock];

@@ -9,8 +9,6 @@ import NavBar from '../../components/NavBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MatchSetting from '../Other/MatchSetting';
 
-
-
 import React, { Component } from 'react';
 import {
   Text,
@@ -27,11 +25,6 @@ import {
   InteractionManager,
   ScrollView,
 } from 'react-native';
-
-
-
-// let isLoading = true;
-
 
 class HotList extends Component {
   constructor(props) {
@@ -58,13 +51,9 @@ class HotList extends Component {
   }
 
   componentWillMount() {
-    InteractionManager.runAfterInteractions(() => {
 
-      const { hotMatch } = this.props;
-      this.props.actions.fetchHotDays(hotMatch.bigMatchSerie_id);
-
-    });
-
+    const { hotMatch } = this.props;
+    this.props.actions.fetchHotDays(hotMatch.bigMatchSerie_id);
   }
 
   componentWillUnmount() {
@@ -100,16 +89,14 @@ class HotList extends Component {
   }
 
   _onPressDetailStruct(bigMatch, isStruct) {
-    // InteractionManager.runAfterInteractions(() => {
-      this.props.navigator.push({
-        title: 'MatchSetting',
-        component: MatchSetting,
-        passProps: {
-          bigMatch,
-          isStruct: isStruct,
-        },
-      });
-    // });
+    this.props.navigator.push({
+      title: 'MatchSetting',
+      component: MatchSetting,
+      passProps: {
+        bigMatch,
+        isStruct: isStruct,
+      },
+    });
   }
 
   _rederUnselectedDate(hotDay) {
@@ -134,23 +121,18 @@ class HotList extends Component {
 
   _renderDayList(hotDay) {
     if (this.state.selctedDay === 0) {
-
       this.state.selctedDay = hotDay.day;
-
     }
 
     if ((hotDay.day === this.state.selctedDay))
     {
-
       return this._rederSelectedDate(hotDay);
     }
     else
     {
       return this._rederUnselectedDate(hotDay);
     }
-
   }
-
 
   _renderDayDetailList(bigMatch) {
     return (
@@ -159,52 +141,45 @@ class HotList extends Component {
         <View>
           <Text style={styles.detailRemarkText}>{bigMatch.remark}</Text>
         </View>
-          <View style={styles.detailTitle}>
-            <Text style={styles.detailTitleText}>{bigMatch.name}</Text>
-          </View>
-
-            <View style={styles.detailStyle}>
-              <Text style={styles.detailText}>类型:{bigMatch.style}</Text>
-
-              <View style={styles.detailPrice}>
-                <Text style={styles.detailText}>买入:{bigMatch.real_buyin}+{bigMatch.rake_buyin}</Text>
-                <Text style={styles.detailText}>   （￥ {bigMatch.unit_price})</Text>
-              </View>
-            </View>
-
-          <View style={styles.detailTime}>
-            <View style={styles.flex}>
-              <Text style={styles.detailTimeText}>开始时间: {bigMatch.open_time}</Text>
-            </View>
-            <View style={styles.flex}>
-              <Text style={styles.detailTimeText}>关闭注册: {bigMatch.close_reg_time}</Text>
-            </View>
-          </View>
-
-          <View style={styles.detailJoinAndOthers}>
-
-              <TouchableOpacity style={styles.detailStruct} onPress={() => this._onPressDetailStruct(bigMatch, true)}>
-                <Text style={styles.detailStructText}>比赛结构表</Text>
-              </TouchableOpacity>
-
-            <View style={styles.detailJoin}>
-              <Text style={styles.detailJoinText}>参加赛事  </Text>
-            </View>
-
-            <TouchableOpacity style={styles.detailResult} onPress={() => this._onPressDetailStruct(bigMatch, false)}>
-              <Text style={styles.detailResultText}>奖金结构表</Text>
-            </TouchableOpacity>
-          </View>
-
-
+        <View style={styles.detailTitle}>
+          <Text style={styles.detailTitleText}>{bigMatch.name}</Text>
         </View>
 
+        <View style={styles.detailStyle}>
+          <Text style={styles.detailText}>类型:{bigMatch.style}</Text>
 
+          <View style={styles.detailPrice}>
+            <Text style={styles.detailText}>买入:{bigMatch.real_buyin}+{bigMatch.rake_buyin}</Text>
+            <Text style={styles.detailText}>   （￥ {bigMatch.unit_price})</Text>
+          </View>
+        </View>
+
+        <View style={styles.detailTime}>
+          <View style={styles.flex}>
+            <Text style={styles.detailTimeText}>开始时间: {bigMatch.open_time}</Text>
+          </View>
+          <View style={styles.flex}>
+            <Text style={styles.detailTimeText}>关闭注册: {bigMatch.close_reg_time}</Text>
+          </View>
+        </View>
+
+        <View style={styles.detailJoinAndOthers}>
+
+          <TouchableOpacity style={styles.detailStruct} onPress={() => this._onPressDetailStruct(bigMatch, true)}>
+            <Text style={styles.detailStructText}>比赛结构表</Text>
+          </TouchableOpacity>
+
+          <View style={styles.detailJoin}>
+            <Text style={styles.detailJoinText}>参加赛事  </Text>
+          </View>
+
+          <TouchableOpacity style={styles.detailResult} onPress={() => this._onPressDetailStruct(bigMatch, false)}>
+            <Text style={styles.detailResultText}>奖金结构表</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
-
-
-
 
   render() {
     const { HotDayInfo } = this.props;
@@ -212,15 +187,13 @@ class HotList extends Component {
     let selectedList = HotDayInfo.selectedList;
     const { hotIntro } = this.props;
 
-
-
     return (
 
       <View style={styles.container}>
         <NavBar name={hotIntro.intro_title} navigator={this.props.navigator}/>
         {HotDayInfo.isLoading ?
-        <Loading /> :
-        <View>
+          <Loading /> :
+          <View>
             <View>
               <ListView
                 enableEmptySections = {true}
@@ -236,14 +209,12 @@ class HotList extends Component {
               renderRow={this._renderDayDetailList}
               initialListSize={1}
             />
-        </View>
+          </View>
         }
       </View>
-
     );
   }
 }
-
 
 const detailTitleColor = '#424242';
 const styles = StyleSheet.create({
@@ -408,9 +379,6 @@ const styles = StyleSheet.create({
     color: '#ff5722',
     fontSize: 14,
   }
-
-
-
 });
 
 const mapStateToProps = (state) => ({

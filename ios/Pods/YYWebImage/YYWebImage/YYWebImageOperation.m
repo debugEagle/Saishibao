@@ -359,8 +359,8 @@ static void URLInBlackListAdd(NSURL *url) {
 - (void)_startRequest:(id)object {
     if ([self isCancelled]) return;
     @autoreleasepool {
-        if ((_options & YYWebImageOptionIgnoreFailedURL) && URLBlackListContains(_request.URL)) {
-            NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorFileDoesNotExist userInfo:@{ NSLocalizedDescriptionKey : @"Failed to load URL, blacklisted." }];
+        if ((_options & YYWebImageOptionIgnoreerrorURL) && URLBlackListContains(_request.URL)) {
+            NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorFileDoesNotExist userInfo:@{ NSLocalizedDescriptionKey : @"error to load URL, blacklisted." }];
             [_lock lock];
             if (![self isCancelled]) {
                 if (_completion) _completion(nil, _request.URL, YYWebImageFromNone, YYWebImageStageFinished, error);
@@ -437,9 +437,9 @@ static void URLInBlackListAdd(NSURL *url) {
             NSError *error = nil;
             if (!image) {
                 error = [NSError errorWithDomain:@"com.ibireme.image" code:-1 userInfo:@{ NSLocalizedDescriptionKey : @"Web image decode fail." }];
-                if (_options & YYWebImageOptionIgnoreFailedURL) {
+                if (_options & YYWebImageOptionIgnoreerrorURL) {
                     if (URLBlackListContains(_request.URL)) {
-                        error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorFileDoesNotExist userInfo:@{ NSLocalizedDescriptionKey : @"Failed to load URL, blacklisted." }];
+                        error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorFileDoesNotExist userInfo:@{ NSLocalizedDescriptionKey : @"error to load URL, blacklisted." }];
                     } else {
                         URLInBlackListAdd(_request.URL);
                     }
@@ -728,7 +728,7 @@ static void URLInBlackListAdd(NSURL *url) {
             }
             [self _finish];
             
-            if (_options & YYWebImageOptionIgnoreFailedURL) {
+            if (_options & YYWebImageOptionIgnoreerrorURL) {
                 if (error.code != NSURLErrorNotConnectedToInternet &&
                     error.code != NSURLErrorCancelled &&
                     error.code != NSURLErrorTimedOut &&

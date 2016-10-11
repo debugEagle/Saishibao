@@ -1,14 +1,5 @@
 import * as types from '../actionTypes';
-import { request } from '../../common/utils.js'
-
-
-
-import {
-  NativeModules,
-  AlertIOS,
-} from 'react-native'
-
-
+import HTTPUtil from '../../common/utils/HTTPUtil'
 
 //存入数据库json格式
 // {
@@ -56,8 +47,7 @@ import {
 //   ]
 // };
 
-let fetchMatchSetting = (isLoading) => {
-
+let fetchMatchSetting = (isLoading, success=()=>{}, error=()=>{}) => {
 
   let matchSetting = {
     // month: 9,
@@ -92,41 +82,24 @@ let fetchMatchSetting = (isLoading) => {
     // ]
   };
 
-
-
-
-
-  let url = 'https://www.91buyin.com/texas/big/match/setting/9';
-
-
+  let url = 'http://www.91buyin.com/texas/big/match/setting/9';
 
   return dispatch => {
     dispatch(fetchSetting());
-    request(url).then((json) => {
-
+    HTTPUtil.get(url).then((json) => {
       try {
-        let {
-          code,
-          value: {structure}
-        } = json;
-
-
-        if (code === '0') {
-          matchSetting = JSON.parse(structure);
-          dispatch(receiveSetting(matchSetting));
+        if (json.code === '0') {
+          matchSetting = JSON.parse(json.value.structure);
+          success();
         }
-
+        dispatch(receiveSetting(matchSetting));
       } catch (e) {
         console.log(e.name)
       }
-
-
+    },(connect_error)=>{
+      console.log(connect_error.msg);
+      error();
     });
-
-
-
-
-
   }
 }
 

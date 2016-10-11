@@ -39,12 +39,11 @@ class HotList extends Component {
   }
 
   componentWillMount(){
-    this.props.actions.fetchHots({start: true}, ()=>{console.log('success');}, ()=>{console.log('failed');});
+    this.props.actions.fetchHots({start: true});
     // this.props.actions.startUserLoginWithToken();
   }
 
   _onPressHotItem(hotMatch) {
-    // InteractionManager.runAfterInteractions(() => {
 
     this.props.navigator.push({
       title: 'MatchIntro',
@@ -53,7 +52,6 @@ class HotList extends Component {
         hotMatch
       },
     });
-  // });
   }
 
   _renderListView() {

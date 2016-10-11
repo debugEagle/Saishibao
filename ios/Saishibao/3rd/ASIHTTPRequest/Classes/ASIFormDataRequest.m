@@ -323,7 +323,7 @@
 	NSError *err = nil;
 	unsigned long long fileSize = [[[[[[NSFileManager alloc] init] autorelease] attributesOfItemAtPath:file error:&err] objectForKey:NSFileSize] unsignedLongLongValue];
 	if (err) {
-		[self addToDebugBody:[NSString stringWithFormat:@"[Error: Failed to obtain the size of the file at '%@']",file]];
+		[self addToDebugBody:[NSString stringWithFormat:@"[Error: error to obtain the size of the file at '%@']",file]];
 	} else {
 		[self addToDebugBody:[NSString stringWithFormat:@"[%llu bytes of data from file '%@']",fileSize,file]];
 	}

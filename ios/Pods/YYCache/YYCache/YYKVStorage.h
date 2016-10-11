@@ -131,7 +131,7 @@ typedef NS_ENUM(NSUInteger, YYKVStorageType) {
  Save an item or update the item with 'key' if it already exists.
  
  @discussion This method will save the key-value pair to sqlite. If the `type` is
- YYKVStorageTypeFile, then this method will failed.
+ YYKVStorageTypeFile, then this method will error.
  
  @param key   The key, should not be empty (nil or zero length).
  @param value The key, should not be empty (nil or zero length).

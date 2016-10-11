@@ -213,7 +213,7 @@
 	}
 }
 
-- (void)requestFailed:(ASIHTTPRequest *)request
+- (void)requesterror:(ASIHTTPRequest *)request
 {
 	[self setRequestsCount:[self requestsCount]-1];
 	if ([self requestDidFailSelector]) {

@@ -1,13 +1,14 @@
 import * as types from '../actionTypes';
-import { request } from '../../common/utils.js';
+import HTTPUtil from '../../common/utils/HTTPUtil';
 
-let fetchSchedule = (area,tour,month,args) => {
+let fetchSchedule = (area,tour,month,args,success=()=>{},error=()=>{}) => {
+
+  let url = 'http://www.91buyin.com/texas/big/serie?&month=' + month
   let oArguments = {
     start: true,
     offset: 0,
     limit: 15
   }
-  let url = 'https://www.91buyin.com/texas/big/serie?&month=' + month
   if (area !== '全部地区'){
     url += '&country=' + area;
   }
@@ -19,74 +20,72 @@ let fetchSchedule = (area,tour,month,args) => {
   }
   url = url + '&offset=' + oArguments.offset + '&limit=' + oArguments.limit
 
-  url = encodeURI(url);
-  let matches = [];
-  let count = 0;
   return dispatch => {
     dispatch(fetchScheduleList(oArguments.start));
-    request(url).then((json) => {
+    HTTPUtil.get(url).then((json) => {
       try {
-        let {
-          code,
-          value: {
-            count: iCount,
-            rows: aMatches
-          },
-        } = json;
-        if (code === '0') {
-          count = iCount;
-          matches = aMatches;
+        let count = 0;
+        let rows = []
+        if (json.code === '0') {
+          count = json.value.count
+          rows = json.value.rows
+          success();
         }
-        dispatch(receiveScheduleList(count,matches));
+        dispatch(receiveScheduleList(count,rows));
       } catch (e) {
         console.log(e.name)
       }
+    },(connect_error)=>{
+      console.log(connect_error.msg);
+      error();
     });
-  };
+  }
 }
 
-let fetchAreaList = () => {
-  let url = 'https://www.91buyin.com/country'
-  url = encodeURI(url);
-  let areaList = [];
+let fetchAreaList = (success=()=>{},error=()=>{}) => {
+  let url = 'http://www.91buyin.com/country'
+
   return dispatch => {
-    request(url).then((json) => {
+
+    HTTPUtil.get(url).then((json) => {
       try {
-        let {
-          code,
-          value: aArea,
-        } = json;
-        if (code === '0') {
-          areaList = aArea;
+        let areaList = []
+        if (json.code === '0') {
+          areaList = json.value
+          success();
         }
         dispatch(receiveAreaList(areaList));
       } catch (e) {
         console.log(e.name)
       }
+    },(connect_error)=>{
+      console.log(connect_error.msg);
+      error();
     });
-  };
+  }
 }
 
-let fetchTourList = () => {
-  let url = 'https://www.91buyin.com/tour'
-  url = encodeURI(url);
-  let tourList = [];
+let fetchTourList = (success=()=>{},error=()=>{}) => {
+  let url = 'http://www.91buyin.com/tour'
+
   return dispatch => {
-    request(url).then((json) => {
+
+    HTTPUtil.get(url).then((json) => {
       try {
-        let {
-          code,
-          value: aTour,
-        } = json;
-        if (code === '0') {
-          tourList = aTour;
+        let tourList = [];
+        if (json.code === '0') {
+          tourList = json.value
+          success();
         }
         dispatch(receiveTourList(tourList));
       } catch (e) {
         console.log(e.name)
       }
+    },(connect_error)=>{
+      console.log(connect_error.msg);
+      error();
     });
-  };
+  }
 }
 
 let fetchScheduleList = (start) => {

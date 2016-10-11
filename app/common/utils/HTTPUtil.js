@@ -21,6 +21,7 @@ HTTPUtil.get = (url, params, token = '') => {
       url += '&' + paramsArray.join('&')
     }
   }
+  url = encodeURI(url)
 
   return new Promise((resolve, reject) => {
     console.log(url);
@@ -45,6 +46,7 @@ HTTPUtil.post = (url, data, token = '') => {
     },
     body: JSON.stringify(data)
   }
+  url = encodeURI(url)
 
   return new Promise((resolve, reject) => {
     fetch(url, options).then((response) => {

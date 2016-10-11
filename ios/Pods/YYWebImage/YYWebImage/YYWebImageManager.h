@@ -73,7 +73,7 @@ typedef NS_OPTIONS(NSUInteger, YYWebImageOptions) {
     
     /// This flag will add the URL to a blacklist (in memory) when the URL fail to be downloaded,
     /// so the library won't keep trying.
-    YYWebImageOptionIgnoreFailedURL = 1 << 14,
+    YYWebImageOptionIgnoreerrorURL = 1 << 14,
 };
 
 /// Indicated where the image came from.
@@ -106,7 +106,7 @@ typedef NS_ENUM(NSInteger, YYWebImageStage) {
     /// Cancelled.
     YYWebImageStageCancelled = 0,
     
-    /// Finished (succeed or failed).
+    /// Finished (succeed or error).
     YYWebImageStageFinished  = 1,
 };
 

@@ -31,7 +31,7 @@
 #define RCTWXShareThumbImageSize @"thumbImageSize"
 
 #define NOT_REGISTERED (@"registerApp required.")
-#define INVOKE_FAILED (@"WeChat API invoke returns false.")
+#define INVOKE_error (@"WeChat API invoke returns false.")
 
 @interface RCTWeChatAPI()<WXApiDelegate>
 @end
@@ -231,7 +231,7 @@ RCT_REMAP_METHOD(pay,
   BOOL success = [WXApi sendReq:req];
   if (success == NO)
   {
-    callback(@[INVOKE_FAILED]);
+    callback(@[INVOKE_error]);
   }
 }
 

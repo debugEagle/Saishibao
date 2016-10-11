@@ -57,11 +57,11 @@ typedef NS_ENUM(NSInteger, AMapSearchErrorCode)
 
     AMapSearchErrorOutOfService           = 3000,//!< 规划点（包括起点、终点、途经点）不在中国范围内
     AMapSearchErrorNoRoadsNearby          = 3001,//!< 规划点（包括起点、终点、途经点）附近搜不到道路
-    AMapSearchErrorRouteFailed            = 3002,//!< 路线计算失败，通常是由于道路连通关系导致
+    AMapSearchErrorRouteerror            = 3002,//!< 路线计算失败，通常是由于道路连通关系导致
     AMapSearchErrorOverDirectionRange     = 3003,//!< 起点终点距离过长
 
     AMapSearchErrorShareLicenseExpired    = 4000,//!< 短串分享认证失败
-    AMapSearchErrorShareFailed            = 4001,//!< 短串请求失败
+    AMapSearchErrorShareerror            = 4001,//!< 短串请求失败
 };
 
 #endif

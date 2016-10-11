@@ -1,12 +1,7 @@
-
-import Util from '../../common/utils';
 import NavBar from '../../components/NavBar';
-import { fetchMatchSetting } from '../../actions/matchSettingActions';
 import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../../components/Loading';
-
-
 
 
 import React, { Component } from 'react';
