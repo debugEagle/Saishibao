@@ -51,7 +51,7 @@ let fetchAreaList = (success=()=>{},error=()=>{}) => {
       try {
         let areaList = []
         if (json.code === '0') {
-          areaList = json.value
+          areaList = json.value.rows
           success();
         }
         dispatch(receiveAreaList(areaList));
@@ -74,7 +74,7 @@ let fetchTourList = (success=()=>{},error=()=>{}) => {
       try {
         let tourList = [];
         if (json.code === '0') {
-          tourList = json.value
+          tourList = json.value.rows
           success();
         }
         dispatch(receiveTourList(tourList));

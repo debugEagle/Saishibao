@@ -10,7 +10,7 @@ let fetchCities = (success=()=>{}, error=()=>{}) => {
       try {
         if (json.code === '0') {
           success();
-          city = json.value
+          city = json.value.rows
         }
         dispatch(receiveCityList(city));
       } catch (e) {
