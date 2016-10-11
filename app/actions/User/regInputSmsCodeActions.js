@@ -1,30 +1,39 @@
 import * as types from '../actionTypes';
-import { request } from '../../common/utils.js'
+import HTTPUtil from '../../common/utils/HTTPUtil'
 
 
 
 
-let verifySmsCode = (mobile, smsCode) => {
-  let url = 'https://www.91buyin.com/user/register/verifysmscode';
+
+let verifySmsCode = (mobile, smsCode, success=()=>{}, failed=()=>{}, error=()=>{}) => {
+  let url = 'http://www.91buyin.com/user/register/verifysmscode';
 
   return dispatch => {
-      if (smsCode.length < 4) {
-        return
-      }
-      dispatch(fetchToken());
-      post = {mobile: mobile, smscode: smsCode};
-      request(url, 'POST', 5, post).then((json) => {
-
-        try {
-          let {code, msg, value} = json;
-      
-          dispatch(receiveToken(code, msg ,value));
-
-
-        } catch (e) {
-          console.log(e.name);
+    if (mobile.length < 4) {
+      return
+    }
+    dispatch(fetchToken());
+    post = {mobile: mobile, smscode: smsCode};
+    HTTPUtil.post(url, post).then((json) => {
+      try {
+        let token = ''
+        if (json.code === '0') {
+          token = json.value;
+          success(token);
+        } else {
+          failed(json.msg);
         }
-      });
+
+        dispatch(receiveToken(json.code, json.msg, token));
+
+      } catch (e) {
+        console.log(e.name);
+      }
+    }, (connect_error)=>{
+      console.log(connect_error.msg);
+      error();
+    });
+
 
   }
 }

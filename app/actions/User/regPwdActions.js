@@ -1,28 +1,37 @@
 import * as types from '../actionTypes';
-import { request } from '../../common/utils.js'
+import HTTPUtil from '../../common/utils/HTTPUtil';
 
 
 
 
-let setRegPwd = (mobile, pwd, token) => {
-  let url = 'https://www.91buyin.com/user/register/setpassword';
+
+let setRegPwd = (mobile, pwd, token,  success=()=>{}, failed=()=>{}, error=()=>{}) => {
+  let url = 'http://www.91buyin.com/user/register/setpassword';
 
   return dispatch => {
-
-      dispatch(fetchRegPwd());
-      post = {mobile: mobile, password: pwd, token: token};
-      request(url, 'POST', 5, post).then((json) => {
-
-        try {
-          let {code, msg} = json;
-
-          dispatch(receiveRegPwd(code, msg ));
-
-
-        } catch (e) {
-          console.log(e.name);
+    dispatch(fetchRegPwd());
+    post = {mobile: mobile, password: pwd, token: token};
+  
+    HTTPUtil.post(url, post).then((json) => {
+      try {
+        console.log('json ' + JSON.stringify(json));
+        if (json.code === '0') {
+          success();
+        } else {
+          failed(json.msg);
         }
-      });
+
+        dispatch(receiveRegPwd(json.code, json.msg));
+
+      } catch (e) {
+        console.log(e.name);
+      }
+    }, (connect_error)=>{
+      console.log(connect_error.msg);
+      error();
+    });
+
+
 
   }
 }

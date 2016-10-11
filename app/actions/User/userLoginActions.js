@@ -5,27 +5,30 @@ import { AsyncStorage } from 'react-native';
 import Common from '../../common/constants';
 
 
-let startUserLogin = (mobile, password, success=()=>{}, failed=()=>{}) => {
+let startUserLogin = (mobile, password, success=()=>{}, failed=()=>{}, error=()=>{}) => {
   let url = 'http://www.91buyin.com/user/login';
   post = {mobile: mobile, password: password};
-  return dispatch => {
 
+  return dispatch => {
+    dispatch(fetchUserLogin());
     HTTPUtil.post(url, post).then((json) => {
       try {
-        let {
-          code,
-          msg,
-          value
-        } = json;
-        dispatch(receiveUserLogin(code, msg, value));
-        success();
+        let userToken = ''
+
+        if (json.code === '0') {
+          userToken = json.value;
+          success(userToken);
+        } else {
+          failed(json.msg);
+        }
+
+        dispatch(receiveUserLogin(code, msg, userToken));
       } catch (e) {
         console.log(e.name)
-          failed();
       }
-    },(error)=>{
-      console.log(error.message);
-      failed();
+    },(connect_error)=>{
+      console.log(connect_error.msg);
+      error();
     });
   }
 }
@@ -102,12 +105,12 @@ let userLogout = () => {
 
 
 let receiveUserLogin = (code, msg, userToken) => {
+
   return {
     type: types.RECEIVE_USERLOGIN,
     code: code,
     msg: msg,
     userToken: userToken,
-
   }
 }
 

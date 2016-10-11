@@ -230,7 +230,7 @@ class HotList extends Component {
                 horizontal={true}
               />
             </View>
-            <ListView style={{backgroundColor: '#e0eaff', height: Common.window.height - 67 - 44}}
+            <ListView style={{backgroundColor: '#F2F2F2', height: Common.window.height - 67 - 44}}
               enableEmptySections = {true}
               dataSource={this.state.daysDataSource.cloneWithRows(selectedList)}
               renderRow={this._renderDayDetailList}
@@ -251,6 +251,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Common.colors.containerBgColor,
     // backgroundColor: '#e0eaff',
+    // backgroundColor: '#F2F2F2',
   },
   dateContainer: {
 

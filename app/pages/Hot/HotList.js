@@ -115,9 +115,7 @@ class HotList extends Component {
     );
   }
 
-  _test() {
-    console.log('test');
-  }
+
 
   render() {
 

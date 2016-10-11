@@ -39,7 +39,6 @@ class UserLogin extends Component {
       pwd: '',
     }
 
-    this._checkCode = this._checkCode.bind(this);
 
   }
 
@@ -53,7 +52,20 @@ class UserLogin extends Component {
       this.refs.toast.show('手机号码长度不正确');
       return;
     }
-    this.props.actions.startUserLogin(this.state.mobile, this.state.pwd, ()=>this._checkCode(), ()=>this._checkCode());
+    this.props.actions.startUserLogin(this.state.mobile, this.state.pwd, (userToken)=>this._fetchSuccess(userToken), (msg)=>this._fetchFailed(msg));
+  }
+
+  _fetchSuccess(userToken) {
+    AsyncStorage.setItem(Common.userToken, userToken);
+    this.props.navigator.pop();
+
+  }
+
+
+
+  _fetchFailed(msg) {
+    this.refs.toast.show( msg );
+
   }
 
   _onRegBtn() {
@@ -63,21 +75,7 @@ class UserLogin extends Component {
     });
   }
 
-  _checkCode() {
-    const { UserLogin } = this.props;
-    if (UserLogin.code != -1) {
 
-      if (UserLogin.code > 0){
-          this.refs.toast.show( UserLogin.msg);
-      }
-      if (UserLogin.code == 0 ) {
-        AsyncStorage.setItem(Common.userToken, UserLogin.userToken);
-        console.log(UserLogin.userToken);
-        this.props.navigator.pop();
-      }
-    }
-
-  }
 
 
 

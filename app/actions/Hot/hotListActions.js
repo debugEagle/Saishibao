@@ -58,7 +58,9 @@ import {request} from '../../common/utils.js'
 //   }
 // }
 
-let fetchHots = (args,success,failed) => {
+
+
+let fetchHots = (args,success=()=>{}, failed=()=>{}) => {
   let url = 'http://www.91buyin.com/texas/big/serie/hot';
   let hots = [];
   let oArguments = {
@@ -112,8 +114,8 @@ let fetchHots = (args,success,failed) => {
         console.log(e.name)
         failed()
       }
-    },(error)=>{
-      console.log(error.message);
+    },(connect_error)=>{
+      console.log(connect_error.msg);
       failed();
     });
   }

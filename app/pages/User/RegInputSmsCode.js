@@ -39,7 +39,6 @@ class RegInputSmsCode extends Component {
       intervalRePush: null,
     }
 
-    this._checkCode = this._checkCode.bind(this);
     this._checkCode_rePush = this._checkCode_rePush.bind(this);
   }
 
@@ -53,11 +52,27 @@ class RegInputSmsCode extends Component {
       this.refs.toast.show('校验码长度不正确');
       return;
     }
-    this.props.actions.verifySmsCode(this.props.mobile, this.state.smsCode);
-    if (this.state.interval == null) {
-      this.state.interval = setInterval(this._checkCode, 500);
+    this.props.actions.verifySmsCode(this.props.mobile, this.state.smsCode, (token)=>this._fetchSuccess(token), (msg)=>this._fetchFailed(msg));
 
-    }
+  }
+
+  _fetchSuccess(token) {
+    AsyncStorage.setItem(Common.token, token);
+    this.props.navigator.push({
+
+      component: RegPwd,
+      passProps: {
+        mobile: this.props.mobile,
+      },
+    });
+
+  }
+
+
+
+  _fetchFailed(msg) {
+    this.refs.toast.show( msg );
+
 
   }
 
@@ -93,31 +108,7 @@ class RegInputSmsCode extends Component {
 
   }
 
-  _checkCode() {
-    const { RegInputSmsCode } = this.props;
-    if (RegInputSmsCode.code != -1) {
 
-      clearInterval(this.state.interval);
-      this.state.interval = null;
-
-      if (RegInputSmsCode.code > 0){
-          this.refs.toast.show(RegInputSmsCode.msg);
-      }
-      if (RegInputSmsCode.code == 0 ) {
-        console.log('goto');
-        AsyncStorage.setItem(Common.token, RegInputSmsCode.token);
-
-        this.props.navigator.push({
-
-          component: RegPwd,
-          passProps: {
-            mobile: this.props.mobile,
-          },
-        });
-      }
-    }
-
-  }
 
 
 

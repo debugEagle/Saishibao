@@ -7,11 +7,12 @@ import Schedule from './Schedule'
 import User from './User'
 import Other from './Other'
 
+
 export default rootReducer = combineReducers({
   Account,
   Daily,
   Hot,
   Schedule,
   User,
-  Other
+  Other,
 });
