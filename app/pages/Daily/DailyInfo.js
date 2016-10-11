@@ -128,7 +128,7 @@ class DailyInfo extends Component {
         <NavBar name={this.props.title} navigator={this.props.navigator}/>
         {DailyInfo.isLoading ?
         <Loading /> :
-        <ListView style={{backgroundColor: '#e0eaff', height: Common.window.height - 67 - 44}}
+        <ListView style={{backgroundColor: '#F2F2F2', height: Common.window.height - 67 - 44}}
           enableEmptySections = {true}
           dataSource={this.state.dataSource.cloneWithRows(dailyInfoList)}
           renderRow={this._renderDailyInfoList}

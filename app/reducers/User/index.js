@@ -4,7 +4,8 @@ import RegGetSmsCode from './regGetSmsCodeReducer';
 import RegInputSmsCode from './regInputSmsCodeReducer';
 import TimerElse from './timerElseReducer';
 import RegPwd from './regPwdReducer';
-import UserLogin from './userLoginReducer'
+import UserLogin from './userLoginReducer';
+
 
 export default userReducer = combineReducers({
   RegGetSmsCode,

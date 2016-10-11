@@ -38,10 +38,8 @@ class RegGetSmsCode extends Component {
 
     this.state = {
       mobile: '',
-      interval: null,
     }
 
-    this._checkCode = this._checkCode.bind(this);
   }
 
 
@@ -58,36 +56,27 @@ class RegGetSmsCode extends Component {
       return;
     }
 
-    this.props.actions.getSmsCode(this.state.mobile);
-    if (this.state.interval == null) {
-      this.state.interval = setInterval(this._checkCode, 500);
+    this.props.actions.getSmsCode(this.state.mobile, ()=>this._fetchSuccess(), (msg)=>this._fetchFailed(msg));
 
-    }
+
+  }
+
+  _fetchSuccess() {
+    this.props.navigator.push({
+
+      component: RegInputSmsCode,
+      passProps: {
+        mobile: this.state.mobile,
+      },
+    });
 
   }
 
 
-  _checkCode() {
-    const { RegGetSmsCode } = this.props;
-    if (RegGetSmsCode.code != -1) {
 
-      clearInterval(this.state.interval);
-      this.state.interval = null;
+  _fetchFailed(msg) {
+    this.refs.toast.show( msg );
 
-      if (RegGetSmsCode.code > 0){
-          this.refs.toast.show( RegGetSmsCode.msg);
-      }
-      if (RegGetSmsCode.code == 0 ) {
-        console.log('goto');
-        this.props.navigator.push({
-
-          component: RegInputSmsCode,
-          passProps: {
-            mobile: this.state.mobile,
-          },
-        });
-      }
-    }
 
   }
 
@@ -212,7 +201,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   RegGetSmsCode: state.User.RegGetSmsCode,
-  TimerElse: state.TimerElse
+  TimerElse: state.User.TimerElse,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -35,10 +35,9 @@ class RegPwd extends Component {
     this.state = {
       pwd : '',
       token: '',
-      interval: null,
     }
 
-    this._checkCode = this._checkCode.bind(this);
+
   }
 
   componentWillMount() {
@@ -59,40 +58,30 @@ class RegPwd extends Component {
     }
 
     console.log('mobile ' + this.props.mobile);
-    this.props.actions.setRegPwd(this.props.mobile, this.state.pwd, this.state.token);
-    if (this.state.interval == null) {
-      this.state.interval = setInterval(this._checkCode, 500);
+    this.props.actions.setRegPwd(this.props.mobile, this.state.pwd, this.state.token, ()=>this._fetchSuccess(), (msg)=>this._fetchFailed(msg));
 
-    }
+  }
+
+  _fetchSuccess() {
+    this.props.navigator.push({
+
+      component: RegSuccess,
+
+    });
 
   }
 
 
-  _checkCode() {
-    const { RegPwd } = this.props;
-    if (RegPwd.code != -1) {
 
-      clearInterval(this.state.interval);
-      this.state.interval = null;
+  _fetchFailed(msg) {
+    this.refs.toast.show( msg );
 
-      if (RegPwd.code > 0){
-          this.refs.toast.show(RegPwd.msg);
-      }
-      if (RegPwd.code == 0 ) {
-        console.log('goto');
-        // AsyncStorage.setItem(Common.token, RegPwd.token);
-        //
-        this.props.navigator.push({
-
-          component: RegSuccess,
-          // passProps: {
-          //   mobile: this.props.mobile,
-          // },
-        });
-      }
-    }
 
   }
+
+
+
+
 
 
 
