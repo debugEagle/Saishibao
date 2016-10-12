@@ -72,7 +72,7 @@ class HotIntro extends Component {
     const { HotIntro } = this.props;
     console.log(this.props);
     let intro = HotIntro.intro;
-
+    
     return (
       <View style={styles.container}>
         <NavBar name='赛事介绍' navigator={this.props.navigator}/>
@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
     width: 232,
     alignSelf: 'center',
     marginTop: 15,
+    resizeMode: Image.resizeMode.contain,
   },
 
 

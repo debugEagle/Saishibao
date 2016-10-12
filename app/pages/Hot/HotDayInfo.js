@@ -8,6 +8,8 @@ import Loading from '../../components/Loading';
 import NavBar from '../../components/NavBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MatchSetting from '../Other/MatchSetting';
+import AccountPay from '../Account/AccountPay';
+
 
 import React, { Component } from 'react';
 import {
@@ -46,9 +48,18 @@ class HotList extends Component {
 
     this._renderDayList = this._renderDayList.bind(this);
     this._renderDayDetailList = this._renderDayDetailList.bind(this);
+    this._onPressJoinMatch = this._onPressJoinMatch.bind(this);
 
 
   }
+
+  _onPressJoinMatch() {
+    this.props.navigator.push({
+      component: AccountPay,
+
+    });
+  }
+
 
   componentWillMount() {
 
@@ -168,10 +179,9 @@ class HotList extends Component {
           <TouchableOpacity style={styles.detailStruct} onPress={() => this._onPressDetailStruct(bigMatch, true)}>
             <Text style={styles.detailStructText}>比赛结构表</Text>
           </TouchableOpacity>
-
-          <View style={styles.detailJoin}>
+          <TouchableOpacity style={styles.detailJoin} onPress={() => this._onPressJoinMatch()}>
             <Text style={styles.detailJoinText}>参加赛事  </Text>
-          </View>
+          </TouchableOpacity>
 
           <TouchableOpacity style={styles.detailResult} onPress={() => this._onPressDetailStruct(bigMatch, false)}>
             <Text style={styles.detailResultText}>奖金结构表</Text>

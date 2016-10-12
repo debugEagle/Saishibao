@@ -7,6 +7,7 @@ import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../../components/Loading';
 import DailyInfo from './DailyInfo';
+import DailyResult from './DailyResult';
 import { getDataStr } from '../../common/utils/Date';
 
 
@@ -50,6 +51,8 @@ class DailyList extends Component {
     this._onPressIntroBtn = this._onPressIntroBtn.bind(this);
     this._onPressTodayBtn = this._onPressTodayBtn.bind(this);
     this._onPressTomorrowBtn = this._onPressTomorrowBtn.bind(this);
+    this._onPressMatchResult = this._onPressMatchResult.bind(this);
+
 
   }
 
@@ -67,6 +70,15 @@ class DailyList extends Component {
         title
 
       }
+    });
+  }
+
+  //todo:
+  _onPressMatchResult(){
+    this.props.navigator.push({
+
+      component: DailyResult,
+
     });
   }
 
@@ -250,9 +262,13 @@ class DailyList extends Component {
               <Text style={{fontSize: 16}}>场馆介绍</Text>
             </TouchableOpacity>
             <View style={[styles.itemRightItem, {alignItems: 'center'}]}>
-              <Text style={{fontSize: 13,color: '#787878'}}>
-                昨日赛况
-              </Text>
+              <TouchableOpacity
+                style={[styles.itemRightItem]}
+                onPress={() => this._onPressMatchResult(item)}>
+                <Text style={{fontSize: 13,color: '#787878'}}>
+                  昨日赛况
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.itemRightBottom}>

@@ -1,3 +1,8 @@
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as ActionCreator from '../../actions'
+
+
 import NavBar from '../../components/NavBar';
 import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -23,6 +28,10 @@ import {
 class DailyResult extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
+    this.props.actions.fetchDailyResult();
   }
 
   _renderTitleRow(item1, item2, item3 ) {
@@ -71,9 +80,14 @@ class DailyResult extends Component {
   }
 
   render() {
+    const { DailyResult } = this.props;
+    let matchResult = DailyResult.matchResult;
+    console.log('matchResult '+ DailyResult);
     return (
       <View style={styles.container}>
         <NavBar name='赛事结果' navigator={this.props.navigator}/>
+        {DailyResult.isLoading ?
+          <Loading />:
         <View style={styles.itemView}>
           <View style={styles.matchName}>
             <Text style={styles.matchNameText}>
@@ -81,11 +95,15 @@ class DailyResult extends Component {
             </Text>
           </View>
           {this._renderTitleRow('名次', '姓名', '奖金')}
-          {this._renderItemRow('1', '张三', '100000')}
-          {this._renderItemRow('2', '李四', '20000')}
+          {matchResult.items.map((item, i) => {
+            return (<View key={i}>{this._renderItemRow(item.rank, item.rank, item.bonus)}</View>);
+          })}
+          {/*{this._renderItemRow('1', '张三', '100000')}
+          {this._renderItemRow('2', '李四', '20000')}*/}
 
 
         </View>
+        }
       </View>
 
     );
@@ -140,11 +158,12 @@ const styles = StyleSheet.create({
     // borderColor: '#e0eaff',
   },
   settingTitleBlock: {
-    // flex:1,
+    flex:1,
     marginTop: 2,
     marginBottom: 2,
     justifyContent: 'center',
     alignItems: 'center',
+
 
   },
   settingText: {
@@ -169,4 +188,12 @@ const styles = StyleSheet.create({
 
 });
 
-export default DailyResult;
+const mapStateToProps = (state) => ({
+  DailyResult: state.Daily.DailyResult
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(ActionCreator, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DailyResult);

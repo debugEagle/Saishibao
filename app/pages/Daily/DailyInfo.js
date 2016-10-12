@@ -8,6 +8,7 @@ import Loading from '../../components/Loading';
 import NavBar from '../../components/NavBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MatchSetting from '../Other/MatchSetting';
+import AccountPay from '../Account/AccountPay';
 
 
 import React, { Component } from 'react';
@@ -38,11 +39,19 @@ class DailyInfo extends Component {
 
     };
     this._renderDailyInfoList = this._renderDailyInfoList.bind(this);
+    this._onPressJoinMatch = this._onPressJoinMatch.bind(this);
   }
 
   componentDidMount() {
     const { casino, showDate } = this.props;
     this.props.actions.fetchDailyInfo(casino.casino_id, showDate);
+  }
+
+  _onPressJoinMatch() {
+    this.props.navigator.push({
+      component: AccountPay,
+
+    });
   }
 
   componentWillUnmount() {
@@ -102,9 +111,11 @@ class DailyInfo extends Component {
               <Text style={styles.detailStructText}>比赛结构表</Text>
             </TouchableOpacity>
 
-            <View style={styles.detailJoin}>
+
+            <TouchableOpacity style={styles.detailJoin} onPress={() => this._onPressJoinMatch()}>
               <Text style={styles.detailJoinText}>参加赛事</Text>
-            </View>
+            </TouchableOpacity>
+
             <TouchableOpacity style={styles.detailResult} onPress={() => this._onPressDetailStruct(item, false)}>
 
               <Text style={styles.detailResultText}>奖金结构表</Text>
