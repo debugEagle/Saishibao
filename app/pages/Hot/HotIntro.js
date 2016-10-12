@@ -37,27 +37,17 @@ class HotIntro extends Component {
 
   _onPressHotDayInfo(hotIntro) {
     const {hotMatch} = this.props;
-    // InteractionManager.runAfterInteractions(() => {
-
-      this.props.navigator.push({
-        title: '赛事详情',
-        component: HotDayInfo,
-        passProps: { hotIntro, hotMatch },
-      });
-    // });
-
+    this.props.navigator.push({
+      title: '赛事详情',
+      component: HotDayInfo,
+      passProps: { hotIntro, hotMatch },
+    });
   }
 
-  componentDidMount() {
+  componentWillMount() {
 
-    // InteractionManager.runAfterInteractions(() => {
-
-      const {hotMatch} = this.props;
-      this.props.actions.fetchHotIntro(hotMatch.bigMatchSerie_id);
-
-    // });
-
-
+    const {hotMatch} = this.props;
+    this.props.actions.fetchHotIntro(hotMatch.bigMatchSerie_id);
   }
 
   componentWillUnmount() {

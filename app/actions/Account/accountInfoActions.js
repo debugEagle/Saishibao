@@ -1,49 +1,92 @@
 import * as types from '../actionTypes';
-import { request } from '../../common/utils.js';
+import Common from '../../common/constants'
+import HTTPUtil from '../../common/utils/HTTPUtil';
 
 import { AsyncStorage } from 'react-native';
-import Common from '../../common/constants';
 
-let getAccountInfo = () => {
-  let url = 'https://www.91buyin.com/user/info';
+let fetchAccountInfo = (success=()=>{}, failed=()=>{}, error=()=>{}) => {
+  let url = 'http://www.91buyin.com/user/info';
+
   return dispatch => {
-
-    dispatch(fetchAccountInfo());
-
-    AsyncStorage.getItem(Common.userToken)
-      .then((value) => {
-        console.log('userToken ' + value);
-
-        request(url, 'GET', 5, {}, value).then((json) => {
-
-          try {
-            let {code, msg} = json;
-            dispatch(receiveAccountInfo(code, msg));
-
-
-          } catch (e) {
-            console.log(e.name);
+    dispatch(fetchAccountInfoAction());
+    AsyncStorage.getItem(Common.userToken).then((userToken)=>{
+      HTTPUtil.get(url,null,userToken).then((json) => {
+        console.log(json);
+        try {
+          let info = {}
+          if (json.code === '0') {
+            info = json.value
+            success();
+          } else {
+            failed(json.msg)
           }
-        });
-
+          dispatch(receiveAccountInfo(info));
+        } catch (e) {
+          console.log(e.name)
+        }
+      },(connect_error)=>{
+        console.log(connect_error.msg);
+        error();
       });
-
+    })
   }
 }
 
-let fetchAccountInfo = () => {
+let setAccountInfo = (attr, value, success=()=>{}, failed=()=>{}, error=()=>{}) => {
+  let url = 'http://www.91buyin.com/user/info/supplement/perfect'
+  let data = {}
+  data[attr] = value;
+
+  return dispatch => {
+    AsyncStorage.getItem(Common.userToken).then((userToken)=>{
+      HTTPUtil.post(url, data, userToken).then((json) => {
+        console.log(url);
+        console.log(data);
+        try {
+          if (json.code === '0') {
+            dispatch(updateAccountInfo(attr, value))
+            success();
+          } else {
+            failed(json.msg)
+          }
+        } catch (e) {
+          console.log(e.name)
+        }
+      },(connect_error)=>{
+        console.log(connect_error.msg);
+        error();
+      });
+    })
+  }
+}
+
+let fetchAccountInfoAction = () => {
   return {
     type: types.FETCH_ACCOUNTINFO,
   }
 }
 
-let receiveAccountInfo = (code, msg, info) => {
+let receiveAccountInfo = (info) => {
   return {
     type: types.RECEIVE_ACCOUNTINFO,
-    code: code,
-    msg: msg,
     info: info,
   }
 }
 
-export default getAccountInfo
+let updateAccountInfo = (attr, value) => {
+  return {
+    type: types.UPDATE_ACCOUNTINFO,
+    attr: attr,
+    value: value
+  }
+}
+
+let setAccountInfoAction = (key, value) => {
+  return {
+    type: types.SET_ACCOUNTINFO,
+    key: key,
+    value: value
+  }
+}
+
+export { fetchAccountInfo, setAccountInfo }

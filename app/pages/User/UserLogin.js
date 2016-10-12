@@ -58,7 +58,7 @@ class UserLogin extends Component {
   _fetchSuccess(userToken) {
     AsyncStorage.setItem(Common.userToken, userToken);
     this.props.navigator.pop();
-
+    console.log(userToken);
   }
 
 

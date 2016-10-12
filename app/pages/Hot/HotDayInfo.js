@@ -135,6 +135,21 @@ class HotList extends Component {
   }
 
   _renderDayDetailList(bigMatch) {
+    let c_code = 'cny'
+    let hkd = false
+    if (bigMatch.exchangeRate) {
+      c_code = bigMatch.exchangeRate.currency_code.toLowerCase()
+    }
+    if (c_code==='hkd') {
+      hkd = true
+      c_code = 'usd'
+    }
+
+    let real_buyin = bigMatch.real_buyin
+    if (bigMatch.rake_buyin !== 0) {
+      real_buyin = real_buyin + '+' + bigMatch.rake_buyin
+    }
+
     return (
 
       <View style={styles.detailItem}>
@@ -149,8 +164,17 @@ class HotList extends Component {
           <Text style={styles.detailText}>类型:{bigMatch.style}</Text>
 
           <View style={styles.detailPrice}>
-            <Text style={styles.detailText}>买入:{bigMatch.real_buyin}+{bigMatch.rake_buyin}</Text>
-            <Text style={styles.detailText}>   （￥ {bigMatch.unit_price})</Text>
+            <Text style={styles.detailText}>
+              买入:
+              <Icon color='#424242' size={13} name={c_code}/>
+              {' '}
+              {bigMatch.real_buyin}+{bigMatch.rake_buyin}
+            </Text>
+            {c_code !== 'cny' &&
+              <Text style={styles.detailText}>
+                {' '}
+                ({' '}<Icon color='#424242' size={13} name={'cny'}/>{bigMatch.unit_price}{' '})
+              </Text>}
           </View>
         </View>
 

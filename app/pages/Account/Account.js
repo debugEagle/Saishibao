@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ActionCreator from '../../actions'
 
+import Toast, {DURATION} from 'react-native-easy-toast';
 import Common from '../../common/constants';
 
 import UserLogin from '../User/UserLogin';
@@ -26,7 +27,17 @@ class Account extends Component {
   }
 
   componentWillMount() {
-    // this.props.actions.startUserLoginWithToken();
+    this.props.actions.startUserLoginWithToken();
+  }
+
+  _successToNavigator(component) {
+    this.props.navigator.push({
+        component: component,
+    });
+  }
+
+  _failedToast(msg){
+    this.refs.toast.show(msg);
   }
 
   _onPressLoginBtn() {
@@ -36,9 +47,8 @@ class Account extends Component {
   }
 
   _onPressMyInfo() {
-    this.props.navigator.push({
-        component: AccountInfo,
-    });
+    const { actions } = this.props
+    actions.fetchAccountInfo(()=>this._successToNavigator(AccountInfo),(msg)=>this._failedToast(msg))
   }
 
   _onPressMyTicket() {
@@ -158,6 +168,7 @@ class Account extends Component {
             </View>
           </View>
         </View>
+        <Toast ref="toast" position='bottom'/>
       </View>
     );
   }

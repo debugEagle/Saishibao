@@ -67,7 +67,16 @@ class AccountInfo extends Component {
   }
 
   _renderRow(item) {
-    let c_code = item.exchangeRate.currency_code.toLowerCase()
+    let c_code = 'cny'
+    let hkd = false
+    if (item.exchangeRate) {
+      c_code = item.exchangeRate.currency_code.toLowerCase()
+    }
+    if (c_code==='hkd') {
+      hkd = true
+      c_code = 'usd'
+    }
+
     let real_buyin = item.real_buyin
     if (item.rake_buyin !== 0) {
       real_buyin = real_buyin + '+' + item.rake_buyin
@@ -81,10 +90,11 @@ class AccountInfo extends Component {
         <View style={[{flex: 5}, styles.matchText]}>
           <Text numberOfLines={2} style={styles.itemText}>{item.name}</Text>
         </View>
-        <View style={[{flex: 1.2},{justifyContent:'center', paddingHorizontal: 5, marginLeft:10}]}>
+        <View style={[{flex: 1.2},{justifyContent:'center', paddingHorizontal: 2,alignItems: 'center', marginLeft:10}]}>
           <Text numberOfLines={2} style={styles.itemText}>
-          <Icon color="#101010" size={13} name={c_code}/>
-          {real_buyin}
+            {hkd ? 'HK' : null}
+            <Icon color="#101010" size={13} name={c_code}/>
+            {real_buyin}
           </Text>
         </View>
       </View>

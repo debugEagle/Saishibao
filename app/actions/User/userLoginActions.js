@@ -19,8 +19,7 @@ let startUserLogin = (mobile, password, success=()=>{}, failed=()=>{}, error=()=
         } else {
           failed(json.msg);
         }
-
-        dispatch(receiveUserLogin(code, msg, userToken));
+        dispatch(receiveUserLogin(json.code, json.msg, userToken));
       } catch (e) {
         console.log(e.name)
       }
@@ -32,7 +31,22 @@ let startUserLogin = (mobile, password, success=()=>{}, failed=()=>{}, error=()=
 }
 
 let startUserLoginWithToken = () => {
-  let url = 'https://www.91buyin.com/user';
+  let url = 'http://www.91buyin.com/user';
+  return dispatch => {
+    dispatch(fetchUserLoginWithToken());
+    AsyncStorage.getItem(Common.userToken).then((userToken)=>{
+      HTTPUtil.get(url,null,userToken).then((json) => {
+        try {
+          let {code, msg} = json;
+          dispatch(receiveUserLoginWithToken(code, msg));
+        } catch (e) {
+          console.log(e.name)
+        }
+      },(connect_error)=>{
+        console.log(connect_error.msg);
+      });
+    })
+  }
   return dispatch => {
 
     dispatch(fetchUserLoginWithToken());
@@ -57,11 +71,7 @@ let startUserLoginWithToken = () => {
             console.log(e.name);
           }
         });
-
-
       });
-
-
   }
 }
 

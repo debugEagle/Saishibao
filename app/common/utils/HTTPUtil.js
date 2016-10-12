@@ -24,7 +24,7 @@ HTTPUtil.get = (url, params, token = '') => {
   url = encodeURI(url)
 
   return new Promise((resolve, reject) => {
-    console.log(url);
+
     fetch(url, options).then((response) => {
         if (response.ok) {
           return response.json();
@@ -43,6 +43,7 @@ HTTPUtil.post = (url, data, token = '') => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'authorization': 'Bearer ' + token
     },
     body: JSON.stringify(data)
   }
@@ -50,7 +51,7 @@ HTTPUtil.post = (url, data, token = '') => {
 
   return new Promise((resolve, reject) => {
     fetch(url, options).then((response) => {
-        console.log(response);
+
         if (response.ok) {
           return response.json();
         } else {

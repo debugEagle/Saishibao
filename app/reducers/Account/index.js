@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
-import Account from './accountInfoReducer';
+import info from './accountInfoReducer';
 
 
 export default accountReducer = combineReducers({
-  Account
+  info
 });
