@@ -81,7 +81,7 @@ class UserLogin extends Component {
     return (
       <View style={styles.container}>
 
-        <NavBar name='登陆' navigator={this.props.navigator}/>
+        <NavBar name='登录' navigator={this.props.navigator}/>
 
         <View >
         <View style={styles.linkReg}>
@@ -144,7 +144,7 @@ class UserLogin extends Component {
 
         <View style={{flex: 1, alignItems: 'center'}}>
           <TouchableOpacity style={styles.nextBtn} onPress={() => this._onLoginBtn()}>
-            <Text style={styles.nextBtnText}>登        陆</Text>
+            <Text style={styles.nextBtnText}>登        录</Text>
           </TouchableOpacity>
         </View>
 
@@ -158,7 +158,7 @@ class UserLogin extends Component {
   const inputPadding = 18;
   const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: '#ffffff',
     // alignItems: 'center',
   },

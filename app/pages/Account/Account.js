@@ -49,7 +49,7 @@ class Account extends Component {
 
   _onPressMyInfo() {
     const { actions } = this.props
-    actions.fetchAccountInfo(()=>this._successToNavigator(AccountInfo),(msg)=>this._failedToast(msg))
+    actions.fetchAccountInfo(()=>this._successToNavigator(AccountInfo),(msg)=>this._failedToast('登录后才能操作'))
   }
 
   _onPressMyTicket() {
@@ -90,10 +90,10 @@ class Account extends Component {
               <TouchableOpacity
                 style={styles.stateView}
                 onPress={() => this._onPressLoginBtn()}>
-                <Text style={styles.stateText}>点击登陆</Text>
+                <Text style={styles.stateText}>点击登录</Text>
               </TouchableOpacity>
               :
-              <Text style={styles.stateText}>已登陆</Text>
+              <Text style={styles.stateText}>已登录</Text>
             }
           </View>
           <View style={styles.menuArea}>

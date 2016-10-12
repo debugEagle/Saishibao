@@ -28,8 +28,8 @@ class MainView extends Component {
   }
 
   componentDidMount(){
-    codePush.sync();
-    // codePush.sync({ updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE });
+    // codePush.sync();
+    codePush.sync({ updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE });
   }
 
   render() {
@@ -38,7 +38,7 @@ class MainView extends Component {
 
     return (
       <ScrollableTabView
-        initialPage={0}
+        initialPage={this.props.page || 0}
         renderTabBar={() => <TabBar tabNames={tabNames} tabIconNames={tabIconNames} />}
         tabBarPosition='bottom'>
         <HotList tabLable='hot' navigator = {this.props.navigator} {...this.props}/>

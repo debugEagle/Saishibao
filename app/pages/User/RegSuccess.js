@@ -5,9 +5,11 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast, {DURATION} from 'react-native-easy-toast';
 import HotList from '../Hot/HotList';
 import TabBarView from '../../containers/TabBarView';
+import AccountInfo from '../Account/AccountInfo'
 
-
-
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as ActionCreator from '../../actions/'
 
 import React, { Component } from 'react';
 import {
@@ -33,18 +35,39 @@ class RegSuccess extends Component {
     super(props);
   }
 
-  _onPressLaterBtn() {
-
-    Common.defaultTab ='myAccount';
-    this.props.navigator.push({
-      // title: '赛事详情',
-      component: TabBarView,
-      // passProps: { hotIntro, hotMatch },
-    });
+  componentWillMount() {
+    this.props.actions.startUserLoginWithToken()
   }
 
-  _onPressCompleteBtn() {
+  _onPressLaterBtn() {
 
+    this.props.navigator.immediatelyResetRouteStack([
+      {
+        component: TabBarView,
+        passProps: {
+          page: 3
+        }
+      }
+    ]);
+  }
+
+  _onPressCompleteGo() {
+    this.props.navigator.immediatelyResetRouteStack([
+      {
+        component: TabBarView,
+        passProps: {
+          page: 3
+        }
+      },
+      {
+        component: AccountInfo
+      }
+    ]);
+  }
+
+
+  _onPressCompleteBtn() {
+    this.props.actions.fetchAccountInfo(()=>this._onPressCompleteGo())
   }
 
   render() {
@@ -163,4 +186,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegSuccess;
+const mapStateToProps = (state) => ({
+  RegPwd: state.User.RegPwd,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(ActionCreator, dispatch)
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(RegSuccess);
