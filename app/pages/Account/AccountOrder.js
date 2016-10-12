@@ -77,12 +77,25 @@ class AccountOrder extends Component {
     return (
       <TouchableOpacity style={styles.ticket}>
         <Image style={styles.ticketBgImg} source={require('../../imgs/account_order_bg.png')}>
-          <View style={styles.ticketDetail}>
-            <Text style={{fontSize: 16, fontWeight: '900', color: '#636363'}}>京扑克俱乐部</Text>
-            <Text style={{fontSize: 14, fontWeight: '400', color: '#787878'}}>晚场暖身赛</Text>
-            <Text style={{fontSize: 14, fontWeight: '400', color: '#787878'}}>2016.6.25</Text>
-            <Text style={{fontSize: 14, fontWeight: '400', color: '#787878'}}>序列号:</Text>
+          <View style={styles.ticketInfo}>
+            <View style={styles.ticketInfo_left}>
+              <View style={styles.ticketInfo_left_name}>
+                <Text style={styles.ticketTitleText}>京扑克俱乐部</Text>
+              </View>
+              <View style={styles.ticketInfo_left_detail}>
+                <Text style={styles.ticketInfoText}>晚场暖身赛</Text>
+                <Text style={styles.ticketInfoText}>2016.6.25</Text>
+              </View>
+            </View>
+            <View style={styles.ticketInfo_right}>
+                <Text style={styles.ticketMoneyText}>200元</Text>
+
+            </View>
           </View>
+          <View style={styles.ticketSerial}>
+            <Text style={styles.ticketSerialText}>订单号: 1234567890</Text>
+          </View>
+
         </Image>
       </TouchableOpacity>
     )
@@ -106,7 +119,7 @@ class AccountOrder extends Component {
     return (
       <ScrollableTabView style={{
         marginTop: 10,
-      }} renderTabBar={() => <TabBarInner tabNames={['未验证', '已验证']}/>}>
+      }} renderTabBar={() => <TabBarInner tabNames={['未支付', '已支付']}/>}>
         <View tabLabel='false' style={{flex: 1}}>
           {this._renderOrders(mockData)}
         </View>
@@ -147,20 +160,74 @@ const styles = StyleSheet.create({
     height: ticketBgImgHeight,
     width: ticketBgImgWidth,
     resizeMode: Image.resizeMode.contain,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  ticketDetail: {
-    marginLeft: ticketBgImgWidth * 0.35,
-    width: ticketBgImgWidth * 0.4,
-    height: ticketBgImgHeight * 0.6,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    // backgroundColor: 'yellow',
+    // flexDirection: 'row',
+    // alignItems: 'center',
+    // borderWidth: 1,
   },
   ticketInfo: {
+    flex: 2.1,
+    // borderWidth: 1 ,
+    flexDirection: 'row',
+    // paddingTop: 20,
+    // backgroundColor: 'red',
+  },
+  ticketSerial: {
+    flex: 1,
+    // borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  ticketInfo_left: {
+    // borderWidth: 1,
+    flex: 1.5,
+    paddingTop: 20,
+  },
+  ticketInfo_right: {
+    paddingTop: 20,
 
+    // borderWidth: 1,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  ticketInfo_left_name: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    // borderWidth: 1,
+    flex: 1,
+  },
+  ticketInfo_left_detail: {
+    alignItems: 'center',
+    // borderWidth: 1,
+    flex: 1,
+
+  },
+  ticketTitleText: {
+    fontSize: 16,
+    fontWeight: '900',
+    color: '#636363',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+  },
+  ticketInfoText: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#787878',
+    backgroundColor: 'rgba(0, 0, 0, 0)',
+
+  },
+  ticketMoneyText: {
+    color: '#ff875c',
+    fontSize: 20,
+    fontWeight: 'bold',
+
+  },
+  ticketSerialText: {
+    fontSize: 16,
+    fontWeight: '900',
+    color: '#636363',
   }
+
+
 });
 
 export default AccountOrder

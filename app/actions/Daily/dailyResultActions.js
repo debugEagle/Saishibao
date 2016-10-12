@@ -1,6 +1,18 @@
 import * as types from '../actionTypes';
 import HTTPUtil from '../../common/utils/HTTPUtil'
 
+let matchResult = {
+  items:
+  [
+    {rank: 1, name: '张三', bonus:10000},
+    {rank: 2, name: '李四', bonus:5000},
+    {rank: 3, name: '王五', bonus:5000},
+    {rank: 4, name: '老张', bonus:5000},
+    {rank: 5, name: '叶凡', bonus:5000},
+    {rank: 6, name: '王大顺', bonus:5000},
+    {rank: 7, name: '景繁星', bonus:5000}
+  ]
+}
 //存入数据库json格式
 // {
 // "blindTime": 30,
@@ -47,82 +59,36 @@ import HTTPUtil from '../../common/utils/HTTPUtil'
 //   ]
 // };
 
-let fetchMatchSetting = ( success=()=>{}, error=()=>{}) => {
-
-  let matchSetting = {
-    // month: 9,
-    // day: 1,
-    // startTime: '15:30',
-    // blindTime: 20,
-    // chip: 10000,
-    // items:
-    // [
-    //   {level: 1, sb: 25, bb: 50, ante: 0},
-    //   {level: 2, sb: 25, bb: 50, ante: 0,},
-    //   {level: 3, sb: 25, bb: 50, ante: 0,},
-    //   {level: 4, sb: 100, bb: 200, ante: 0,appText: '关闭注册'},
-    //   {level: 5, sb: 25, bb: 50, ante: 20,},
-    //   {level: 6, sb: 25, bb: 50, ante: 20,},
-    //   {level: 7, sb: 25, bb: 50, ante: 20,appText: '比赛暂停20分'},
-    //   {level: 8, sb: 25, bb: 50, ante: 20,},
-    //   {level: 9, sb: 25, bb: 50, ante: 20,},
-    //   {level: 10, sb: 25, bb: 50, ante: 20,},
-    //   {level: 11, sb: 25, bb: 50, ante: 20,},
-    //   {level: 12, sb: 25, bb: 50, ante: 20,},
-    //   {level: 13, sb: 25, bb: 50, ante: 20,},
-    //   {level: 14, sb: 25, bb: 50, ante: 20,appText: '比赛暂停20分'},
-    //   {level: 15, sb: 25, bb: 50, ante: 20,},
-    //
-    // ],
-    // bonuses:
-    // [
-    //   {ranking: 1, bonus: 1600, },
-    //   {ranking: 2, bonus: 800, remark: '备注信息' },
-    //   {ranking: 3, bonus: 1600, },
-    // ]
-  };
-
-  let url = 'http://www.91buyin.com/texas/big/match/setting/9';
+let fetchDailyResult = ( success=()=>{}, error=()=>{}) => {
 
   return dispatch => {
-    dispatch(fetchSetting());
-    HTTPUtil.get(url).then((json) => {
-      try {
-        if (json.code === '0') {
-          matchSetting = JSON.parse(json.value.structure);
-          success();
-        }
-        dispatch(receiveSetting(matchSetting));
-      } catch (e) {
-        console.log(e.name)
-      }
-    },(connect_error)=>{
-      console.log(connect_error.msg);
-      error();
-    });
+    dispatch(fetchResult());
+    dispatch(receiveResult(matchResult));
   }
+
+
 }
 
-let resetMatchSetting = () => {
+let resetDailyResult = () => {
 
   return {
     type: types.RESET_MATCH_SETTING,
   }
 }
 
-let fetchSetting = () => {
+let fetchResult = () => {
 
   return {
-    type: types.FETCH_MATCH_SETTING,
+    type: types.FETCH_DAILY_MATCH_RESULT,
   }
 }
 
-let receiveSetting = (matchSetting) => {
+let receiveResult = (matchResult) => {
   return {
-    type: types.RECEIVE_MATCH_SETTING,
-    matchSetting: matchSetting,
+    type: types.RECEIVE_DAILY_MATCH_RESULT,
+    matchResult: matchResult,
   }
 }
 export {
-  fetchMatchSetting, resetMatchSetting
+  fetchDailyResult, resetDailyResult
 }

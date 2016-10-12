@@ -8,6 +8,10 @@ import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from '../../components/swiper.dist'
 import MapPage from '../Other/MapPage'
+import { getDataStr } from '../../common/utils/Date';
+import DailyInfo from './DailyInfo';
+
+
 
 
 import React, { Component } from 'react';
@@ -31,9 +35,27 @@ class CasinoIntro extends Component {
   constructor(props) {
     super(props);
 
+    this._onPressTodayBtn.bind(this);
+
   }
 
 
+  _onPressTodayBtn(casino) {
+
+    const showDate = getDataStr(0);
+    const title = '今日赛事';
+
+    this.props.navigator.push({
+
+      component: DailyInfo,
+      passProps: {
+        casino,
+        showDate,
+        title
+
+      }
+    });
+  }
 
   _onPressLbsBtn(address) {
 
@@ -93,7 +115,7 @@ class CasinoIntro extends Component {
             </View>
             <View style={styles.actionRow}>
               <Image style={styles.actionImage} source={require('../../imgs/casinoIntro_join.png')}/>
-              <TouchableOpacity >
+              <TouchableOpacity onPress={() => this._onPressTodayBtn(casino)}>
                 <View style={styles.joinBtn}>
                   <Text style={styles.joinBtnText}>加入比赛</Text>
                 </View>

@@ -10,6 +10,7 @@ import AccountInfo from './AccountInfo'
 import AccountTicket from './AccountTicket'
 import AccountGift from './AccountGift'
 import AccountOrder from './AccountOrder'
+import AccountContact from  './AccountContact';
 
 import React, { Component } from 'react';
 import {
@@ -60,6 +61,12 @@ class Account extends Component {
   _onPressMyGift() {
     this.props.navigator.push({
         component: AccountGift,
+    });
+  }
+
+  _onPressContact() {
+    this.props.navigator.push({
+        component: AccountContact,
     });
   }
 
@@ -152,7 +159,8 @@ class Account extends Component {
                     </Text>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.menuItem}>
+                <TouchableOpacity style={styles.menuItem}
+                  onPress={()=>this._onPressContact()}>
                   <View style={[styles.menuImageView, {marginRight: -20}]}>
                     <Image style={styles.menuImage} source={require('../../imgs/account_about.png')}/>
                   </View>

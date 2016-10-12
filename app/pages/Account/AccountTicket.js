@@ -77,16 +77,59 @@ class AccountTicket extends Component {
     return (
       <TouchableOpacity style={styles.ticket}>
         <Image style={styles.ticketBgImg} source={require('../../imgs/account_ticket_bg.png')}>
-          <View style={styles.ticketDetail}>
-            <Text style={{fontSize: 16, fontWeight: '900', color: '#636363'}}>京扑克俱乐部</Text>
-            <Text style={{fontSize: 14, fontWeight: '400', color: '#787878'}}>晚场暖身赛</Text>
-            <Text style={{fontSize: 14, fontWeight: '400', color: '#787878'}}>2016.6.25</Text>
-            <Text style={{fontSize: 14, fontWeight: '400', color: '#787878'}}>序列号:</Text>
+          <View style={styles.ticketTitle}>
+            <Text style={styles.ticketTitleText} >京扑克俱乐部</Text>
           </View>
+          <View style={styles.ticketInfo}>
+            <Text style={styles.ticketInfoText}>晚场暖身赛</Text>
+            <Text style={styles.ticketInfoText}>2016.6.25</Text>
+
+          </View>
+          <View style={styles.ticketSerial}>
+            <Text style={styles.ticketSerialText}>序列号: </Text>
+            <Text style={{fontWeight:'bold', color: '#ff875c'}}>1234567890</Text>
+          </View>
+
         </Image>
       </TouchableOpacity>
     )
   }
+  _renderTicket_verify(ticket) {
+
+    return (
+      <TouchableOpacity style={styles.ticket}>
+        <Image style={styles.ticketBgImg} source={require('../../imgs/account_ticket_bg_v.png')}>
+          <View style={styles.ticketTitle}>
+            <Text style={styles.ticketTitleText} >京扑克俱乐部</Text>
+          </View>
+          <View style={styles.ticketInfo}>
+            <Text style={styles.ticketInfoText}>晚场暖身赛</Text>
+            <Text style={styles.ticketInfoText}>2016.6.25</Text>
+
+          </View>
+          <View style={styles.ticketSerial}>
+            <Text style={styles.ticketSerialText}>序列号: </Text>
+            <Text style={{fontWeight:'bold', color: '#ff875c'}}>1234567890</Text>
+          </View>
+
+        </Image>
+      </TouchableOpacity>
+    )
+  }
+
+  _renderTickets_verify(tickets) {
+
+    return (
+      <ListView
+
+        dataSource={this.state.dataSource.cloneWithRows(tickets)}
+        renderRow={this._renderTicket_verify.bind(this)}
+        initialListSize={15}
+        style={styles.tickets}
+        enableEmptySections={true}/>
+    )
+  }
+
 
   _renderTickets(tickets) {
 
@@ -111,7 +154,7 @@ class AccountTicket extends Component {
           {this._renderTickets(mockData)}
         </View>
         <View tabLabel='true' style={{flex: 1}}>
-          {this._renderTickets(mockData)}
+          {this._renderTickets_verify(mockData)}
         </View>
       </ScrollableTabView>
     )
@@ -147,18 +190,56 @@ const styles = StyleSheet.create({
     height: ticketBgImgHeight,
     width: ticketBgImgWidth,
     resizeMode: Image.resizeMode.contain,
-    flexDirection: 'row',
-    alignItems: 'center'
+    paddingBottom: 20,
+    // flexDirection: 'row',
+    // alignItems: 'center'
   },
   ticketDetail: {
     marginLeft: ticketBgImgWidth * 0.35,
     width: ticketBgImgWidth * 0.4,
     height: ticketBgImgHeight * 0.6,
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'space-around',
     // backgroundColor: 'yellow',
   },
+  ticketTitle: {
+    flex: 1,
+    marginLeft: 50,
+    marginTop: 10,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0)',
+    // borderWidth: 1,
+  },
   ticketInfo: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  },
+  ticketSerial: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+
+  },
+  ticketTitleText: {
+    fontSize: 16,
+    fontWeight: '900',
+    color: '#636363'
+  },
+  ticketInfoText: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: '#787878',
+
+  },
+  ticketSerialText: {
+    fontSize: 15,
+    fontWeight: '900',
+    color: '#787878',
+    backgroundColor: 'rgba(0,0,0,0)',
 
   }
 });

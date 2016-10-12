@@ -54,6 +54,23 @@ class MatchSetting extends Component {
       </View>
     );
   }
+  _renderBonusTitleRow(item1, item2, item3 ) {
+    return (
+      <View style={styles.settingBonusTitle}>
+        <View style={[styles.settingBonusTitleBlock, {flex: 1}]}>
+          <Text style={styles.settingTitleText}>{item1}</Text>
+        </View>
+        <View style={[styles.settingBonusTitleBlock, {flex: 2}]}>
+          <Text style={styles.settingTitleText}>{item2}</Text>
+        </View>
+        <View style={[styles.settingBonusTitleBlock, {flex: 2}]}>
+          <Text style={styles.settingTitleText}>{item3}</Text>
+        </View>
+
+
+      </View>
+    );
+  }
 
   _renderTitleItem(item) {
     return (
@@ -164,7 +181,7 @@ class MatchSetting extends Component {
                 {/*<View style={styles.settingBonusRow}>
                   <Text style={styles.settingInfoRowText}>奖金结构表</Text>
                 </View>*/}
-
+                {this._renderBonusTitleRow('名次', '姓名', '奖金')}
                 {matchSetting.bonuses.map((item, i) => {
                   return (<View key={i}>{this._renderSettingBonusRow(item)}</View>);
             })}
@@ -253,7 +270,22 @@ const styles = StyleSheet.create({
     color: '#424242',
     fontSize: 14,
     fontWeight: 'bold',
-  }
+  },
+  settingBonusTitle: {
+    flexDirection: 'row',
+    paddingTop :10,
+    paddingBottom :10,
+    borderBottomWidth: 2,
+    borderColor: '#e0eaff',
+  },
+  settingBonusTitleBlock: {
+    // flex:1,
+    marginTop: 2,
+    marginBottom: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  },
 });
 
 const mapStateToProps = (state) => ({
