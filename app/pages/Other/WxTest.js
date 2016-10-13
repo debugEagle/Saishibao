@@ -16,8 +16,11 @@ import {
   ScrollView,
   AlertIOS,
   TouchableHighlight,
-  Dimensions
+  Dimensions,
+  AsyncStorage,
 } from 'react-native'
+
+import Common from '../../common/constants';
 
 
 function show(title, msg) {
@@ -50,7 +53,13 @@ const httpx = NativeModules.httpx
 class WxTest extends Component {
     constructor(props) {
         super(props)
-        this.state = { installed: false }
+        this.state = {
+          installed: false,
+          code :'',
+          userToken: '',
+        }
+
+        this.bindWx =this.bindWx.bind(this);
 
         /* 监听回调 */
         var listener = NativeAppEventEmitter.addListener(
@@ -65,8 +74,15 @@ class WxTest extends Component {
                     /* 登陆回调 */
                     case 'WeChat.Resp.Auth':
                         this.getUserInfoFromWx(body.code)
+                        // console.log('code ' + body.code );
+
+
+
+                        show('登陆回调', 'code:' + body.code);
                         break;
                     default:
+                      show('body.type ' + body.type);
+
                 }
             }
         )
@@ -98,7 +114,7 @@ class WxTest extends Component {
 
     sendAuthReq() {
         let scope = 'snsapi_userinfo'
-        let state = 'wechat_sdk_test'
+        let state = '13585702802'
         WeChatAPI.sendAuthReq(scope, state, (b) => show('微信登陆', 'sendAuthReq:' + b))
     }
 
@@ -119,6 +135,9 @@ class WxTest extends Component {
 
     getUserInfoFromWx(code) {
         console.log('code:', code)
+        this.setState({
+          code: code,
+        })
         httpx.request({
             // url: 'https://www.91buyin.com/users/wxlogin',
             url: 'https://www.91buyin.com/user/thirdparty/wechat/login',
@@ -130,8 +149,38 @@ class WxTest extends Component {
                 show('获取用户信息失败:', error)
                 return
             }
-            show('获取用户信息:', res.json)
+            // let { token } = (res.json);
+            this.setState({
+              userToken: res.json.value.token,
+            })
+            show('获取用户信息:', JSON.stringify(res.json));
         })
+    }
+
+    bindWx() {
+        show('code&token :', this.state.code + '   ' + this.state.userToken);
+
+        httpx.request({
+            // url: 'https://www.91buyin.com/users/wxlogin',
+            url: 'https://www.91buyin.com/user/info/bind/wechat',
+            method: 'POST',
+            timeout: 5,
+            post: {code: this.state.code},
+            header: {
+              'authorization': 'Bearer ' + this.state.userToken,
+              'Content-Type': 'application/json'
+            },
+
+
+        }, (error, res) => {
+            if (error) {
+                show('bind失败:', error)
+                return
+            }
+            console.log(res.json);
+            show('bind, 获取用户信息:',JSON.stringify(res.json));
+        })
+
     }
 
 
@@ -187,6 +236,11 @@ class WxTest extends Component {
                     style={styles.button} underlayColor="#f38"
                     onPress={this.buy}>
                     <Text style={styles.buttonTitle}>buy / pay</Text>
+                </TouchableHighlight>
+                <TouchableHighlight
+                    style={styles.button} underlayColor="#f38"
+                    onPress={this.bindWx}>
+                    <Text style={styles.buttonTitle}>绑定</Text>
                 </TouchableHighlight>
 
 
