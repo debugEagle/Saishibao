@@ -11,12 +11,12 @@ let setRegPwd = (mobile, pwd, token,  success=()=>{}, failed=()=>{}, error=()=>{
   return dispatch => {
     dispatch(fetchRegPwd());
     post = {mobile: mobile, password: pwd, token: token};
-  
+
     HTTPUtil.post(url, post).then((json) => {
       try {
         console.log('json ' + JSON.stringify(json));
         if (json.code === '0') {
-          success();
+          success(json.value);
         } else {
           failed(json.msg);
         }

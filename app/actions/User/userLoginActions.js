@@ -36,6 +36,7 @@ let startUserLoginWithToken = () => {
     dispatch(fetchUserLoginWithToken());
     AsyncStorage.getItem(Common.userToken).then((userToken)=>{
       HTTPUtil.get(url,null,userToken).then((json) => {
+        console.log(json);
         try {
           let {code, msg} = json;
           dispatch(receiveUserLoginWithToken(code, msg));
@@ -80,7 +81,7 @@ let userLogout = () => {
   return dispatch => {
     console.log('userLogout');
     AsyncStorage.setItem(Common.userToken, '');
-    dispatch(receiveLogout());
+    dispatch(fetchLogout());
   //
   //   dispatch(fetchUserLoginWithToken());
   //
@@ -146,9 +147,9 @@ let fetchUserLoginWithToken = () => {
   }
 }
 
-let receiveLogout = () => {
+let fetchLogout = () => {
   return {
-    type: types.RECEIVE_USERLOGOUT,
+    type: types.FETCH_USERLOGOUT,
 
   }
 }

@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ActionCreator from '../../actions'
 
+
 import Util from '../../common/utils';
 import NavBar from '../../components/NavBar';
 import Common from '../../common/constants';
@@ -58,32 +59,23 @@ class RegPwd extends Component {
     }
 
     console.log('mobile ' + this.props.mobile);
-    this.props.actions.setRegPwd(this.props.mobile, this.state.pwd, this.state.token, ()=>this._fetchSuccess(), (msg)=>this._fetchFailed(msg));
+    this.props.actions.setRegPwd(this.props.mobile, this.state.pwd, this.state.token, (token)=>this._fetchSuccess(token), (msg)=>this._fetchFailed(msg));
 
   }
 
-  _fetchSuccess() {
-    this.props.navigator.push({
-
-      component: RegSuccess,
-
-    });
-
+  _fetchSuccess(token) {
+    AsyncStorage.setItem(Common.userToken,token).then(()=>{
+      this.props.navigator.push({
+        component: RegSuccess,
+      });
+    })
   }
 
 
 
   _fetchFailed(msg) {
     this.refs.toast.show( msg );
-
-
   }
-
-
-
-
-
-
 
   render() {
     const { TimerElse } = this.props;

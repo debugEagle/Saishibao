@@ -12,10 +12,12 @@ let fetchHots = (args,success=()=>{},error=()=>{}) => {
   if (!args.start) {
     oArguments = Object.assign({}, oArguments, args)
   }
+
+  let start = oArguments.start
   delete(oArguments.start)
 
   return dispatch => {
-    dispatch(fetchHotList(oArguments.start));
+    dispatch(fetchHotList(start));
     HTTPUtil.get(url, oArguments).then((json) => {
       try {
         let count = 0;
