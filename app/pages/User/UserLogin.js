@@ -81,16 +81,16 @@ class UserLogin extends Component {
     return (
       <View style={styles.container}>
 
-        <NavBar name='登陆' navigator={this.props.navigator}/>
+        <NavBar name='登录' navigator={this.props.navigator}/>
 
         <View >
-        <View style={styles.linkReg}>
-        <TouchableOpacity onPress={() => this._onRegBtn()}>
-          <Text style={styles.linkRegText}>
-            注     册
-          </Text>
-        </TouchableOpacity>
-        </View>
+          <View style={styles.linkReg}>
+            <TouchableOpacity onPress={() => this._onRegBtn()}>
+              <Text style={styles.linkRegText}>
+                注     册
+              </Text>
+            </TouchableOpacity>
+          </View>
 
         </View>
 
@@ -103,18 +103,18 @@ class UserLogin extends Component {
               <Text style={styles.inputLabelText}>手机号码</Text>
             </View>
             <View style={styles.inputBlock}>
-            <TextInput style = {styles.inputMobile}
-              ref="1"
-              multiline={false}
-              autoFocus={true}
-              placeholder= "请输入手机号码"
-              keyboardType= 'number-pad'
-              maxLength={11}
-              onChange={(event) => {
-                this.state.mobile = event.nativeEvent.text;
-              }}
+              <TextInput style = {styles.inputMobile}
+                ref="1"
+                multiline={false}
+                autoFocus={true}
+                placeholder= "请输入手机号码"
+                keyboardType= 'number-pad'
+                maxLength={11}
+                onChange={(event) => {
+                  this.state.mobile = event.nativeEvent.text;
+                }}
 
-            />
+              />
             </View>
           </View>
           <View style={styles.inputRowTwo}>
@@ -122,19 +122,19 @@ class UserLogin extends Component {
               <Text style={styles.inputLabelText}>输入密码</Text>
             </View>
             <View style={styles.inputBlock}>
-            <TextInput style = {styles.inputMobile}
-              ref="1"
-              multiline={false}
-              //autoFocus={true}
-              placeholder= "请输入密码"
-              keyboardType= 'ascii-capable'
-              maxLength={6}
-              password={true}
-              onChange={(event) => {
-                this.state.pwd = event.nativeEvent.text;
-              }}
+              <TextInput style = {styles.inputMobile}
+                ref="1"
+                multiline={false}
+                //autoFocus={true}
+                placeholder= "请输入密码"
+                keyboardType= 'ascii-capable'
+                maxLength={6}
+                password={true}
+                onChange={(event) => {
+                  this.state.pwd = event.nativeEvent.text;
+                }}
 
-            />
+              />
             </View>
           </View>
         </View>
@@ -144,7 +144,7 @@ class UserLogin extends Component {
 
         <View style={{flex: 1, alignItems: 'center'}}>
           <TouchableOpacity style={styles.nextBtn} onPress={() => this._onLoginBtn()}>
-            <Text style={styles.nextBtnText}>登        陆</Text>
+            <Text style={styles.nextBtnText}>登        录</Text>
           </TouchableOpacity>
         </View>
 
@@ -158,7 +158,7 @@ class UserLogin extends Component {
   const inputPadding = 18;
   const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     backgroundColor: '#ffffff',
     // alignItems: 'center',
   },

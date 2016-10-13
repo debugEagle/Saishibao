@@ -60,9 +60,8 @@ class HotIntro extends Component {
   render() {
     const {hotMatch} = this.props;
     const { HotIntro } = this.props;
-    console.log(this.props);
     let intro = HotIntro.intro;
-    
+
     return (
       <View style={styles.container}>
         <NavBar name='赛事介绍' navigator={this.props.navigator}/>
