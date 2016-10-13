@@ -201,7 +201,7 @@ class AccountInfo extends Component {
 
     return (
       <View style={styles.container}>
-        <NavBar name='俱乐部' navigator={this.props.navigator}  />
+        <NavBar name='我的信息' navigator={this.props.navigator}  />
         <View style={styles.spaceTop} />
         {this._renderInfoView()}
       </View>

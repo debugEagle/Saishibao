@@ -38,6 +38,7 @@ class MainView extends Component {
 
     return (
       <ScrollableTabView
+        scrollWithoutAnimation={true}
         initialPage={this.props.page || 0}
         renderTabBar={() => <TabBar tabNames={tabNames} tabIconNames={tabIconNames} />}
         tabBarPosition='bottom'>

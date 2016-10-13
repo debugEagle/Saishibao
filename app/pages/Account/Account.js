@@ -47,6 +47,11 @@ class Account extends Component {
     });
   }
 
+  _onPressLogoutBtn() {
+    this.props.actions.userLogout()
+    this.refs.toast.show('退出成功')
+  }
+
   _onPressMyInfo() {
     const { actions } = this.props
     actions.fetchAccountInfo(()=>this._successToNavigator(AccountInfo),(msg)=>this._failedToast('登录后才能操作'))
@@ -93,7 +98,12 @@ class Account extends Component {
                 <Text style={styles.stateText}>点击登录</Text>
               </TouchableOpacity>
               :
-              <Text style={styles.stateText}>已登录</Text>
+              // <Text style={styles.stateText}>已登录</Text>
+              <TouchableOpacity
+                style={styles.stateView}
+                onPress={() => this._onPressLogoutBtn()}>
+                <Text style={styles.stateText}>退出</Text>
+              </TouchableOpacity>
             }
           </View>
           <View style={styles.menuArea}>

@@ -26,13 +26,16 @@ class RightButton extends Component {
 
 class NavBar extends Component {
   _leftButton() {
-    if (this.props.navigator.getCurrentRoutes().length > 1) return (
-      <TouchableOpacity
-        style={styles.button}
-        onPress={()=> this.props.navigator.pop() }>
-        <Icon color="white" size={30} name={'angle-left'} style={styles.leftButton}/>
-      </TouchableOpacity>
-    )
+    if (this.props.navigator.getCurrentRoutes().length > 1)
+    {
+      return (
+        <TouchableOpacity
+          style={styles.button}
+          onPress={()=> this.props.navigator.pop() }>
+          <Icon color="white" size={30} name={'angle-left'} style={styles.leftButton}/>
+        </TouchableOpacity>
+      )
+    }
   }
 
   _rightButton() {

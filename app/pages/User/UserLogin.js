@@ -57,7 +57,7 @@ class UserLogin extends Component {
 
   _fetchSuccess(userToken) {
     AsyncStorage.setItem(Common.userToken, userToken);
-    this.props.navigator.pop();
+    this.props.navigator.resetTo({component: TabBarView, passProps:{page:3}});
     console.log(userToken);
   }
 

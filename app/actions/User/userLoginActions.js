@@ -81,7 +81,7 @@ let userLogout = () => {
   return dispatch => {
     console.log('userLogout');
     AsyncStorage.setItem(Common.userToken, '');
-    dispatch(receiveLogout());
+    dispatch(fetchLogout());
   //
   //   dispatch(fetchUserLoginWithToken());
   //
@@ -147,9 +147,9 @@ let fetchUserLoginWithToken = () => {
   }
 }
 
-let receiveLogout = () => {
+let fetchLogout = () => {
   return {
-    type: types.RECEIVE_USERLOGOUT,
+    type: types.FETCH_USERLOGOUT,
 
   }
 }
