@@ -29,7 +29,7 @@ class MainView extends Component {
 
   componentDidMount() {
     // codePush.sync();
-    codePush.sync({updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE});
+    // codePush.sync({updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE});
   }
 
   render() {

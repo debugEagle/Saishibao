@@ -88,4 +88,4 @@ let setAccountInfoAction = (key, value) => {
   }
 }
 
-export { fetchAccountInfo, setAccountInfo }
+export { fetchAccountInfo, setAccountInfo, updateAccountInfo }

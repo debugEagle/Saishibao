@@ -1,6 +1,8 @@
 import NavBar from '../../components/NavBar';
 import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Toast, {DURATION} from 'react-native-easy-toast';
+import HTTPUtil from '../../common/utils/HTTPUtil'
 
 import AccountInfoSet from './AccountInfoSet'
 
@@ -11,15 +13,44 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
+  NativeAppEventEmitter,
+  AsyncStorage,
   View,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  NativeModules
 } from 'react-native';
+
+const WeChatAPI = NativeModules.WeChatAPI
 
 class AccountInfo extends Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      isWXAppInstalled: false,
+    }
+    this._bindWechat = this._bindWechat.bind(this)
+    this._goBindWechat = this._goBindWechat.bind(this)
+
+    var listener = NativeAppEventEmitter.addListener(
+      'WeChat.Resp',
+      (body) => {
+        switch (body.type) {
+          /* 登录回调 */
+          case 'WeChat.Resp.Auth':
+            console.log('登录回调' + body.code);
+            this._bindWechat(body.code)
+            break;
+          default:
+            console.log(('body.type ' + body.type));
+        }
+      }
+    )
+  }
+
+  componentDidMount() {
+    WeChatAPI.registerWx((b) => this.setState({isWXAppInstalled:b}))
   }
 
   _navigatorToSetValue(attr,name){
@@ -31,6 +62,39 @@ class AccountInfo extends Component {
         setAccountInfo: this.props.actions.setAccountInfo
       }
     })
+  }
+
+  _goBindWechat(){
+    if (!this.state.isWXAppInstalled) {
+      return this.refs.toast.show('本机未安装微信')
+    } else {
+      let scope = 'snsapi_userinfo'
+      let state = 'Saishibao'
+      WeChatAPI.sendAuthReq(scope, state, (b) => {console.log('微信登陆', 'sendAuthReq:' + b)})
+    }
+  }
+
+  _bindWechat(code) {
+    AsyncStorage.getItem(Common.userToken).then((userToken) => {
+      console.log('userToken:'+userToken);
+      let url = 'http://www.91buyin.com/user/info/bind/wechat'
+      HTTPUtil.post(url, {code: code}, userToken).then((json) => {
+        console.log(json);
+        try {
+          if (json.code === '0') {
+            this.refs.toast.show(json.msg)
+            this.props.actions.updateAccountInfo('wechat_unionid', 'binded')
+          } else {
+            this.refs.toast.show(json.msg)
+          }
+        } catch (e) {
+          this.refs.toast.show('服务器繁忙，请稍后再试！')
+          console.log(e.name)
+        }
+      },(connect_error)=>{
+        console.log(connect_error.msg);
+      });
+    });
   }
 
   _renderInfoView() {
@@ -59,7 +123,7 @@ class AccountInfo extends Component {
               </Text>
             </View>
             <TouchableOpacity
-              disabled={info.rickName ? true : false}
+              disabled={!!info.rickName}
               onPress={()=>this._navigatorToSetValue('rickName','昵称')}
               style={styles.itemValue}>
               <View style={styles.valueTextView}>
@@ -80,7 +144,7 @@ class AccountInfo extends Component {
               </Text>
             </View>
             <TouchableOpacity
-              disabled={info.realName ? true : false}
+              disabled={!!info.realName}
               onPress={()=>this._navigatorToSetValue('realName','真实姓名')}
               style={styles.itemValue}>
               <View style={styles.valueTextView}>
@@ -124,12 +188,12 @@ class AccountInfo extends Component {
               </Text>
             </View>
             <TouchableOpacity
-              disabled={true}
-              onPress={()=>{console.log('onPress')}}
+              disabled={!!info.wechat_unionid}
+              onPress={()=>this._goBindWechat()}
               style={styles.itemValue}>
               <View style={styles.valueTextView}>
                 <Text style={styles.valueText}>
-                  未绑定
+                  {info.wechat_unionid ? '已绑定': '点击绑定'}
                 </Text>
               </View>
               <View style={styles.itemArrow}>
@@ -145,7 +209,7 @@ class AccountInfo extends Component {
               </Text>
             </View>
             <TouchableOpacity
-              disabled={info.idCard ? true : false}
+              disabled={!!info.idCard}
               onPress={()=>this._navigatorToSetValue('idCard','身份证')}
               style={styles.itemValue}>
               <View style={styles.valueTextView}>
@@ -166,7 +230,7 @@ class AccountInfo extends Component {
               </Text>
             </View>
             <TouchableOpacity
-              disabled={info.passportID ? true : false}
+              disabled={!!info.passportID}
               onPress={()=>this._navigatorToSetValue('passportID','身份证号')}
               style={styles.itemValue}>
               <View style={styles.valueTextView}>
@@ -204,6 +268,7 @@ class AccountInfo extends Component {
         <NavBar name='我的信息' navigator={this.props.navigator}  />
         <View style={styles.spaceTop} />
         {this._renderInfoView()}
+        <Toast ref="toast" position='center'/>
       </View>
     );
   }
