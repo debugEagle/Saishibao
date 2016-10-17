@@ -11,7 +11,6 @@ let fetchAccountInfo = (success=()=>{}, failed=()=>{}, error=()=>{}) => {
     dispatch(fetchAccountInfoAction());
     AsyncStorage.getItem(Common.userToken).then((userToken)=>{
       HTTPUtil.get(url,null,userToken).then((json) => {
-        console.log(json);
         try {
           let info = {}
           if (json.code === '0') {
@@ -89,4 +88,4 @@ let setAccountInfoAction = (key, value) => {
   }
 }
 
-export { fetchAccountInfo, setAccountInfo }
+export { fetchAccountInfo, setAccountInfo, updateAccountInfo }

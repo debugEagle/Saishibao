@@ -87,7 +87,7 @@ class HotList extends Component {
   _renderRow(hotMatch) {
     return (
       <TouchableHighlight underlayColor="rgba(34, 26, 38, 0.1)"
-      onPress={() => this._onPressHotItem(hotMatch)}>
+        onPress={() => this._onPressHotItem(hotMatch)}>
         <View style={styles.listItem}>
           <View>
             <Image style={styles.itemImage} source={{uri:hotMatch.url}}>
