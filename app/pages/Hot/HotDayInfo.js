@@ -33,6 +33,7 @@ class HotList extends Component {
     super(props);
 
     this.state = {
+      cooperated: -1,
       daysDataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
@@ -53,17 +54,36 @@ class HotList extends Component {
 
   }
 
-  _onPressJoinMatch() {
+
+  _onPressJoinMatch(item) {
+
+    // console.log('item ' + item);
+    const { hotMatch } = this.props;
+    let matchItem = item;
+
     this.props.navigator.push({
       component: AccountPay,
+      passProps: {
+        matchItem,
+        hotMatch,
+        isDailyMatch: false,
+
+      },
 
     });
   }
 
 
+
   componentWillMount() {
 
     const { hotMatch } = this.props;
+    // console.log(hotMatch);
+    this.setState({
+      cooperated: hotMatch.cooperated,
+    });
+
+
     this.props.actions.fetchHotDays(hotMatch.bigMatchSerie_id);
   }
 
@@ -104,7 +124,7 @@ class HotList extends Component {
       title: 'MatchSetting',
       component: MatchSetting,
       passProps: {
-        bigMatch,
+        match: bigMatch,
         isStruct: isStruct,
       },
     });
@@ -161,6 +181,7 @@ class HotList extends Component {
       real_buyin = real_buyin + '+' + bigMatch.rake_buyin
     }
 
+    // console.log('cooperated ' + this.state.cooperated);
     return (
 
       <View style={styles.detailItem}>
@@ -203,9 +224,11 @@ class HotList extends Component {
           <TouchableOpacity style={styles.detailStruct} onPress={() => this._onPressDetailStruct(bigMatch, true)}>
             <Text style={styles.detailStructText}>比赛结构表</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.detailJoin} onPress={() => this._onPressJoinMatch()}>
+          {this.state.cooperated?
+          <TouchableOpacity style={styles.detailJoin} onPress={() => this._onPressJoinMatch(bigMatch)}>
             <Text style={styles.detailJoinText}>参加赛事  </Text>
           </TouchableOpacity>
+          : null}
 
           <TouchableOpacity style={styles.detailResult} onPress={() => this._onPressDetailStruct(bigMatch, false)}>
             <Text style={styles.detailResultText}>奖金结构表</Text>
@@ -417,7 +440,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  HotDayInfo: state.Hot.HotDayInfo
+  HotDayInfo: state.Hot.HotDayInfo,
+  HotList: state.Hot.HotList,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -60,7 +60,7 @@ class DailyList extends Component {
 
     const showDate = getDataStr(0);
     const title = '今日赛事';
-
+    
     this.props.navigator.push({
 
       component: DailyInfo,

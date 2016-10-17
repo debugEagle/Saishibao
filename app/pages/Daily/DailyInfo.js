@@ -42,14 +42,23 @@ class DailyInfo extends Component {
     this._onPressJoinMatch = this._onPressJoinMatch.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { casino, showDate } = this.props;
     this.props.actions.fetchDailyInfo(casino.casino_id, showDate);
   }
 
-  _onPressJoinMatch() {
+  _onPressJoinMatch(item) {
+    const { casino } = this.props;
+    let matchItem = item;
+
+
     this.props.navigator.push({
       component: AccountPay,
+      passProps: {
+        casino,
+        matchItem,
+        isDailyMatch: true,
+      },
 
     });
   }
@@ -60,18 +69,17 @@ class DailyInfo extends Component {
   }
 
 
-  _onPressDetailStruct(bigMatch, isStruct) {
-    console.log('isStruct '+ isStruct);
+
+  _onPressDetailStruct(match, isStruct) {
     this.props.navigator.push({
       title: 'MatchSetting',
       component: MatchSetting,
       passProps: {
-        bigMatch,
-        isStruct: isStruct
+        match: match,
+        isStruct: isStruct,
       },
     });
   }
-
 
 
   _renderDailyInfoList(item) {
@@ -112,7 +120,7 @@ class DailyInfo extends Component {
             </TouchableOpacity>
 
 
-            <TouchableOpacity style={styles.detailJoin} onPress={() => this._onPressJoinMatch()}>
+            <TouchableOpacity style={styles.detailJoin} onPress={() => this._onPressJoinMatch(item)}>
               <Text style={styles.detailJoinText}>参加赛事</Text>
             </TouchableOpacity>
 

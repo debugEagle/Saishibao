@@ -24,6 +24,7 @@ let fetchHotDays = (bigMatchSerie_id, success=()=>{}, error=()=>{}) => {
             detaiListItem.day = match_day.getDate();
             detaiListItem.remark = row.remark;
 
+
             hotDayDetailList.push(detaiListItem);
 
             let haveFlag = false;

@@ -36,7 +36,7 @@ let startUserLoginWithToken = () => {
     dispatch(fetchUserLoginWithToken());
     AsyncStorage.getItem(Common.userToken).then((userToken)=>{
       HTTPUtil.get(url,null,userToken).then((json) => {
-        console.log(json);
+        // console.log(json);
         try {
           let {code, msg} = json;
           dispatch(receiveUserLoginWithToken(code, msg));

@@ -82,7 +82,6 @@ class DailyResult extends Component {
   render() {
     const { DailyResult } = this.props;
     let matchResult = DailyResult.matchResult;
-    console.log('matchResult '+ DailyResult);
     return (
       <View style={styles.container}>
         <NavBar name='赛事结果' navigator={this.props.navigator}/>

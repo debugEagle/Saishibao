@@ -21,8 +21,38 @@ class AccountPay extends Component {
 
     this.state = {
       payNum: 1,
-      money: 200,
+      payUnitPrice: 0,
+      isDailyMatch: false,
+      titleOne: '',
+      titleTwo: '',
+
     }
+  }
+
+  componentWillMount() {
+
+    const { casino, matchItem, isDailyMatch, hotMatch }= this.props;
+
+    this.setState({
+      payUnitPrice: matchItem.unit_price,
+      isDailyMatch: isDailyMatch,
+    });
+
+    // console.log(matchItem.isDailyMatch);
+    if (isDailyMatch) {
+      this.setState({
+        titleOne: casino.casino,
+        titleTwo: matchItem.dailyMatchSerie.name,
+      })
+    }
+    else {
+      this.setState({
+        titleOne: hotMatch.name,
+        titleTwo: matchItem.name,
+      })
+    }
+
+
   }
 
   _onPressNumCtrl(isAdd) {
@@ -40,94 +70,127 @@ class AccountPay extends Component {
 
     }
   }
+  _renderTitle() {
+    const { casino, matchItem}= this.props;
+
+    return (
+      <View style={styles.titleArea}>
+      <View style={styles.infoRow}>
+        <Text style={styles.casinoText}>
+          {this.state.titleOne}
+        </Text>
+      </View>
+
+      <View style={styles.infoRow}>
+        <Text style={styles.matchNameText}>
+          {this.state.titleTwo}
+        </Text>
+      </View>
+
+      </View>);
+  }
+
+  _renderPayCtrlArea() {
+
+  }
+
+  _renderPayCtrlRow() {
+    return (
+      <View>
+      <View style={styles.payNumCtrlRow}>
+        <View style={styles.payNumBlock_left} >
+          <TouchableOpacity style={styles.payNumTouch}
+            onPress={() => this._onPressNumCtrl(false)}>
+            <Text style={styles.payNumSymboText}>
+              -
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.payNum}>
+          <Text style={styles.payNumSymboText}>
+            {this.state.payNum}
+          </Text>
+        </View>
+        <View style={styles.payNumBlock_right} >
+          <TouchableOpacity style={styles.payNumTouch}
+            onPress={() => this._onPressNumCtrl(true)}>
+            <Text style={styles.payNumSymboText}>
+              +
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+
+      <View style={styles.payNumRow}>
+        <Text style={styles.moneyText} >
+          ￥{parseInt(this.state.payNum) * parseFloat(this.state.payUnitPrice)}
+        </Text>
+      </View>
+
+
+
+      </View>
+
+    );
+  }
+
+  _renderPayType() {
+    return (
+      <View style={styles.payStyleArea}>
+        <View style={styles.payStyleRow}>
+
+          <Text style={styles.payStyleText}>
+            付款方式
+          </Text>
+
+        </View>
+        <View style={styles.payStyle}>
+        <Image style={styles.payImage} source={require('../../imgs/pay_wx.png')}/>
+
+        </View>
+      </View>
+    );
+
+  }
+
+  _renderPayBtn() {
+    return (
+      <View style={styles.btnArea}>
+        <View style={styles.payBtn}>
+         <Text style={styles.payBtnText}>
+            购票
+         </Text>
+        </View>
+      </View>
+
+    );
+
+  }
+
   render() {
+
+    const { casino, matchItem}= this.props;
+
+
+    // console.log(casino);
     return (
       <View style={styles.container}>
       <NavBar name='参加赛事' navigator={this.props.navigator}  />
 
-       <View style={styles.infoArea}>
-        <View style={styles.infoDetailArea}>
-          <View style={styles.infoSubArea}>
-            <View style={styles.infoBackGround}>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.casinoText}>
-                北京·扑克俱乐部
-              </Text>
-            </View>
-            <View style={styles.infoImageRow}>
-              <Image style={styles.titleImage} source={require('../../imgs/casino_default.png')}/>
-
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.matchNameText}>
-                MTT常规赛
-              </Text>
-              </View>
+       <Image style={styles.infoArea}  source={require('../../imgs/account_payBk.png')}>
+        {this._renderTitle()}
+        <View style={styles.payCtrlArea}>
+          <View style={styles.paySubArea}>
+            {this._renderPayCtrlRow()}
           </View>
-          <View style={styles.infoSubArea}>
-            <View style={styles.payNumRow}>
-              <Text style={styles.commonText}>
-                购票数量
-              </Text>
-            </View>
-            <View style={styles.payNumCtrlRow}>
-              <View style={styles.payNumBlock_left} >
-                <TouchableOpacity style={styles.payNumTouch}
-                  onPress={() => this._onPressNumCtrl(false)}>
-                  <Text style={styles.payNumSymboText}>
-                    -
-                  </Text>
-                </TouchableOpacity>
-              </View>
-
-              <View style={styles.payNum}>
-                <Text style={styles.payNumSymboText}>
-                  {this.state.payNum}
-                </Text>
-              </View>
-              <View style={styles.payNumBlock_right} >
-                <TouchableOpacity style={styles.payNumTouch}
-                  onPress={() => this._onPressNumCtrl(true)}>
-                  <Text style={styles.payNumSymboText}>
-                    +
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={styles.payNumRow}>
-              <Text style={styles.moneyText} >
-                ￥{parseInt(this.state.money) * parseInt(this.state.payNum)}
-              </Text>
-            </View>
-          </View>
-
-
-        </View>
-
-        <View style={styles.payStyleArea}>
-          <View style={styles.payStyleRow}>
-
-            <Text style={styles.payStyleText}>
-              付款方式
-            </Text>
-
-          </View>
-          <View style={styles.payStyle}>
-          <Image style={styles.payImage} source={require('../../imgs/pay_wx.png')}/>
-
+          <View style={styles.paySubArea}>
+            {this._renderPayType()}
           </View>
         </View>
-
-       </View>
-
-       <View style={styles.btnArea}>
-         <View style={styles.payBtn}>
-          <Text style={styles.payBtnText}>
-             购票
-          </Text>
-         </View>
-       </View>
+       </Image>
+       {this._renderPayBtn()}
       </View>
 
     );
@@ -136,34 +199,39 @@ class AccountPay extends Component {
 
 
 const marginSize = 20;
+const circleDiameter = (Common.window.width - marginSize * 2 ) * 2 - 2 ;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Common.colors.containerBgColor,
   },
-  infoBackGround: {
-    bottom: 50,
-    left: marginSize - (300 / 2 ) -2  ,
-    backgroundColor: '#e0eaff',
-    width: 600,
-    height: 600,
-    borderRadius: 300,
-    position: 'absolute',
-    zIndex: -1,
-  },
+  // infoBackGround: {
+  //   bottom: 50,
+  //   left: marginSize - (circleDiameter / 2 / 2)   - marginSize ,
+  //   backgroundColor: '#e0eaff',
+  //   width: circleDiameter,
+  //   height: circleDiameter,
+  //   borderRadius: circleDiameter / 2 ,
+  //   position: 'absolute',
+  //   zIndex: -1,
+  // },
   infoArea: {
-    marginTop: 40,
-    margin: marginSize,
+    // marginTop: 20,
     flex: 5,
-    borderWidth: 2,
-    borderColor: '#e0eaff',
-    borderRadius: 8,
+    // borderWidth: 2,
+    // borderColor: '#e0eaff',
+    resizeMode: Image.resizeMode.contain,
+    // borderRadius: 8,
+    width: Common.window.width,
+    height: 1,
+    paddingTop: 40,
+    paddingBottom: 68,
   },
   btnArea: {
     flex: 1,
     marginHorizontal: marginSize,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   payBtn: {
     height: 50,
@@ -180,24 +248,24 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
   },
-  infoDetailArea: {
+  infoDetailArea1: {
     flex: 4,
     // borderWidth: 1,
   },
   payStyleArea: {
-    borderTopWidth: 2,
+    // borderTopWidth: 2,
     borderColor: '#e0eaff',
     marginHorizontal: 30,
     flex: 1.3,
   },
 
   infoRow: {
+    marginHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'center',
-
-    // marginTop: 10,
+    backgroundColor: 'rgba(0,0,0,0)',
     flex: 1,
-    // borderWidth: 1,
+
   },
   infoImageRow: {
     flex: 2.5,
@@ -212,15 +280,13 @@ const styles = StyleSheet.create({
   },
   casinoText: {
     color: '#424242',
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: 'bold',
-    backgroundColor: 'rgba( 0, 0, 0, 0 )',
   },
   matchNameText: {
-    color: '#787878',
+    color: '#424242',
     fontSize: 15,
     fontWeight: 'bold',
-    backgroundColor: 'rgba( 0, 0, 0, 0 )',
   },
   commonText: {
     color: '#787878',
@@ -235,18 +301,22 @@ const styles = StyleSheet.create({
   payNumCtrlRow: {
     flex: 4,
     // margin: 10,
+
     alignItems: 'center',
     flexDirection: 'row',
     // borderWidth: 1,
   },
   payNumRow: {
-    flex: 1,
+    // flex: 1,
     // borderWidth: 1,
+    marginTop: 10,
+    alignItems: 'center',
   },
   payNum: {
-    flex: 0.5,
+    marginTop: 10,
+    flex: 0.4,
     // width: 10,
-    height: 70,
+    height: 60,
     // backgroundColor: '#ffffff',
     borderWidth: 2,
     borderColor: '#e0eaff',
@@ -296,6 +366,21 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  titleArea: {
+    flex: 1,
+    // borderWidth: 1,
+  },
+  payCtrlArea: {
+    flex: 1.9,
+    // borderWidth: 1,
+    borderColor: 'red',
+
+  },
+  paySubArea: {
+    flex:1,
+    // borderWidth: 1,
   }
+
 })
 export default AccountPay ;

@@ -49,7 +49,7 @@ class HotList extends Component {
       title: 'MatchIntro',
       component: HotIntro,
       passProps: {
-        hotMatch
+        hotMatch,
       },
     });
   }

@@ -21,15 +21,15 @@ class MainView extends Component {
     super(props);
     this.state = {
       tabNames: [
-        '热门', '俱乐部', '赛事日历', '我的', 'WxTest'
+        '热门', '俱乐部', '赛事日历', '我的',
       ],
-      tabIconNames: ['hot', 'casino', 'schedule', 'myAccount', 'WxTest']
+      tabIconNames: ['hot', 'casino', 'schedule', 'myAccount', ]
     }
   }
 
   componentDidMount() {
-    // codePush.sync();
-    codePush.sync({updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE});
+    codePush.sync();
+    // codePush.sync({updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE});
   }
 
   render() {
@@ -42,7 +42,7 @@ class MainView extends Component {
         <DailyList tabLable='casino' navigator={this.props.navigator} {...this.props}/>
         <ScheduleList tabLable='schedule' navigator={this.props.navigator} {...this.props}/>
         <Account tabLable='myAccount' navigator={this.props.navigator} {...this.props}/>
-        <WxTest tabLable='myAccount2' navigator={this.props.navigator} {...this.props}/>
+        {/*<WxTest tabLable='myAccount2' navigator={this.props.navigator} {...this.props}/>*/}
 
       </ScrollableTabView>
     )

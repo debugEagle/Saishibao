@@ -29,6 +29,7 @@ let fetchHots = (args,success=()=>{},error=()=>{}) => {
             listItem.country = row.organization.casino.address.city.country.country;
             listItem.bigMatchSerie_id = row.bigMatchSerie_id;
             listItem.name = row.name;
+            listItem.cooperated = row.cooperated;
             listItem.url = row.image_url
               ? row.image_url
               : '';

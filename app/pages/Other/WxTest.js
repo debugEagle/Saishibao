@@ -73,8 +73,11 @@ class WxTest extends Component {
                         break;
                     /* 登陆回调 */
                     case 'WeChat.Resp.Auth':
-                        this.getUserInfoFromWx(body.code)
+                        // this.getUserInfoFromWx(body.code)
                         // console.log('code ' + body.code );
+                        this.setState({
+                          code: body.code,
+                        })
 
 
 
@@ -160,6 +163,7 @@ class WxTest extends Component {
     bindWx() {
         show('code&token :', this.state.code + '   ' + this.state.userToken);
 
+        AsyncStorage.getItem(Common.userToken).then((userToken) => {
         httpx.request({
             // url: 'https://www.91buyin.com/users/wxlogin',
             url: 'https://www.91buyin.com/user/info/bind/wechat',
@@ -167,7 +171,7 @@ class WxTest extends Component {
             timeout: 5,
             post: {code: this.state.code},
             header: {
-              'authorization': 'Bearer ' + this.state.userToken,
+              'authorization': 'Bearer ' + userToken,
               'Content-Type': 'application/json'
             },
 
@@ -180,6 +184,7 @@ class WxTest extends Component {
             console.log(res.json);
             show('bind, 获取用户信息:',JSON.stringify(res.json));
         })
+        });
 
     }
 

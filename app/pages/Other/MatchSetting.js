@@ -33,7 +33,9 @@ class MatchSetting extends Component {
 
 
   componentWillMount() {
-    this.props.actions.fetchMatchSetting();
+    const { match } = this.props;
+    // console.log('match.matchSetting_id ' + match.matchSetting_id);
+    this.props.actions.fetchMatchSetting(1);
   }
 
   componentWillUnmount() {
@@ -57,13 +59,13 @@ class MatchSetting extends Component {
   _renderBonusTitleRow(item1, item2, item3 ) {
     return (
       <View style={styles.settingBonusTitle}>
-        <View style={[styles.settingBonusTitleBlock, {flex: 1}]}>
+        <View style={styles.settingBonusTitleBlock}>
           <Text style={styles.settingTitleText}>{item1}</Text>
         </View>
-        <View style={[styles.settingBonusTitleBlock, {flex: 2}]}>
+        <View style={styles.settingBonusTitleBlock}>
           <Text style={styles.settingTitleText}>{item2}</Text>
         </View>
-        <View style={[styles.settingBonusTitleBlock, {flex: 2}]}>
+        <View style={styles.settingBonusTitleBlock}>
           <Text style={styles.settingTitleText}>{item3}</Text>
         </View>
 
@@ -111,9 +113,9 @@ class MatchSetting extends Component {
   }
 
   _renderInfoRow(matchSetting) {
-    const { bigMatch } = this.props;
+    const { match } = this.props;
 
-    let match_day = new Date(bigMatch.match_day)
+    let match_day = new Date(match.match_day)
     let month = match_day.getMonth() + 1;
     let day = match_day.getDate();
 
@@ -123,7 +125,7 @@ class MatchSetting extends Component {
         <View style={styles.settingItemBlock}>
           <Text style={styles.settingText}>{month}月{day}日</Text>
         </View>
-        {bigMatch.open_time? this._renderItem(bigMatch.open_time): this._renderItem(bigMatch.start_time)}
+        {match.open_time? this._renderItem(match.open_time): this._renderItem(match.start_time)}
         <View style={styles.settingItemBlock}>
           <Text style={styles.settingText}>{matchSetting.blindTime}分</Text>
         </View>
@@ -279,7 +281,7 @@ const styles = StyleSheet.create({
     borderColor: '#e0eaff',
   },
   settingBonusTitleBlock: {
-    // flex:1,
+    flex:1,
     marginTop: 2,
     marginBottom: 2,
     justifyContent: 'center',

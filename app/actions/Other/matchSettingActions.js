@@ -47,49 +47,23 @@ import HTTPUtil from '../../common/utils/HTTPUtil'
 //   ]
 // };
 
-let fetchMatchSetting = ( success=()=>{}, error=()=>{}) => {
+let fetchMatchSetting = (matchSetting_id, success=()=>{}, error=()=>{}) => {
 
-  let matchSetting = {
-    // month: 9,
-    // day: 1,
-    // startTime: '15:30',
-    // blindTime: 20,
-    // chip: 10000,
-    // items:
-    // [
-    //   {level: 1, sb: 25, bb: 50, ante: 0},
-    //   {level: 2, sb: 25, bb: 50, ante: 0,},
-    //   {level: 3, sb: 25, bb: 50, ante: 0,},
-    //   {level: 4, sb: 100, bb: 200, ante: 0,appText: '关闭注册'},
-    //   {level: 5, sb: 25, bb: 50, ante: 20,},
-    //   {level: 6, sb: 25, bb: 50, ante: 20,},
-    //   {level: 7, sb: 25, bb: 50, ante: 20,appText: '比赛暂停20分'},
-    //   {level: 8, sb: 25, bb: 50, ante: 20,},
-    //   {level: 9, sb: 25, bb: 50, ante: 20,},
-    //   {level: 10, sb: 25, bb: 50, ante: 20,},
-    //   {level: 11, sb: 25, bb: 50, ante: 20,},
-    //   {level: 12, sb: 25, bb: 50, ante: 20,},
-    //   {level: 13, sb: 25, bb: 50, ante: 20,},
-    //   {level: 14, sb: 25, bb: 50, ante: 20,appText: '比赛暂停20分'},
-    //   {level: 15, sb: 25, bb: 50, ante: 20,},
-    //
-    // ],
-    // bonuses:
-    // [
-    //   {ranking: 1, bonus: 1600, },
-    //   {ranking: 2, bonus: 800, remark: '备注信息' },
-    //   {ranking: 3, bonus: 1600, },
-    // ]
-  };
 
-  let url = 'http://www.91buyin.com/texas/big/match/setting/9';
+
+  let url = 'http://www.91buyin.com/texas/setting/' + matchSetting_id;
 
   return dispatch => {
     dispatch(fetchSetting());
     HTTPUtil.get(url).then((json) => {
       try {
+        let matchSetting = {};
+        // console.log(json.value.structure);
         if (json.code === '0') {
           matchSetting = JSON.parse(json.value.structure);
+          // let abc = json.value.structure.replace(new RegExp('\r\n','gm'),'')
+          // abc = JSON.parse(abc)
+          // console.log(abc);
           success();
         }
         dispatch(receiveSetting(matchSetting));
@@ -118,6 +92,7 @@ let fetchSetting = () => {
 }
 
 let receiveSetting = (matchSetting) => {
+  // console.log(matchSetting);
   return {
     type: types.RECEIVE_MATCH_SETTING,
     matchSetting: matchSetting,
