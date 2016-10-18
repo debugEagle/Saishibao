@@ -51,27 +51,20 @@ let startUserLoginWithToken = () => {
   return dispatch => {
 
     dispatch(fetchUserLoginWithToken());
-
     AsyncStorage.getItem(Common.userToken)
       .then((value) => {
         if (!value) {
           console.log('userToken exit');
-          // return
         }
         console.log('userToken ' + value);
-
-        // let value = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjIyIiwiaWF0IjoxNDc1ODQwMDk0LCJleHAiOjE0ODM2MTYwOTR9.oJ6D90eSEAnFUt-7qmDaHVsEdSXQj4d6ZV5_ZcsL3L4';
-        request(url, 'GET', 5, {}, value).then((json) => {
-
+        HTTPUtil.get(url,null,value).then((json)=>{
           try {
             let {code, msg} = json;
             dispatch(receiveUserLoginWithToken(code, msg));
-
-
           } catch (e) {
             console.log(e.name);
           }
-        });
+        })
       });
   }
 }

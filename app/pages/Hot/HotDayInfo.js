@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ActionCreator from '../../actions'
 
-import Util from '../../common/utils';
+
 import Common from '../../common/constants';
 import Loading from '../../components/Loading';
 import NavBar from '../../components/NavBar';

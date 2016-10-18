@@ -10,7 +10,7 @@ import ScheduleDetail from './ScheduleDetail';
 
 
 import React, {Component} from 'react';
-import PullRefreshScrollView from '../../common/pullRefresh';
+import PullRefreshLoadmoreScrollView from '../../components/PullRefreshLoadmore';
 import {
   Text,
   View,
@@ -313,22 +313,19 @@ class ScheduleList extends Component {
     }
     const viewHeight = Common.window.height - 152
     const listHeight = matches.length * 70
-    const scrollHeight = listHeight - viewHeight;
-
     return (
       <ListView
         renderScrollComponent={
           () =>
-            <PullRefreshScrollView
+            <PullRefreshLoadmoreScrollView
               onRefresh={()=>this._onRefresh()}
               onLoadmore={()=>this._onLoadmore()}
               viewHeight={viewHeight}
               listHeight={listHeight}
-              scrollHeight={scrollHeight}
               status={ScheduleList.status}/>}
         dataSource={this.state.dataSource.cloneWithRows(matches)}
         renderRow={this._renderRow.bind(this)}
-        initialListSize={15}
+        initialListSize={1000}
         style={styles.matchListView}
         enableEmptySections={true}/>
     );

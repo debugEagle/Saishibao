@@ -50,7 +50,7 @@ class AccountInfo extends Component {
   }
 
   componentDidMount() {
-    WeChatAPI.registerWx((b) => this.setState({isWXAppInstalled:b}))
+    WeChatAPI.isWXAppInstalled((b) => this.setState({isWXAppInstalled:b}))
   }
 
   _navigatorToSetValue(attr,name){
@@ -76,7 +76,6 @@ class AccountInfo extends Component {
 
   _bindWechat(code) {
     AsyncStorage.getItem(Common.userToken).then((userToken) => {
-      console.log('userToken:'+userToken);
       let url = 'http://www.91buyin.com/user/info/bind/wechat'
       HTTPUtil.post(url, {code: code}, userToken).then((json) => {
         console.log(json);
@@ -362,7 +361,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  UserLogin: state.User.UserLogin,
   Account: state.Account
 });
 

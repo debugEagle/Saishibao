@@ -15,7 +15,7 @@ import { getDataStr } from '../../common/utils/Date';
 import CasinoIntro from './CasinoIntro';
 
 import React, {Component} from 'react';
-import PullRefreshScrollView from '../../common/pullRefresh';
+import PullRefreshLoadmoreScrollView from '../../components/PullRefreshLoadmore';
 
 import {
   Text,
@@ -60,7 +60,7 @@ class DailyList extends Component {
 
     const showDate = getDataStr(0);
     const title = '今日赛事';
-    
+
     this.props.navigator.push({
 
       component: DailyInfo,
@@ -217,12 +217,13 @@ class DailyList extends Component {
       <ListView
         renderScrollComponent={
           (props) =>
-            <PullRefreshScrollView
+            <PullRefreshLoadmoreScrollView
               onRefresh={()=>this._onRefresh()}
               onLoadmore={()=>this._onLoadmore()}
               listHeight={listHeight}
               viewHeight={viewHeight}
               status={DailyList.status}/>}
+        initialListSize={1000}
         dataSource={this.state.dataSource.cloneWithRows(casinos)}
         renderRow={this._renderRow.bind(this)}
         style={styles.listView}

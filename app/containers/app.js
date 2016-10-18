@@ -8,10 +8,18 @@ import {
   Text,
   Navigator,
   StatusBar,
+  NativeModules
 } from 'react-native';
+
+const WeChatAPI = NativeModules.WeChatAPI
 
 
 class App extends Component {
+
+  constructor(props) {
+    super(props)
+    WeChatAPI.registerWx((b) => console.log(b))
+  }
 
   render() {
     return(
