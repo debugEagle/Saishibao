@@ -1,8 +1,7 @@
 'use strict';
 
 import React, {Component} from 'react';
-import ScrollableMixin from './ScrollableMixin';
-import Common from '../../common/constants';
+import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {
@@ -27,7 +26,7 @@ import {
 //          'loaded': 加载完本次数据，还可以进行上拉加载
 //          'finished': 所有数据加载完成
 
-export default class PullRefreshScrollView extends Component {
+export default class PullRefreshLoadmoreScrollView extends Component {
   constructor(props) {
       super(props);
       this.gorefreshText = props.gorefreshText;
@@ -50,6 +49,7 @@ export default class PullRefreshScrollView extends Component {
       this.loadmoreTimer = false
       this.arrowImg = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAABQBAMAAAD8TNiNAAAAJ1BMVEUAAACqqqplZWVnZ2doaGhqampoaGhpaWlnZ2dmZmZlZWVmZmZnZ2duD78kAAAADHRSTlMAA6CYqZOlnI+Kg/B86E+1AAAAhklEQVQ4y+2LvQ3CQAxGLSHEBSg8AAX0jECTnhFosgcjZKr8StE3VHz5EkeRMkF0rzk/P58k9rgOW78j+TE99OoeKpEbCvcPVDJ0OvsJ9bQs6Jxs26h5HCrlr9w8vi8zHphfmI0fcvO/ZXJG8wDzcvDFO2Y/AJj9ADE7gXmlxFMIyVpJ7DECzC9J2EC2ECAAAAAASUVORK5CYII=';
       this.dragFlag = false; //scrollview是否处于拖动状态的标志
+
   }
 
   onScroll(e){
@@ -69,7 +69,8 @@ export default class PullRefreshScrollView extends Component {
       // scrollHeight 表示本scroll可以正常滑动的高度， 50表示到底部后继续上拉的距离
       } else if (y >= (this.props.listHeight-this.props.viewHeight) + 50 && this.props.status !== 'finished') {
         this.setState({
-          plState:1
+          plState:1,
+          plTitle: '释放立即加载'
         });
         Animated.timing(this.state.ArrowDeg, {
               toValue: 1,
@@ -81,8 +82,13 @@ export default class PullRefreshScrollView extends Component {
           this.setState({
             plTitle: this.loadedText,
           });
+        } else {
+          this.setState({
+            plTitle: this.loadText,
+          });
         }
         this.setState({
+          prTitle: this.refreshText,
           prState: 0,
           plState: 0,
         });
@@ -145,7 +151,7 @@ export default class PullRefreshScrollView extends Component {
         this.timer2 = setInterval(() => {
           if (this.props.status === 'loaded' || this.props.status === 'finished') {
             this.onLoadmoreEnd(this.props.status);
-            clearInterval(this.timer2);
+            clearInterval(this.timer2)
           }
         }, 1000);
       }
@@ -176,7 +182,7 @@ export default class PullRefreshScrollView extends Component {
   // 加载更多结束时
   onLoadmoreEnd(status) {
     this.loadmoreTimer = false;
-    const text = status === 'loaded' ? this.loadtext : this.loadedText
+    const text = status === 'loaded' ? '上拉加载更多' : '全部加载完毕'
     this.setState({
       plTitle: text,
       plLoading: false,
@@ -310,7 +316,7 @@ const styles = StyleSheet.create({
 });
 
 
-PullRefreshScrollView.defaultProps = {
+PullRefreshLoadmoreScrollView.defaultProps = {
     gorefreshText: '释放立即刷新',
     refreshedText: '成功刷新数据',
     refreshingText: '刷新数据中..',
@@ -321,5 +327,3 @@ PullRefreshScrollView.defaultProps = {
     onRefresh: '',
     onLoadmore: '',
 };
-
-Object.assign(PullRefreshScrollView.prototype, ScrollableMixin);

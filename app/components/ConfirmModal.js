@@ -1,4 +1,5 @@
 import Common from '../common/constants';
+import dismissKeyboard from '../common/mixins/dismiss-keyboard'
 
 import ModalBox from 'react-native-modalbox';
 
@@ -16,6 +17,7 @@ export default class ConfirmModal extends Component {
   }
 
   open() {
+      dismissKeyboard()
       this.refs.modal.open()
   }
   close() {

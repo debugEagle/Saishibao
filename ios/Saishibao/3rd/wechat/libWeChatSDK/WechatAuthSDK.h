@@ -13,7 +13,7 @@ enum  AuthErrCode {
     WechatAuth_Err_Ok = 0,  //Auth成功
     WechatAuth_Err_NormalErr = -1,  //普通错误
     WechatAuth_Err_NetworkErr = -2, //网络错误
-    WechatAuth_Err_GetQrcodeerror = -3,    //获取二维码失败
+    WechatAuth_Err_GetQrcodeFailed = -3,    //获取二维码失败
     WechatAuth_Err_Cancel = -4,     //用户取消授权
     WechatAuth_Err_Timeout = -5,    //超时
 };

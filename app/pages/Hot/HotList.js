@@ -2,13 +2,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ActionCreator from '../../actions'
 
-import Util from '../../common/utils';
 import NavBar from '../../components/NavBar';
 import Common from '../../common/constants';
 import HotIntro from './HotIntro';
 import Loading from '../../components/Loading';
-import LoadMoreFooter from '../../components/LoadMoreFooter';
-import PullRefreshScrollView from '../../common/pullRefresh';
+import PullRefreshLoadmoreScrollView from '../../components/PullRefreshLoadmore';
 
 import React, { Component } from 'react';
 import {
@@ -39,7 +37,7 @@ class HotList extends Component {
   }
 
   componentWillMount(){
-    this.props.actions.fetchHots({start: true});
+    this.props.actions.fetchHots({start: true, limit: 10});
     // this.props.actions.startUserLoginWithToken();
   }
 
@@ -64,9 +62,10 @@ class HotList extends Component {
         enableEmptySections = {true}
         dataSource={this.state.dataSource.cloneWithRows(hotList)}
         renderRow={this._renderRow}
+        initialListSize={100}
         renderScrollComponent={
           (props) =>
-            <PullRefreshScrollView
+            <PullRefreshLoadmoreScrollView
               onRefresh={()=>this._onRefresh()}
               onLoadmore={()=>this._onLoadmore()}
               listHeight={listHeight}

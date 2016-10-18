@@ -1,6 +1,9 @@
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Common from '../common/constants';
+import dismissKeyboard from '../common/mixins/dismiss-keyboard'
+
 import React, { Component } from "react";
+
 import {
   Image,
   Platform,
@@ -25,13 +28,19 @@ class RightButton extends Component {
 }
 
 class NavBar extends Component {
+
+  _leftBtnOnPress(){
+    dismissKeyboard()
+    this.props.navigator.pop()
+  }
+
   _leftButton() {
     if (this.props.navigator.getCurrentRoutes().length > 1)
     {
       return (
         <TouchableOpacity
           style={styles.button}
-          onPress={()=> this.props.navigator.pop() }>
+          onPress={()=> this._leftBtnOnPress() }>
           <Icon color="white" size={30} name={'angle-left'} style={styles.leftButton}/>
         </TouchableOpacity>
       )
