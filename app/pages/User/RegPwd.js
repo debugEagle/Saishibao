@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import * as ActionCreator from '../../actions'
 
 
-import Util from '../../common/utils';
+
 import NavBar from '../../components/NavBar';
 import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';

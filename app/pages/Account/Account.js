@@ -54,13 +54,18 @@ class Account extends Component {
 
   _onPressMyInfo() {
     const { actions } = this.props
-    actions.fetchAccountInfo(()=>this._successToNavigator(AccountInfo),(msg)=>this._failedToast('登录后才能操作'))
+    actions.fetchAccountInfo(()=>this._successToNavigator(AccountInfo),(msg)=>this._failedToast('登录后才能查看'))
   }
 
   _onPressMyTicket() {
-    this.props.navigator.push({
-        component: AccountTicket,
-    });
+    let args = {
+      start: true,
+      used: 0,
+      offset: 0,
+      limit: 10
+    }
+    const { actions } = this.props
+    actions.fetchAccountTicket(args,()=>this._successToNavigator(AccountTicket),(msg)=>this._failedToast('登录后才能查看'))
   }
 
   _onPressMyGift() {
@@ -76,9 +81,13 @@ class Account extends Component {
   }
 
   _onPressMyOrder() {
-    this.props.navigator.push({
-        component: AccountOrder,
-    });
+    let args = {
+      start: true,
+      offset: 0,
+      limit: 10
+    }
+    const { actions } = this.props
+    actions.fetchAccountOrder(args,()=>this._successToNavigator(AccountOrder),(msg)=>this._failedToast('登录后才能查看'))
   }
 
   render() {

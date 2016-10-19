@@ -9,9 +9,8 @@ let fetchHots = (args,success=()=>{},error=()=>{}) => {
     offset: 0,
     limit: 5
   }
-  if (!args.start) {
-    oArguments = Object.assign({}, oArguments, args)
-  }
+
+  oArguments = Object.assign({}, oArguments, args)
 
   let start = oArguments.start
   delete(oArguments.start)
@@ -66,4 +65,5 @@ let fetchHotList = (start) => {
 let receiveFeedList = (hotList, count) => {
   return {type: types.RECEIVE_HOT_LIST, hotList: hotList, count: count}
 }
+
 export {fetchHots}

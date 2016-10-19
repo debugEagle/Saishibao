@@ -1,9 +1,8 @@
 import NavBar from '../../components/NavBar';
-import ConfirmModal from '../../components/confirmModal';
+import ConfirmModal from '../../components/ConfirmModal';
 import Common from '../../common/constants';
 
 import Toast, {DURATION} from 'react-native-easy-toast';
-import ModalBox from 'react-native-modalbox';
 
 import React, { Component } from 'react'
 import {
@@ -19,6 +18,18 @@ class AccountInfoSet extends Component {
     super(props)
     this.state = {
       value: ''
+    }
+    this.valueLength = {
+      rickName: 8,
+      realName: 8,
+      idCard: 18,
+      passportID: 9
+    }
+    this.keyboardType = {
+      rickName: 'default',
+      realName: 'default',
+      idCard: 'numeric',
+      passportID: 'default'
     }
   }
 
@@ -41,12 +52,16 @@ class AccountInfoSet extends Component {
   }
 
   _renderInput() {
+    const maxLength = this.valueLength[this.props.attr]
+    const keyboardType = this.keyboardType[this.props.attr]
+
     return (
       <View style={styles.textView}>
         <TextInput style={styles.textInput}
           autoFocus={true}
           clearButtonMode='while-editing'
-          maxLength={10}
+          maxLength={maxLength}
+          keyboardType={keyboardType}
           onChangeText={ (value) => this.setState({value}) }
           value={this.state.value}
         />
