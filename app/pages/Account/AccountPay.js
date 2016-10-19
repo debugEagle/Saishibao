@@ -53,7 +53,7 @@ class AccountPay extends Component {
     }
     else {
       this.setState({
-        titleOne: hotMatch.name,
+        titleOne: hotMatch ? hotMatch.name : casino.casino,
         titleTwo: matchItem.name,
       })
     }

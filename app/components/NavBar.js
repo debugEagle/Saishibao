@@ -15,11 +15,17 @@ import {
 
 
 class RightButton extends Component {
+
+  _rightBtnOnPress() {
+    dismissKeyboard()
+    this.props.onPress()
+  }
+
   render() {
     return (
       <TouchableOpacity
         style={styles.button}
-        onPress={this.props.onPress}>
+        onPress={()=> this._rightBtnOnPress()}>
         { this.props.text ? <Text style={styles.btnText}>{this.props.text}</Text> : null }
         { this.props.icon ? <Image source={this.props.icon} style={styles.rightButton} /> : null }
       </TouchableOpacity>
