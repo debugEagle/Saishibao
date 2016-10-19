@@ -1,6 +1,7 @@
 import NavBar from '../../components/NavBar';
 import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Toast, {DURATION} from 'react-native-easy-toast';
 
 import * as ActionCreator from '../../actions'
 import { connect } from 'react-redux';
@@ -25,6 +26,7 @@ class AccountPay extends Component {
       isDailyMatch: false,
       titleOne: '',
       titleTwo: '',
+      match_id: 0,
 
     }
   }
@@ -33,9 +35,13 @@ class AccountPay extends Component {
 
     const { casino, matchItem, isDailyMatch, hotMatch }= this.props;
 
+    console.log(matchItem);
+
+
     this.setState({
       payUnitPrice: matchItem.unit_price,
       isDailyMatch: isDailyMatch,
+      match_id: matchItem.bigMatch_id || matchItem.dailyMatch_id,
     });
 
     // console.log(matchItem.isDailyMatch);
@@ -155,14 +161,35 @@ class AccountPay extends Component {
 
   }
 
+  _fetchSuccess() {
+
+  }
+
+  _fetchFailed(msg) {
+    this.refs.toast.show(msg);
+  }
+
+
+  _onPayBtn() {
+    console.log('payNum ' + this.state.payNum);
+    console.log('payUnitPrice ' + this.state.payUnitPrice);
+    console.log('isDailyMatch ' + this.state.isDailyMatch);
+    console.log('match_id ' + this.state.match_id);
+
+    this.props.actions.fetchUserAddOrder(this.state.isDailyMatch, this.state.match_id, this.state.payNum, ()=>this._fetchSuccess(), (msg)=>this._fetchFailed(msg));
+
+
+
+  }
+
   _renderPayBtn() {
     return (
       <View style={styles.btnArea}>
-        <View style={styles.payBtn}>
+        <TouchableOpacity style={styles.payBtn} onPress={()=>this._onPayBtn()}>
          <Text style={styles.payBtnText}>
             购票
          </Text>
-        </View>
+        </TouchableOpacity>
       </View>
 
     );
@@ -171,7 +198,6 @@ class AccountPay extends Component {
 
   render() {
 
-    const { casino, matchItem}= this.props;
 
 
     // console.log(casino);
@@ -191,6 +217,7 @@ class AccountPay extends Component {
         </View>
        </Image>
        {this._renderPayBtn()}
+       <Toast ref="toast" position='center'/>
       </View>
 
     );
@@ -383,4 +410,13 @@ const styles = StyleSheet.create({
   }
 
 })
-export default AccountPay ;
+const mapStateToProps = (state) => ({
+  UserLogin: state.User.UserLogin,
+  Pay: state.Account.Pay,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(ActionCreator, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountPay)

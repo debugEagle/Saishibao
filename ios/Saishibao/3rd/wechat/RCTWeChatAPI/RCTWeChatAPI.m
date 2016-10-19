@@ -238,23 +238,23 @@ RCT_REMAP_METHOD(pay,
 
 - (void)shareToWeixinWithData:(NSDictionary *)aData scene:(int)aScene callback:(RCTResponseSenderBlock)aCallBack
 {
-  NSString *imageUrl = aData[RCTWXShareImageUrl];
-  if (imageUrl.length && _bridge.imageLoader) {
-    CGSize size = CGSizeZero;
-    if (![aData[RCTWXShareType] isEqualToString:RCTWXShareTypeImage]) {
-      CGFloat thumbImageSize = 80;
-      if (aData[RCTWXShareThumbImageSize]) {
-        thumbImageSize = [aData[RCTWXShareThumbImageSize] floatValue];
-      }
-      size = CGSizeMake(thumbImageSize,thumbImageSize);
-    }
-    [_bridge.imageLoader loadImageWithTag:imageUrl size:size scale:1 resizeMode:UIViewContentModeScaleToFill progressBlock:nil completionBlock:^(NSError *error, UIImage *image) {
-      [self shareToWeixinWithData:aData image:image scene:aScene callBack:aCallBack];
-    }];
-  }
-  else {
-    [self shareToWeixinWithData:aData image:nil scene:aScene callBack:aCallBack];
-  }
+//  NSString *imageUrl = aData[RCTWXShareImageUrl];
+//  if (imageUrl.length && _bridge.imageLoader) {
+//    CGSize size = CGSizeZero;
+//    if (![aData[RCTWXShareType] isEqualToString:RCTWXShareTypeImage]) {
+//      CGFloat thumbImageSize = 80;
+//      if (aData[RCTWXShareThumbImageSize]) {
+//        thumbImageSize = [aData[RCTWXShareThumbImageSize] floatValue];
+//      }
+//      size = CGSizeMake(thumbImageSize,thumbImageSize);
+//    }
+//    [_bridge.imageLoader loadImageWithTag:imageUrl size:size scale:1 resizeMode:UIViewContentModeScaleToFill progressBlock:nil completionBlock:^(NSError *error, UIImage *image) {
+//      [self shareToWeixinWithData:aData image:image scene:aScene callBack:aCallBack];
+//    }];
+//  }
+//  else {
+//    [self shareToWeixinWithData:aData image:nil scene:aScene callBack:aCallBack];
+//  }
 }
 
 - (BOOL)_autoRegisterAPI

@@ -1,4 +1,4 @@
-https://www.getpostman.com/collections/48654bb99b63a9630061 
+https://www.getpostman.com/collections/48654bb99b63a9630061
 
 
 已解决的坑：
@@ -53,3 +53,7 @@ https://www.getpostman.com/collections/48654bb99b63a9630061
                     stretch铺满容器，拉伸
 12.Text numberOfLines来控制行数
 13.React.PropTypes.类型 声明数据属性的合法性验证
+
+
+"react": "15.2.1",
+"react-native": "0.30.0",
