@@ -28,6 +28,10 @@ let fetchAccountTicket = (args, success=()=>{}, failed=()=>{}, error=()=>{}) => 
             tickets = json.value.rows
             count = json.value.count
             success();
+          } else if (json.code === '3') {
+            tickets = []
+            count = 0
+            success();
           } else {
             failed(json.msg)
           }

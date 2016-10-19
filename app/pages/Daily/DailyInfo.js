@@ -28,6 +28,56 @@ import {
   ScrollView,
 } from 'react-native';
 
+const mockData = [
+  {
+    dailyMatch_id: 9,
+    matchSetting_id: 1,
+    match_day: "2016-10-16",
+    start_time: "13:00:00",
+    close_reg_time: "15:00:00",
+    unit_price: 0.01,
+    state: 1,
+    style: "hold'em",
+    remark: "16:00前半价，女士第一手免费",
+    last_update: "2016-08-17 11:01:40",
+    dailyMatchSerie: {
+      dailyMatchSerie_id: 2,
+      name: "单桌限时赛",
+      organization_id: 22,
+      organization: {
+        casino_id: 25
+      }
+    },
+    dailyMatchResult: null
+  },
+  {
+    bigMatch_id: 144,
+    matchSetting_id: 1,
+    name: "No Limit Hold'em Single Table Satellite into $250 ",
+    real_buyin: 60,
+    rake_buyin: 0,
+    match_day: "2016-09-08",
+    open_time: "00:00:00",
+    close_reg_time: "00:00:00",
+    can_register: false,
+    unit_price: 400.11,
+    need_exchange: false,
+    state: 0,
+    style: "",
+    remark: null,
+    last_update: "2016-08-13 10:58:52",
+    bigMatchSerie_id: 11,
+    exchangeRate_id: 4,
+    exchangeRate: {
+      exchangeRate_id: 4,
+      currency_name: "$",
+      exchange_rate: 0,
+      currency_code: "USD",
+      last_update: "2016-08-13 09:31:49"
+    }
+  }
+]
+
 class DailyInfo extends Component {
   constructor(props) {
     super(props);
@@ -51,13 +101,12 @@ class DailyInfo extends Component {
     const { casino } = this.props;
     let matchItem = item;
 
-
     this.props.navigator.push({
       component: AccountPay,
       passProps: {
         casino,
         matchItem,
-        isDailyMatch: true,
+        isDailyMatch: item.dailyMatchSerie ? true : false,
       },
 
     });
@@ -89,51 +138,51 @@ class DailyInfo extends Component {
         <View>
           <Text style={styles.detailRemarkText}>{item.remark}</Text>
         </View>
-          <View style={styles.detailTitle}>
-            <Text style={styles.detailTitleText}>{item.dailyMatchSerie.name}</Text>
+        <View style={styles.detailTitle}>
+          <Text style={styles.detailTitleText}>{item.dailyMatchSerie ? item.dailyMatchSerie.name : item.name}</Text>
+        </View>
+
+        <View style={styles.detailRow}>
+          <View style={styles.detailBlock}>
+            <Text style={styles.detailText}>类型: {item.style}</Text>
           </View>
 
-            <View style={styles.detailRow}>
-              <View style={styles.detailBlock}>
-                  <Text style={styles.detailText}>类型: {item.style}</Text>
-              </View>
 
-
-              <View style={styles.detailBlock}>
-                <Text style={styles.detailText}>参赛条件: {item.unit_price} 积分</Text>
-              </View>
-            </View>
-
-          <View style={styles.detailRow}>
-            <View style={styles.detailBlock}>
-              <Text style={styles.detailText}>开始时间: {item.start_time} </Text>
-            </View>
-            <View style={styles.detailBlock}>
-              <Text style={styles.detailText}>关闭注册: {item.close_reg_time}</Text>
-            </View>
+          <View style={styles.detailBlock}>
+            <Text style={styles.detailText}>参赛条件: {item.unit_price} 积分</Text>
           </View>
+        </View>
 
-          <View style={styles.detailJoinAndOthers}>
-
-            <TouchableOpacity style={styles.detailStruct} onPress={() => this._onPressDetailStruct(item, true)}>
-              <Text style={styles.detailStructText}>比赛结构表</Text>
-            </TouchableOpacity>
-
-
-            <TouchableOpacity style={styles.detailJoin} onPress={() => this._onPressJoinMatch(item)}>
-              <Text style={styles.detailJoinText}>参加赛事</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.detailResult} onPress={() => this._onPressDetailStruct(item, false)}>
-
-              <Text style={styles.detailResultText}>奖金结构表</Text>
-            </TouchableOpacity>
-
-
+        <View style={styles.detailRow}>
+          <View style={styles.detailBlock}>
+            <Text style={styles.detailText}>开始时间: {item.start_time} </Text>
           </View>
+          <View style={styles.detailBlock}>
+            <Text style={styles.detailText}>关闭注册: {item.close_reg_time}</Text>
+          </View>
+        </View>
+
+        <View style={styles.detailJoinAndOthers}>
+
+          <TouchableOpacity style={styles.detailStruct} onPress={() => this._onPressDetailStruct(item, true)}>
+            <Text style={styles.detailStructText}>比赛结构表</Text>
+          </TouchableOpacity>
+
+
+          <TouchableOpacity style={styles.detailJoin} onPress={() => this._onPressJoinMatch(item)}>
+            <Text style={styles.detailJoinText}>参加赛事</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.detailResult} onPress={() => this._onPressDetailStruct(item, false)}>
+
+            <Text style={styles.detailResultText}>奖金结构表</Text>
+          </TouchableOpacity>
 
 
         </View>
+
+
+      </View>
 
 
     );

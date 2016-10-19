@@ -4,6 +4,7 @@ import * as ActionCreator from '../../actions'
 
 import Toast, {DURATION} from 'react-native-easy-toast';
 import Common from '../../common/constants';
+import LoadingModal from '../../components/LoadingModal';
 
 import UserLogin from '../User/UserLogin';
 import AccountInfo from './AccountInfo'
@@ -32,12 +33,14 @@ class Account extends Component {
   }
 
   _successToNavigator(component) {
+    this.refs.modal.close()
     this.props.navigator.push({
         component: component,
     });
   }
 
   _failedToast(msg){
+    this.refs.modal.close()
     this.refs.toast.show(msg);
   }
 
@@ -53,11 +56,13 @@ class Account extends Component {
   }
 
   _onPressMyInfo() {
+    this.refs.modal.open()
     const { actions } = this.props
     actions.fetchAccountInfo(()=>this._successToNavigator(AccountInfo),(msg)=>this._failedToast('登录后才能查看'))
   }
 
   _onPressMyTicket() {
+    this.refs.modal.open()
     let args = {
       start: true,
       used: 0,
@@ -81,6 +86,7 @@ class Account extends Component {
   }
 
   _onPressMyOrder() {
+    this.refs.modal.open()
     let args = {
       start: true,
       offset: 0,
@@ -195,6 +201,7 @@ class Account extends Component {
             </View>
           </View>
         </View>
+        <LoadingModal ref={'modal'}/>
         <Toast ref="toast" position='bottom'/>
       </View>
     );
@@ -212,6 +219,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#e0eaff'
   },
   container: {
+    flex: 1,
     flexDirection: 'column',
     height: Common.window.height - 64,
     backgroundColor: Common.colors.containerBgColor
@@ -219,7 +227,6 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     backgroundColor: Common.colors.themeColor,
-    zIndex: 99
   },
   headImage: {
     position: 'absolute',
@@ -235,7 +242,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 6,
-    zIndex: 9,
     marginHorizontal: 10,
   },
   statusArea: {
