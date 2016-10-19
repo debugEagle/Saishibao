@@ -2,20 +2,40 @@ import * as types from '../../actions/actionTypes';
 
 const initialState = {
   isLoading: false,
-  orderRetCode: -1,
+  wxInfo: '',
+  orderId: -1,
 };
 
 let pay = (state = initialState, action) => {
   switch (action.type) {
     case types.FETCH_ADD_ORDER:
       return Object.assign({}, state, {
-        isLoading: true
+        isLoading: true,
+        orderId: -1,
       })
     case types.RECEIVE_ADD_ORDER:
       return Object.assign({}, state, {
         isLoading: false,
-        orderRetCode: action.orderRetCode,
+        orderId: action.orderId,
       })
+    // case types.FETCH_PAY_WX_INFO:
+    //   return Object.assign({}, state, {
+    //     isLoading: true
+    //   })
+    // case types.RECEIVE_PAY_WX_INFO:
+    //   return Object.assign({}, state, {
+    //     isLoading: false,
+    //     wxInfo: action.wxInfo,
+    //   })
+    case types.FETCH_PAY_ORDER:
+      return Object.assign({}, state, {
+        isLoading: true
+      })
+    case types.RECEIVE_PAY_ORDER:
+      return Object.assign({}, state, {
+        wxInfo: action.wxInfo,
+      })
+
     default:
       return state;
   }

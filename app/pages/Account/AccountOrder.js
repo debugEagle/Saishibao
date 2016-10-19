@@ -3,6 +3,7 @@ import NavBar from '../../components/NavBar';
 import TabBarInner from '../../components/TabBarInner'
 import PullRefreshLoadmoreScrollView from '../../components/PullRefreshLoadmore';
 import * as ActionCreator from '../../actions'
+import Toast, {DURATION} from 'react-native-easy-toast';
 
 import moment from 'moment'
 
@@ -49,6 +50,20 @@ class AccountOrder extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
     }
+  }
+
+  _onPressPayBtn(orderId) {
+    const { Pay } = this.props;
+    console.log('orderId ' + orderId);
+    this.props.actions.fetchUserPayOrder(orderId, ()=>this._userPayOrderSuccess(), (msg)=>this._fetchFailed(msg));
+  }
+
+  _userPayOrderSuccess() {
+
+  }
+
+  _fetchFailed(msg) {
+    this.refs.toast.show(msg);
   }
 
   _onRefresh() {
@@ -103,7 +118,7 @@ class AccountOrder extends Component {
                   </View>
                 :
                 <View style={[styles.orderBtn,{backgroundColor: '#ff7825'}]}>
-                  <TouchableOpacity style={styles.orderBtnView}>
+                  <TouchableOpacity style={styles.orderBtnView} onPress={()=>this._onPressPayBtn(order.order_id) }>
                     <Text style={[styles.orderBtnText,{color:'white'}]}>立即支付</Text>
                   </TouchableOpacity>
                 </View>
@@ -144,6 +159,7 @@ class AccountOrder extends Component {
       <View style={styles.container}>
         <NavBar name='我的订单' navigator={this.props.navigator}/>
         {this._renderOrders(orders)}
+        <Toast ref="toast" position='center'/>
       </View>
     );
   }
@@ -249,7 +265,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => ({orders: state.Account.orders});
+const mapStateToProps = (state) => ({
+  orders: state.Account.orders,
+  Pay: state.Account.Pay,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(ActionCreator, dispatch)

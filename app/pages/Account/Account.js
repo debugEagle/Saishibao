@@ -65,7 +65,7 @@ class Account extends Component {
       limit: 10
     }
     const { actions } = this.props
-    actions.fetchAccountTicket(args,()=>this._successToNavigator(AccountTicket),(msg)=>this._failedToast('登录后才能查看'))
+    actions.fetchAccountTicket(args,()=>this._successToNavigator(AccountTicket),(msg)=>this._failedToast(msg))
   }
 
   _onPressMyGift() {

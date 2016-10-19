@@ -53,7 +53,7 @@ class AccountPay extends Component {
     }
     else {
       this.setState({
-        titleOne: hotMatch.name,
+        titleOne: hotMatch ? hotMatch.name : casino.casino,
         titleTwo: matchItem.name,
       })
     }
@@ -161,7 +161,15 @@ class AccountPay extends Component {
 
   }
 
-  _fetchSuccess() {
+  //成功转向支付
+  _userAddOrderSuccess() {
+    const { Pay } = this.props;
+    console.log('Pay.orderId ' + Pay.orderId);
+    this.props.actions.fetchUserPayOrder(Pay.orderId, ()=>this._userPayOrderSuccess(), (msg)=>this._fetchFailed(msg));
+
+  }
+
+  _userPayOrderSuccess() {
 
   }
 
@@ -170,13 +178,14 @@ class AccountPay extends Component {
   }
 
 
-  _onPayBtn() {
-    console.log('payNum ' + this.state.payNum);
-    console.log('payUnitPrice ' + this.state.payUnitPrice);
-    console.log('isDailyMatch ' + this.state.isDailyMatch);
-    console.log('match_id ' + this.state.match_id);
+  _onPressPayBtn() {
+    // console.log('payNum ' + this.state.payNum);
+    // console.log('payUnitPrice ' + this.state.payUnitPrice);
+    // console.log('isDailyMatch ' + this.state.isDailyMatch);
+    // console.log('match_id ' + this.state.match_id);
 
-    this.props.actions.fetchUserAddOrder(this.state.isDailyMatch, this.state.match_id, this.state.payNum, ()=>this._fetchSuccess(), (msg)=>this._fetchFailed(msg));
+    this.props.actions.fetchUserAddOrder(this.state.isDailyMatch, this.state.match_id, this.state.payNum,
+      ()=>this._userAddOrderSuccess(), (msg)=>this._fetchFailed(msg));
 
 
 
@@ -185,7 +194,7 @@ class AccountPay extends Component {
   _renderPayBtn() {
     return (
       <View style={styles.btnArea}>
-        <TouchableOpacity style={styles.payBtn} onPress={()=>this._onPayBtn()}>
+        <TouchableOpacity style={styles.payBtn} onPress={()=>this._onPressPayBtn()}>
          <Text style={styles.payBtnText}>
             购票
          </Text>
