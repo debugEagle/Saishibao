@@ -1,5 +1,6 @@
-import StatusBarIOS from '../components/StatusBarIOS';
+import * as WeChat from 'react-native-wechat';
 
+import StatusBarIOS from '../components/StatusBarIOS';
 import TabBarView from './TabBarView';
 
 import React, { Component } from 'react';
@@ -11,14 +12,13 @@ import {
   NativeModules
 } from 'react-native';
 
-const WeChatAPI = NativeModules.WeChatAPI
 
 
 class App extends Component {
 
   constructor(props) {
     super(props)
-    WeChatAPI.registerWx((b) => console.log(b))
+    WeChat.registerApp('wx148eb8f66f47fb36')
   }
 
   render() {

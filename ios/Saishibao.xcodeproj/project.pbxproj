@@ -51,12 +51,11 @@
 		76B460741D5B1107001AED0F /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B460571D5B1107001AED0F /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		76B460751D5B1107001AED0F /* NetStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B4605A1D5B1107001AED0F /* NetStub.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		76B460761D5B1107001AED0F /* RCTHttpx.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B4605C1D5B1107001AED0F /* RCTHttpx.m */; };
-		76B460771D5B1107001AED0F /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76B4605F1D5B1107001AED0F /* libWeChatSDK.a */; };
-		76B460781D5B1107001AED0F /* RCTWeChatAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B460651D5B1107001AED0F /* RCTWeChatAPI.m */; };
 		76B460991D5B116E001AED0F /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 76B460981D5B116E001AED0F /* libz.tbd */; };
 		76B4609B1D5B1177001AED0F /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 76B4609A1D5B1177001AED0F /* libsqlite3.0.tbd */; };
 		76F0CA2E1D5B125A00750B81 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76F0CA2D1D5B125A00750B81 /* CoreTelephony.framework */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		CBBB210C1DB870B400423804 /* libRCTWeChat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBBB210B1DB870A000423804 /* libRCTWeChat.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +143,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		CBBB210A1DB870A000423804 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CBBB21061DB870A000423804 /* RCTWeChat.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 86D238421BD0BB9E00C75D01;
+			remoteInfo = RCTWeChat;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -215,18 +221,14 @@
 		76B4605A1D5B1107001AED0F /* NetStub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetStub.m; sourceTree = "<group>"; };
 		76B4605B1D5B1107001AED0F /* RCTHttpx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTHttpx.h; sourceTree = "<group>"; };
 		76B4605C1D5B1107001AED0F /* RCTHttpx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTHttpx.m; sourceTree = "<group>"; };
-		76B4605F1D5B1107001AED0F /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
-		76B460601D5B1107001AED0F /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
-		76B460611D5B1107001AED0F /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
-		76B460621D5B1107001AED0F /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		76B460641D5B1107001AED0F /* RCTWeChatAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTWeChatAPI.h; sourceTree = "<group>"; };
-		76B460651D5B1107001AED0F /* RCTWeChatAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTWeChatAPI.m; sourceTree = "<group>"; };
 		76B460981D5B116E001AED0F /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		76B4609A1D5B1177001AED0F /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		76F0CA2D1D5B125A00750B81 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		76F0CA2F1D5B126400750B81 /* libPods-SaishibaoTests.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-SaishibaoTests.a"; path = "../../../Library/Developer/Xcode/DerivedData/Saishibao-eykptyuqjsqikaanbfuvysmkxvwc/Build/Products/Debug-iphonesimulator/libPods-SaishibaoTests.a"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		CBBB20FD1DB86D8900423804 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = "../node_modules/react-native-wechat/ios/libWeChatSDK.a"; sourceTree = "<group>"; };
+		CBBB21061DB870A000423804 /* RCTWeChat.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWeChat.xcodeproj; path = "/Users/mac/Work/Saishibao/node_modules/react-native/Libraries/Text/../../../react-native-wechat/ios/RCTWeChat.xcodeproj"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +236,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBBB210C1DB870B400423804 /* libRCTWeChat.a in Frameworks */,
 				76B460991D5B116E001AED0F /* libz.tbd in Frameworks */,
 				060C07D91D844B300014A488 /* libCodePush.a in Frameworks */,
 				76F0CA2E1D5B125A00750B81 /* CoreTelephony.framework in Frameworks */,
@@ -254,7 +257,6 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				76B460771D5B1107001AED0F /* libWeChatSDK.a in Frameworks */,
 				768D153E1D5B1312002701CC /* libPods-SaishibaoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -404,7 +406,6 @@
 				76B460301D5B1107001AED0F /* amap */,
 				76B460381D5B1107001AED0F /* ASIHTTPRequest */,
 				76B460581D5B1107001AED0F /* httpx */,
-				76B4605D1D5B1107001AED0F /* wechat */,
 			);
 			name = 3rd;
 			path = Saishibao/3rd;
@@ -526,35 +527,6 @@
 			path = httpx;
 			sourceTree = "<group>";
 		};
-		76B4605D1D5B1107001AED0F /* wechat */ = {
-			isa = PBXGroup;
-			children = (
-				76B4605E1D5B1107001AED0F /* libWeChatSDK */,
-				76B460631D5B1107001AED0F /* RCTWeChatAPI */,
-			);
-			path = wechat;
-			sourceTree = "<group>";
-		};
-		76B4605E1D5B1107001AED0F /* libWeChatSDK */ = {
-			isa = PBXGroup;
-			children = (
-				76B4605F1D5B1107001AED0F /* libWeChatSDK.a */,
-				76B460601D5B1107001AED0F /* WechatAuthSDK.h */,
-				76B460611D5B1107001AED0F /* WXApi.h */,
-				76B460621D5B1107001AED0F /* WXApiObject.h */,
-			);
-			path = libWeChatSDK;
-			sourceTree = "<group>";
-		};
-		76B460631D5B1107001AED0F /* RCTWeChatAPI */ = {
-			isa = PBXGroup;
-			children = (
-				76B460641D5B1107001AED0F /* RCTWeChatAPI.h */,
-				76B460651D5B1107001AED0F /* RCTWeChatAPI.m */,
-			);
-			path = RCTWeChatAPI;
-			sourceTree = "<group>";
-		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -566,6 +538,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				CBBB21061DB870A000423804 /* RCTWeChat.xcodeproj */,
 				060C07D31D844AFE0014A488 /* CodePush.xcodeproj */,
 				06A496611D5ADA590012631B /* RCTMaterialKit.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -617,6 +590,7 @@
 		B77EC4A3ACC9E65C23EF6821 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CBBB20FD1DB86D8900423804 /* libWeChatSDK.a */,
 				06399B1D1D988A7100EA0F6E /* AMap.bundle */,
 				76F0CA2F1D5B126400750B81 /* libPods-SaishibaoTests.a */,
 				76F0CA2D1D5B125A00750B81 /* CoreTelephony.framework */,
@@ -630,6 +604,14 @@
 				52C12E6D45A930ED150953AB /* libPods-SaishibaoTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CBBB21071DB870A000423804 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CBBB210B1DB870A000423804 /* libRCTWeChat.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -722,6 +704,10 @@
 				{
 					ProductGroup = 139FDEE71B06529A00C62182 /* Products */;
 					ProjectRef = 139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */;
+				},
+				{
+					ProductGroup = CBBB21071DB870A000423804 /* Products */;
+					ProjectRef = CBBB21061DB870A000423804 /* RCTWeChat.xcodeproj */;
 				},
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
@@ -820,6 +806,13 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		CBBB210B1DB870A000423804 /* libRCTWeChat.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTWeChat.a;
+			remoteRef = CBBB210A1DB870A000423804 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -874,7 +867,6 @@
 				76B4606F1D5B1107001AED0F /* ASIFormDataRequest.m in Sources */,
 				76B4606D1D5B1107001AED0F /* ASIDataDecompressor.m in Sources */,
 				76B460681D5B1107001AED0F /* AMapManager.m in Sources */,
-				76B460781D5B1107001AED0F /* RCTWeChatAPI.m in Sources */,
 				76B460711D5B1107001AED0F /* ASIInputStream.m in Sources */,
 				76B460751D5B1107001AED0F /* NetStub.m in Sources */,
 				76B460721D5B1107001AED0F /* ASINetworkQueue.m in Sources */,
@@ -922,11 +914,7 @@
 				);
 				INFOPLIST_FILE = Saishibao/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Saishibao/3rd/wechat/libWeChatSDK",
-					"\"$(SRCROOT)/Saishibao\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -960,11 +948,7 @@
 				);
 				INFOPLIST_FILE = Saishibao/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Saishibao/3rd/wechat/libWeChatSDK",
-					"\"$(SRCROOT)/Saishibao\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

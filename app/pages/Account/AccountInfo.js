@@ -1,3 +1,5 @@
+import * as WeChat from 'react-native-wechat';
+
 import NavBar from '../../components/NavBar';
 import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -21,8 +23,6 @@ import {
   NativeModules
 } from 'react-native';
 
-const WeChatAPI = NativeModules.WeChatAPI
-
 class AccountInfo extends Component {
 
   constructor(props) {
@@ -33,24 +33,24 @@ class AccountInfo extends Component {
     this._bindWechat = this._bindWechat.bind(this)
     this._goBindWechat = this._goBindWechat.bind(this)
 
-    var listener = NativeAppEventEmitter.addListener(
-      'WeChat.Resp',
-      (body) => {
-        switch (body.type) {
-          /* 登录回调 */
-          case 'WeChat.Resp.Auth':
-            console.log('登录回调' + body.code);
-            this._bindWechat(body.code)
-            break;
-          default:
-            console.log(('body.type ' + body.type));
-        }
-      }
-    )
+    // var listener = NativeAppEventEmitter.addListener(
+    //   'WeChat.Resp',
+    //   (body) => {
+    //     switch (body.type) {
+    //       /* 登录回调 */
+    //       case 'WeChat.Resp.Auth':
+    //         console.log('登录回调' + body.code);
+    //         this._bindWechat(body.code)
+    //         break;
+    //       default:
+    //         console.log(('body.type ' + body.type));
+    //     }
+    //   }
+    // )
   }
 
   componentDidMount() {
-    WeChatAPI.isWXAppInstalled((b) => this.setState({isWXAppInstalled:b}))
+    WeChat.isWXAppInstalled().then((b)=>this.setState({isWXAppInstalled: b}))
   }
 
   _navigatorToSetValue(attr,name){
@@ -70,7 +70,7 @@ class AccountInfo extends Component {
     } else {
       let scope = 'snsapi_userinfo'
       let state = 'Saishibao'
-      WeChatAPI.sendAuthReq(scope, state, (b) => {console.log('微信登陆', 'sendAuthReq:' + b)})
+      WeChat.sendAuthRequest(scope, state).then((code) => this._bindWechat(code))
     }
   }
 
@@ -81,7 +81,7 @@ class AccountInfo extends Component {
         console.log(json);
         try {
           if (json.code === '0') {
-            this.refs.toast.show(json.msg)
+            this.refs.toast.show('绑定成功')
             this.props.actions.updateAccountInfo('wechat_unionid', 'binded')
           } else {
             this.refs.toast.show(json.msg)

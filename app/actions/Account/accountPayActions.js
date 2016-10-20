@@ -2,9 +2,9 @@ import * as types from '../actionTypes';
 import Common from '../../common/constants'
 import HTTPUtil from '../../common/utils/HTTPUtil';
 
-import { AsyncStorage, NativeModules } from 'react-native';
+import { AsyncStorage } from 'react-native';
 
-const WeChatAPI = NativeModules.WeChatAPI
+import * as WeChat from 'react-native-wechat';
 
 let fetchUserAddOrder = (isDailyMatch, match_id, amount, success=()=>{}, failed=()=>{}, error=()=>{}) => {
   let url ;
@@ -30,20 +30,13 @@ let fetchUserAddOrder = (isDailyMatch, match_id, amount, success=()=>{}, failed=
             orderId = json.value;
             dispatch(receiveAddOrder(orderId));
             success();
-
           } else {
             if (json.code == '1009') {
               failed('请先登陆');
             }else {
               failed(json.msg);
             }
-
           }
-
-
-
-
-
         } catch (e) {
           console.log(e.name)
         }
@@ -71,15 +64,23 @@ let fetchUserPayOrder = (order_id, success=()=>{}, failed=()=>{}, error=()=>{}) 
           // let wxInfo = {}
           if (json.code === '0') {
             // wxInfo = json.value;
-            success();
-            WeChatAPI.pay(json.value, (b) => console.log('发送付款命令', 'pay:' + b))
+            console.log(json.value);
+            WeChat.pay(json.value).then(
+              (returnKey)=>{
+                success()
+                console.log('pay success: ' + returnKey);
+              },
+              (errCode)=>{
+                failed(errCode)
+                console.log('pay failed: ' + errCode)
+              }
+            )
           } else {
             if (json.code == '1009') {
               failed('请先登陆');
             }else {
               failed(json.msg);
             }
-
           }
           dispatch(receivePayOrder());
         } catch (e) {

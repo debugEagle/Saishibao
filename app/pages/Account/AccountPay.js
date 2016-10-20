@@ -1,4 +1,5 @@
 import NavBar from '../../components/NavBar';
+import PayModal from '../../components/PayModal';
 import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast, {DURATION} from 'react-native-easy-toast';
@@ -166,11 +167,10 @@ class AccountPay extends Component {
     const { Pay } = this.props;
     console.log('Pay.orderId ' + Pay.orderId);
     this.props.actions.fetchUserPayOrder(Pay.orderId, ()=>this._userPayOrderSuccess(), (msg)=>this._fetchFailed(msg));
-
   }
 
   _userPayOrderSuccess() {
-
+    console.log('支付成功！');
   }
 
   _fetchFailed(msg) {
@@ -186,9 +186,6 @@ class AccountPay extends Component {
 
     this.props.actions.fetchUserAddOrder(this.state.isDailyMatch, this.state.match_id, this.state.payNum,
       ()=>this._userAddOrderSuccess(), (msg)=>this._fetchFailed(msg));
-
-
-
   }
 
   _renderPayBtn() {
@@ -207,28 +204,26 @@ class AccountPay extends Component {
 
   render() {
 
-
-
     // console.log(casino);
     return (
       <View style={styles.container}>
-      <NavBar name='参加赛事' navigator={this.props.navigator}  />
+        <NavBar name='参加赛事' navigator={this.props.navigator}  />
 
-       <Image style={styles.infoArea}  source={require('../../imgs/account_payBk.png')}>
-        {this._renderTitle()}
-        <View style={styles.payCtrlArea}>
-          <View style={styles.paySubArea}>
-            {this._renderPayCtrlRow()}
+        <Image style={styles.infoArea}  source={require('../../imgs/account_payBk.png')}>
+          {this._renderTitle()}
+          <View style={styles.payCtrlArea}>
+            <View style={styles.paySubArea}>
+              {this._renderPayCtrlRow()}
+            </View>
+            <View style={styles.paySubArea}>
+              {this._renderPayType()}
+            </View>
           </View>
-          <View style={styles.paySubArea}>
-            {this._renderPayType()}
-          </View>
-        </View>
-       </Image>
-       {this._renderPayBtn()}
-       <Toast ref="toast" position='center'/>
+        </Image>
+        {this._renderPayBtn()}
+        <Toast ref="toast" position='center'/>
+        <PayModal  />
       </View>
-
     );
   }
 }

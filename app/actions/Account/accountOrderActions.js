@@ -27,7 +27,9 @@ let fetchAccountOrder = (args, success=()=>{}, failed=()=>{}, error=()=>{}) => {
             orders = json.value.rows
             count = json.value.count
             success();
-          } else {
+          } else if (json.code === '3') {
+            success();
+          }else {
             failed(json.msg)
           }
           dispatch(receiveOrders(orders, count));
