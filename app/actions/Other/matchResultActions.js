@@ -16,20 +16,29 @@ import HTTPUtil from '../../common/utils/HTTPUtil'
 // }
 
 
-let fetchDailyResult = (match_id, success=()=>{}, error=()=>{}) => {
+let fetchMatchResult = (isDailyMatch, match_id, success=()=>{}, failed=()=>{}, error=()=>{}) => {
+  let url;
 
-  let url = 'https://api.91buyin.com/texas/setting/' + match_id;
+  if (isDailyMatch) {
+    url = 'http://www.91buyin.com/texas/daily/match/result/' + match_id;
+  }
+  else {
+    url = 'http://www.91buyin.com/texas/big/match/result/' + match_id;
+  }
+
 
   return dispatch => {
     dispatch(fetchResult());
     HTTPUtil.get(url).then((json) => {
       try {
         let matchResult = {};
-        console.log(json.value.result);
+        // console.log(json.code);
         if (json.code === '0') {
           matchResult = JSON.parse(json.value.result);
 
           success();
+        } else {
+          failed('没有赛事结果明细数据');
         }
         dispatch(receiveResult(matchResult));
       } catch (e) {
@@ -43,26 +52,26 @@ let fetchDailyResult = (match_id, success=()=>{}, error=()=>{}) => {
 }
 
 
-let resetDailyResult = () => {
+let resetMatchResult = () => {
 
   return {
-    type: types.RESET_MATCH_SETTING,
+    type: types.RESET_MATCH_RESULT,
   }
 }
 
 let fetchResult = () => {
 
   return {
-    type: types.FETCH_DAILY_MATCH_RESULT,
+    type: types.FETCH_MATCH_RESULT,
   }
 }
 
 let receiveResult = (matchResult) => {
   return {
-    type: types.RECEIVE_DAILY_MATCH_RESULT,
+    type: types.RECEIVE_MATCH_RESULT,
     matchResult: matchResult,
   }
 }
 export {
-  fetchDailyResult, resetDailyResult
+  fetchMatchResult, resetMatchResult
 }

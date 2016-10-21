@@ -47,7 +47,7 @@ import HTTPUtil from '../../common/utils/HTTPUtil'
 //   ]
 // };
 
-let fetchMatchSetting = (matchSetting_id, success=()=>{}, error=()=>{}) => {
+let fetchMatchSetting = (matchSetting_id, success=()=>{},  failed=()=>{}, error=()=>{}) => {
 
 
 
@@ -65,6 +65,9 @@ let fetchMatchSetting = (matchSetting_id, success=()=>{}, error=()=>{}) => {
           // abc = JSON.parse(abc)
           // console.log(abc);
           success();
+        }
+        else {
+           failed('没有比赛设置信息');
         }
         dispatch(receiveSetting(matchSetting));
       } catch (e) {

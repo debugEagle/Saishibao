@@ -15,6 +15,8 @@ import WxTest from '../pages/Other/WxTest'
 
 
 
+
+
 class MainView extends Component {
 
   constructor(props) {
@@ -23,20 +25,16 @@ class MainView extends Component {
       tabNames: [
         '热门', '俱乐部', '赛事日历', '我的',
       ],
-      tabIconNames: [
-        'hot', 'casino', 'schedule', 'myAccount',
-      ]
+      tabIconNames: ['hot', 'casino', 'schedule', 'myAccount', ]
     }
   }
 
-  componentDidMount() {
-    // codePush.sync();
-    // codePush.sync({updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE});
-  }
+  
 
   render() {
     let tabNames = this.state.tabNames;
     let tabIconNames = this.state.tabIconNames;
+
 
     return (
       <ScrollableTabView scrollWithoutAnimation={true} initialPage={this.props.page || 0} renderTabBar={() => <TabBar tabNames={tabNames} tabIconNames={tabIconNames}/>} tabBarPosition='bottom'>
@@ -44,7 +42,10 @@ class MainView extends Component {
         <DailyList tabLable='casino' navigator={this.props.navigator} {...this.props}/>
         <ScheduleList tabLable='schedule' navigator={this.props.navigator} {...this.props}/>
         <Account tabLable='myAccount' navigator={this.props.navigator} {...this.props}/>
-        
+        {/*<WxTest tabLable='myAccount2' navigator={this.props.navigator} {...this.props}/>*/}
+        {/*<AppIntroTest tabLable='AppIntroTest3' navigator={this.props.navigator} {...this.props}/>*/}
+
+
       </ScrollableTabView>
     )
   }

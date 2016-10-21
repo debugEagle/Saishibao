@@ -8,7 +8,9 @@ import Loading from '../../components/Loading';
 import NavBar from '../../components/NavBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MatchSetting from '../Other/MatchSetting';
-import AccountPay from '../Account/AccountPay';
+import MatchResult from '../Other/MatchResult';
+
+
 
 
 import React, { Component } from 'react';
@@ -27,6 +29,7 @@ import {
   InteractionManager,
   ScrollView,
 } from 'react-native';
+
 
 const mockData = [
   {
@@ -78,7 +81,8 @@ const mockData = [
   }
 ]
 
-class DailyInfo extends Component {
+
+class DailyResultInfo extends Component {
   constructor(props) {
     super(props);
 
@@ -88,36 +92,15 @@ class DailyInfo extends Component {
       }),
 
     };
-    this._renderDailyInfoList = this._renderDailyInfoList.bind(this);
-    this._onPressJoinMatch = this._onPressJoinMatch.bind(this);
+
+    this._renderDailyResultList = this._renderDailyResultList.bind(this);
+
   }
 
   componentWillMount() {
     const { casino, showDate } = this.props;
     this.props.actions.fetchDailyInfo(casino.casino_id, showDate);
   }
-
-  _onPressJoinMatch(item) {
-    const { casino } = this.props;
-    let matchItem = item;
-
-    this.props.navigator.push({
-      component: AccountPay,
-      passProps: {
-        casino,
-        matchItem,
-        isDailyMatch: item.dailyMatchSerie ? true : false,
-      },
-
-    });
-  }
-
-  componentWillUnmount() {
-
-    this.props.actions.resetDailyInfoList();
-  }
-
-
 
   _onPressDetailStruct(match, isStruct) {
     this.props.navigator.push({
@@ -130,14 +113,21 @@ class DailyInfo extends Component {
     });
   }
 
+  //跳转到比赛结果
+  _onPressMatchResult(match) {
+    this.props.navigator.push({
+      component: MatchResult,
+      passProps: {
+        match: match,
+      },
+    });
+  }
 
-  _renderDailyInfoList(item) {
+  _renderDailyResultList(item) {
     return (
 
       <View style={styles.detailItem}>
-        <View>
-          <Text style={styles.detailRemarkText}>{item.remark}</Text>
-        </View>
+
         <View style={styles.detailTitle}>
           <Text style={styles.detailTitleText}>{item.dailyMatchSerie ? item.dailyMatchSerie.name : item.name}</Text>
         </View>
@@ -153,14 +143,7 @@ class DailyInfo extends Component {
           </View>
         </View>
 
-        <View style={styles.detailRow}>
-          <View style={styles.detailBlock}>
-            <Text style={styles.detailText}>开始时间: {item.start_time || item.open_time} </Text>
-          </View>
-          <View style={styles.detailBlock}>
-            <Text style={styles.detailText}>关闭注册: {item.close_reg_time}</Text>
-          </View>
-        </View>
+
 
         <View style={styles.detailJoinAndOthers}>
 
@@ -169,8 +152,8 @@ class DailyInfo extends Component {
           </TouchableOpacity>
 
 
-          <TouchableOpacity style={styles.detailJoin} onPress={() => this._onPressJoinMatch(item)}>
-            <Text style={styles.detailJoinText}>参加赛事</Text>
+          <TouchableOpacity style={styles.detailJoin} onPress={() => this._onPressMatchResult(item)}>
+            <Text style={styles.detailJoinText}>赛事结果</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.detailResult} onPress={() => this._onPressDetailStruct(item, false)}>
@@ -183,37 +166,36 @@ class DailyInfo extends Component {
 
 
       </View>
-
-
     );
   }
 
   render() {
     const { DailyInfo } = this.props;
     let dailyInfoList = DailyInfo.dailyInfoList;
+
     return (
       <View style={styles.container}>
-        <NavBar name={this.props.title} navigator={this.props.navigator}/>
-        {DailyInfo.isLoading ?
-        <Loading /> :
+
+        <NavBar name='昨日赛况' navigator={this.props.navigator}/>
+        {/*{this._renderDailyResultList(mockData[0])}
+        {this._renderDailyResultList(mockData[1])}*/}
         <ListView style={{backgroundColor: '#F2F2F2', height: Common.window.height - 67 - 44}}
           enableEmptySections = {true}
           dataSource={this.state.dataSource.cloneWithRows(dailyInfoList)}
-          renderRow={this._renderDailyInfoList}
+          renderRow={this._renderDailyResultList}
           initialListSize={1}
         />
-        }
       </View>
     );
   }
 }
 
-
 const detailTitleColor = '#424242';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Common.colors.containerBgColor,
+    // backgroundColor: Common.colors.containerBgColor,
+    backgroundColor: '#F2F2F2',
   },
   dateContainer: {
 
@@ -253,7 +235,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   detailItem: {
-    padding: 15,
+    // padding: 15,
+    padding: 5,
     backgroundColor: '#ffffff',
     marginBottom: 5,
   },
@@ -363,7 +346,7 @@ const styles = StyleSheet.create({
 
   detailJoinText: {
     fontSize: 17,
-    color: '#f24b51',
+    color: Common.colors.themeColor,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -372,10 +355,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-  detailRemarkText: {
-    color: '#ff5722',
-    fontSize: 14,
-  }
+
 });
 
 
@@ -387,4 +367,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(ActionCreator, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DailyInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(DailyResultInfo);

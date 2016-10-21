@@ -7,6 +7,8 @@ import NavBar from '../../components/NavBar';
 import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../../components/Loading';
+import Toast, {DURATION} from 'react-native-easy-toast';
+
 
 
 import React, { Component } from 'react';
@@ -25,15 +27,47 @@ import {
 } from 'react-native';
 
 
-class DailyResult extends Component {
+class MatchResult extends Component {
   constructor(props) {
     super(props);
   }
 
   componentWillMount() {
-    this.props.actions.fetchDailyResult();
+    const match = this.props.match;
+    // console.log('match ' + JSON.stringify(match));
+    let match_id;
+    let isDailyMatch = match.dailyMatch_id? true : false;
+
+    if (isDailyMatch) {
+      match_id = match.dailyMatch_id;
+    }
+    else {
+      match_id = match.bigMatch_id;
+    }
+
+    // console.log('isDailyMatch ' + isDailyMatch);
+    // console.log('match_id ' + match_id);
+    this.props.actions.fetchMatchResult(
+      isDailyMatch,
+      match_id,
+      () => this._fetchSuccess(),
+      (msg) => this._fetchFailed(msg),
+
+
+
+
+    );
   }
 
+  _fetchSuccess() {
+
+  }
+
+
+  _fetchFailed(msg) {
+    this.refs.toast.show(msg);
+
+  }
   _renderTitleRow(item1, item2, item3 ) {
     return (
       <View style={styles.settingTitle}>
@@ -78,31 +112,42 @@ class DailyResult extends Component {
       </View>
     );
   }
+  //
+  // _renderMatchResut() {
+  //   const { MatchResult } = this.props;
+  //   let matchResult = MatchResult.matchResult;
+  //   if (matchResult.items.length>0) {
+  //     matchResult.items.map((item, i) => {
+  //       let renderRet =  (
+  //       <View key={i}>
+  //         {this._renderItemRow(item.rank, item.rank, item.bonus)}
+  //       </View>);
+  //   }
+  // }
+
 
   render() {
-    const { DailyResult } = this.props;
-    let matchResult = DailyResult.matchResult;
+    const { MatchResult } = this.props;
+    let matchResult = MatchResult.matchResult;
+
+
     return (
       <View style={styles.container}>
         <NavBar name='赛事结果' navigator={this.props.navigator}/>
-        {DailyResult.isLoading ?
+        {MatchResult.isLoading ?
           <Loading />:
         <View style={styles.itemView}>
-          <View style={styles.matchName}>
-            <Text style={styles.matchNameText}>
-              MTT常规赛
-            </Text>
-          </View>
+
           {this._renderTitleRow('名次', '姓名', '奖金')}
-          {matchResult.items.map((item, i) => {
+          {matchResult.items? matchResult.items.map((item, i) => {
             return (<View key={i}>{this._renderItemRow(item.rank, item.rank, item.bonus)}</View>);
-          })}
-          {/*{this._renderItemRow('1', '张三', '100000')}
-          {this._renderItemRow('2', '李四', '20000')}*/}
+          }): null}
 
 
         </View>
         }
+        <Toast ref="toast" position='top'/>
+
       </View>
 
     );
@@ -188,11 +233,11 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  DailyResult: state.Daily.DailyResult
+  MatchResult: state.Other.MatchResult
 });
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(ActionCreator, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DailyResult);
+export default connect(mapStateToProps, mapDispatchToProps)(MatchResult);

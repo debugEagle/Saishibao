@@ -11,6 +11,7 @@ import {
   Text,
   View,
   Image,
+  ScrollView,
 } from 'react-native';
 
 const mockData = {
@@ -41,27 +42,45 @@ class AccountInfo extends Component {
           </View>
         </Swiper>
         <View style={styles.border} />
-        <View style={styles.bottom}>
+
+        <ScrollView style={styles.bottom}>
           <View style={styles.stamps}>
-            <Text style={styles.stampsLabel}>赛事点券</Text>
-            <Text style={styles.stampsText}>1820</Text>
+            <Text style={styles.stampsLabel}>一、赛事点卷介绍</Text>
           </View>
           <View style={styles.intro}>
             <Text style={styles.introText}>
-            每消费1RMB可累积1赛事点，点劵可兑积分，享积分商城各种免费商品
+            赛事点劵是赛事宝推出的积分系统，您不仅可以通过注册、邀请好友、报名比赛等多种方式快速获得赛事点劵，还可以随心所欲的使用点劵来兑换超值的扑克礼包和高端的扑克奖品等。
+            </Text>
+          </View>
+          <View style={styles.stamps}>
+            <Text style={styles.stampsLabel}>二、赛事点卷作用</Text>
+          </View>
+          <View style={styles.intro}>
+            <Text style={styles.introText}>
+              赛事点劵可以在积分商城中兑换高端扑克礼品、导师培训、扑克周边、赛事参赛卷等各种礼品，还可参与抽奖，参与活动等。
+            </Text>
+          </View>
+          <View style={styles.stamps}>
+            <Text style={styles.stampsLabel}>三、如何获取</Text>
+          </View>
+          <View style={styles.intro}>
+            <Text style={styles.introText}>
+              1、app注册
             </Text>
             <Text style={styles.introText}>
-            更多商城礼品，请订阅赛事宝公众号saishibao
+              2、邀请好友注册
+            </Text>
+            <Text style={styles.introText}>
+              3、通过app报名参加赛事
             </Text>
           </View>
-          <View style={styles.exchange}>
-            <TouchableOpacity style={styles.exchangeBtn}>
-              <Text style={styles.exchangeBtnText}>
-              兑换
-              </Text>
-            </TouchableOpacity>
+          <View style={styles.endView}>
+            <Text style={styles.endViewText}>
+              敬请期待
+            </Text>
           </View>
-        </View>
+
+        </ScrollView>
       </View>
     );
   }
@@ -94,17 +113,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#ededed'
   },
   bottom: {
-    flex: 3,
+    // flex: 3,
+    flex: 1,
     marginHorizontal: 20,
   },
   stamps: {
-    marginTop: containerHeight / 11,
+    // marginTop: containerHeight / 11,
+    marginTop: 30,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
   stampsLabel: {
-    fontSize: 18,
-    fontWeight: '700',
+    fontSize: 15,
+    fontWeight: 'bold',
     color: '#424242'
   },
   stampsText: {
@@ -114,13 +135,13 @@ const styles = StyleSheet.create({
     color: '#f24b51'
   },
   intro: {
-    marginTop: containerHeight / 22,
+    marginTop: 20,
     justifyContent: 'space-around'
   },
   introText: {
-    fontWeight: '600',
-    color: '#bbbbbb',
-    marginTop: 15,
+    // fontWeight: '600',
+    color: '#787878',
+    // marginTop: ,
   },
   exchange: {
     marginTop: containerHeight / 22,
@@ -149,6 +170,15 @@ const styles = StyleSheet.create({
     width: Common.window.width,
     resizeMode: Image.resizeMode.cover
   },
+  endView: {
+    marginTop: 10,
+    alignItems: 'flex-end',
+  },
+  endViewText: {
+    color: '#555555',
+    fontSize: 15,
+    fontWeight: 'bold',
+  }
 });
 
 export default AccountInfo

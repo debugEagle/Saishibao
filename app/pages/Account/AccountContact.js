@@ -26,8 +26,11 @@ class AccountContact extends Component {
         <NavBar name='联系我们' navigator={this.props.navigator}/>
 
         <View style={styles.titleArea}>
-          <Image style={styles.titleImage} source={require('../../imgs/contact_title.png')}/>
-          <Image style={styles.logoImage} source={require('../../imgs/contact_logo.png')}/>
+          {/*<Image style={styles.titleImage} source={require('../../imgs/contact_title.png')}/>
+          <Image style={styles.logoImage} source={require('../../imgs/contact_logo.png')}/>*/}
+          <Image style={styles.titleImage} source={require('../../imgs/title_logo.png')}/>
+
+
 
         </View>
 
@@ -35,7 +38,7 @@ class AccountContact extends Component {
           <View style={styles.centerRow}>
             <Image style={styles.centerRowImage} source={require('../../imgs/contact_tel.png')}/>
             <Text style={styles.centerRowText}>
-              服务热线：010-85352034
+              服务热线：010-84532456
             </Text>
           </View>
           <View style={styles.centerRow}>
@@ -56,7 +59,7 @@ class AccountContact extends Component {
         <View style={styles.bottomArea}>
           <View style={styles.bottomRow}>
             <Text>
-              Copyright@2015-2016-103
+              Copyright©2015-2016-103
             </Text>
 
           </View>
@@ -101,8 +104,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   titleImage: {
-    height: 100,
-    width: 200,
+    height: 150,
+    width: 300,
     resizeMode: Image.resizeMode.contain,
 
   },
