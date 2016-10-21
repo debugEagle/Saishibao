@@ -15,8 +15,10 @@ let colors = {
 //保存的token
 const token = 'token';
 const userToken = 'userToken';
+const haveUsed = 'false';
 
 let defaultTab = 'myAccount';
+
 
 
 export default {
@@ -25,4 +27,5 @@ export default {
     token,
     defaultTab,
     userToken,
+    haveUsed,
 }

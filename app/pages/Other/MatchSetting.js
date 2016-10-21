@@ -7,6 +7,8 @@ import NavBar from '../../components/NavBar';
 import Constants from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../../components/Loading';
+import Toast, {DURATION} from 'react-native-easy-toast';
+
 
 import React, { Component } from 'react';
 import {
@@ -34,8 +36,8 @@ class MatchSetting extends Component {
 
   componentWillMount() {
     const { match } = this.props;
-    // console.log('match.matchSetting_id ' + match.matchSetting_id);
-    this.props.actions.fetchMatchSetting(1);
+    this.props.actions.fetchMatchSetting(match.matchSetting_id, () => this._fetchSuccess(),
+    (msg) => this._fetchFailed(msg));
   }
 
   componentWillUnmount() {
@@ -148,6 +150,15 @@ class MatchSetting extends Component {
     );
   }
 
+  _fetchSuccess() {
+
+  }
+
+
+  _fetchFailed(msg) {
+    this.refs.toast.show(msg);
+
+  }
 
 
 
@@ -175,23 +186,22 @@ class MatchSetting extends Component {
                   {this._renderTitleRow('级别', '小盲', '大盲', '前注')}
 
 
-                  {matchSetting.items.map((item, i) => {
+                  {matchSetting.items? matchSetting.items.map((item, i) => {
                     return (<View key={i}>{this._renderItemRow(item)}</View>);
-                  })}
+                  }): null}
                 </View>:
               <View>
-                {/*<View style={styles.settingBonusRow}>
-                  <Text style={styles.settingInfoRowText}>奖金结构表</Text>
-                </View>*/}
+
                 {this._renderBonusTitleRow('名次', '姓名', '奖金')}
-                {matchSetting.bonuses.map((item, i) => {
+                {matchSetting.bonuses? matchSetting.bonuses.map((item, i) => {
                   return (<View key={i}>{this._renderSettingBonusRow(item)}</View>);
-            })}
+            }): null}
           </View>
         }
 
         </ScrollView>
       }
+        <Toast ref="toast" position='top'/>
       </View>
     );
   }

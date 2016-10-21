@@ -11,6 +11,7 @@ import MatchSetting from '../Other/MatchSetting';
 import AccountPay from '../Account/AccountPay';
 
 
+
 import React, { Component } from 'react';
 import {
   Text,
@@ -83,8 +84,12 @@ class HotList extends Component {
       cooperated: hotMatch.cooperated,
     });
 
+    InteractionManager.runAfterInteractions(() => {
 
-    this.props.actions.fetchHotDays(hotMatch.bigMatchSerie_id);
+      this.props.actions.fetchHotDays(hotMatch.bigMatchSerie_id);
+    });
+
+
   }
 
   componentWillUnmount() {
@@ -228,7 +233,8 @@ class HotList extends Component {
           <TouchableOpacity style={styles.detailJoin} onPress={() => this._onPressJoinMatch(bigMatch)}>
             <Text style={styles.detailJoinText}>参加赛事  </Text>
           </TouchableOpacity>
-          : null}
+          : <View style={styles.detailJoin}>
+          </View>}
 
           <TouchableOpacity style={styles.detailResult} onPress={() => this._onPressDetailStruct(bigMatch, false)}>
             <Text style={styles.detailResultText}>奖金结构表</Text>

@@ -7,7 +7,7 @@ import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../../components/Loading';
 import DailyInfo from './DailyInfo';
-import DailyResult from './DailyResult';
+import DailyResultInfo from './DailyResultInfo';
 import { getDataStr } from '../../common/utils/Date';
 
 
@@ -73,13 +73,22 @@ class DailyList extends Component {
     });
   }
 
-  //todo:
-  _onPressMatchResult(){
+  //跳转到 昨日赛况页面
+  _onPressMatchResult(casino){
+
+    const showDate = getDataStr(-1);
+
     this.props.navigator.push({
 
-      component: DailyResult,
+      component: DailyResultInfo,
+      passProps: {
+        casino,
+        showDate,
 
+      }
     });
+
+
   }
 
   _onPressTomorrowBtn(casino) {

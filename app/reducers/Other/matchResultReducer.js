@@ -7,20 +7,23 @@ const initialState = {
   isLoading: true
 };
 
-let dailyResult = (state = initialState, action) => {
+let matchResult = (state = initialState, action) => {
   switch (action.type) {
-    case types.FETCH_DAILY_MATCH_RESULT:
-      return Object.assign({}, state, {isLoading: true})
-    case types.RECEIVE_DAILY_MATCH_RESULT:
+    case types.FETCH_MATCH_RESULT:
+      return Object.assign({}, state, {
+        isLoading: true,
+        matchResult: {},
+      })
+    case types.RECEIVE_MATCH_RESULT:
       return Object.assign({}, state, {
         matchResult: action.matchResult,
-        isLoading: false
+        isLoading: false,
       })
-    case types.RESET_MATCH_SETTING:
+    case types.RESET_MATCH_RESULT:
       return initialState;
     default:
       return state;
   }
 }
 
-export default dailyResult;
+export default matchResult;
