@@ -51,7 +51,7 @@ let fetchMatchSetting = (matchSetting_id, success=()=>{}, error=()=>{}) => {
 
 
 
-  let url = 'http://www.91buyin.com/texas/setting/' + matchSetting_id;
+  let url = 'https://api.91buyin.com/texas/setting/' + matchSetting_id;
 
   return dispatch => {
     dispatch(fetchSetting());

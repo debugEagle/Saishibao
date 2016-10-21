@@ -5,7 +5,7 @@ import PullRefreshLoadmoreScrollView from '../../components/PullRefreshLoadmore'
 import * as ActionCreator from '../../actions'
 import Toast, {DURATION} from 'react-native-easy-toast';
 
-import moment from 'moment'
+import moment from '../../common/utils/moment'
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import {connect} from 'react-redux';

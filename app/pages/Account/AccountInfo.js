@@ -76,7 +76,7 @@ class AccountInfo extends Component {
 
   _bindWechat(code) {
     AsyncStorage.getItem(Common.userToken).then((userToken) => {
-      let url = 'http://www.91buyin.com/user/info/bind/wechat'
+      let url = 'https://api.91buyin.com/user/info/bind/wechat'
       HTTPUtil.post(url, {code: code}, userToken).then((json) => {
         console.log(json);
         try {

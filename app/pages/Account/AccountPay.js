@@ -4,6 +4,9 @@ import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast, {DURATION} from 'react-native-easy-toast';
 
+import TabBarView from '../../containers/TabBarView'
+import AccountTicket from '../Account/AccountTicket'
+
 import * as ActionCreator from '../../actions'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -164,17 +167,44 @@ class AccountPay extends Component {
 
   //成功转向支付
   _userAddOrderSuccess() {
-    const { Pay } = this.props;
+    const { Pay,actions } = this.props;
     console.log('Pay.orderId ' + Pay.orderId);
-    this.props.actions.fetchUserPayOrder(Pay.orderId, ()=>this._userPayOrderSuccess(), (msg)=>this._fetchFailed(msg));
+    this.props.actions.fetchUserPayOrder(
+      Pay.orderId,
+      ()=>this._userPayOrderSuccess(),
+      ()=>this._userPayOrderFailed(),
+      (msg)=>this._fetchFailed(msg)
+    );
+  }
+
+  userPayOrderSuccess() {
+    this.props.navigator.immediatelyResetRouteStack([
+      {
+        component: TabBarView,
+        passProps: {
+          page: 3
+        }
+      },
+      {
+        component: AccountTicket
+      }
+    ]);
   }
 
   _userPayOrderSuccess() {
-    console.log('支付成功！');
+    console.log('success');
+    const { actions } = this.props
+    actions.fetchAccountTicket({start: true,used: 0,offset: 0,limit: 10},
+      this.userPayOrderSuccess())
+  }
+
+  _userPayOrderFailed() {
+    console.log('failed');
+    this.refs.modal.open()
   }
 
   _fetchFailed(msg) {
-    this.refs.toast.show(msg);
+    this.refs.toast.show(msg)
   }
 
 
@@ -222,7 +252,7 @@ class AccountPay extends Component {
         </Image>
         {this._renderPayBtn()}
         <Toast ref="toast" position='center'/>
-        <PayModal  />
+        <PayModal ref='modal' navigator={this.props.navigator} fetchAccountOrder={this.props.actions.fetchAccountOrder}/>
       </View>
     );
   }

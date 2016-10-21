@@ -13,7 +13,7 @@ let fetchDailies = (city, args, success=()=>{}, error=()=>{}) => {
   let start = params.start
   delete params.start
   params.city = city
-  let url = 'http://www.91buyin.com/casino?country=中国'
+  let url = 'https://api.91buyin.com/casino?country=中国'
   let iCount = 0
   let casinos = []
 

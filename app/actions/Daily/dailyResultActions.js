@@ -18,7 +18,7 @@ import HTTPUtil from '../../common/utils/HTTPUtil'
 
 let fetchDailyResult = (match_id, success=()=>{}, error=()=>{}) => {
 
-  let url = 'http://www.91buyin.com/texas/setting/' + match_id;
+  let url = 'https://api.91buyin.com/texas/setting/' + match_id;
 
   return dispatch => {
     dispatch(fetchResult());

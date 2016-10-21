@@ -6,7 +6,7 @@ import HTTPUtil from '../../common/utils/HTTPUtil'
 
 
 let verifySmsCode = (mobile, smsCode, success=()=>{}, failed=()=>{}, error=()=>{}) => {
-  let url = 'http://www.91buyin.com/user/register/verifysmscode';
+  let url = 'https://api.91buyin.com/user/register/verifysmscode';
 
   return dispatch => {
     if (mobile.length < 4) {

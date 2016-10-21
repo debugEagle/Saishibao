@@ -1,5 +1,8 @@
 import Common from '../common/constants';
 
+import AccountOrder from '../pages/Account/AccountOrder'
+import TabBarView from '../containers/TabBarView'
+
 import ModalBox from 'react-native-modalbox';
 
 import React, { Component } from 'react';
@@ -13,6 +16,9 @@ import {
 export default class PayModal extends Component {
   constructor(props) {
       super(props);
+      this.state = {
+        btn:false
+      }
   }
 
   open() {
@@ -20,6 +26,20 @@ export default class PayModal extends Component {
   }
   close() {
       this.refs.modal.close()
+  }
+
+  _goAccountOrder() {
+    this.props.navigator.immediatelyResetRouteStack([
+      {
+        component: TabBarView,
+        passProps: {
+          page: 3
+        }
+      },
+      {
+        component: AccountOrder
+      }
+    ]);
   }
 
   render() {
@@ -34,13 +54,18 @@ export default class PayModal extends Component {
         isOpen={false}>
         <View style={styles.modalContent}>
           <Text style={styles.h2}>{ this.props.title || '提示' }</Text>
-          <View style={styles.message}><Text style={styles.messageText}>{ this.props.message }</Text></View>
+          <View style={styles.message}>
+            <Text style={styles.messageText}>支付未成功，前往我的订单</Text>
+          </View>
         </View>
         <View style={styles.modalOption}>
-          <TouchableOpacity style={styles.modalCancel} onPress={()=> this.refs.modal.close() }>
-            <Text style={styles.modalCancelText}>取消</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.modalConfirm} onPress={()=> this.props.onConfirm() }>
+          <TouchableOpacity
+            disabled={this.state.btn}
+            style={styles.modalConfirm}
+            onPress={()=> {
+              this.setState({btn:true})
+              this.props.fetchAccountOrder({start: true,offset: 0,limit: 10},()=>this._goAccountOrder()) }
+            }>
             <Text style={styles.modalConfirmText}>确定</Text>
           </TouchableOpacity>
         </View>

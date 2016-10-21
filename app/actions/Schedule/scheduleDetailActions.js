@@ -8,7 +8,7 @@ const httpx = NativeModules.httpx;
 let fetchScheduleDetail = (id,success=()=>{},error=()=>{}) => {
 
   let Matches = {}
-  let url = 'http://www.91buyin.com/texas/big/serie/match/' + id;
+  let url = 'https://api.91buyin.com/texas/big/serie/match/' + id;
 
   return dispatch => {
     dispatch(fetchScheduleDetailInfo());

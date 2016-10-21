@@ -5,7 +5,7 @@ import HTTPUtil from '../../common/utils/HTTPUtil';
 import { AsyncStorage } from 'react-native';
 
 let fetchAccountOrder = (args, success=()=>{}, failed=()=>{}, error=()=>{}) => {
-  let url = 'http://www.91buyin.com/order';
+  let url = 'https://api.91buyin.com/order';
   let oArguments = {
     start: true,
     offset: 0,

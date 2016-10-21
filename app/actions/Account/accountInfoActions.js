@@ -5,7 +5,7 @@ import HTTPUtil from '../../common/utils/HTTPUtil';
 import { AsyncStorage } from 'react-native';
 
 let fetchAccountInfo = (success=()=>{}, failed=()=>{}, error=()=>{}) => {
-  let url = 'http://www.91buyin.com/user/info';
+  let url = 'https://api.91buyin.com/user/info';
 
   return dispatch => {
     dispatch(fetchAccountInfoAction());
@@ -32,7 +32,7 @@ let fetchAccountInfo = (success=()=>{}, failed=()=>{}, error=()=>{}) => {
 }
 
 let setAccountInfo = (attr, value, success=()=>{}, failed=()=>{}, error=()=>{}) => {
-  let url = 'http://www.91buyin.com/user/info/supplement/perfect'
+  let url = 'https://api.91buyin.com/user/info/supplement/perfect'
   let data = {}
   data[attr] = value;
 

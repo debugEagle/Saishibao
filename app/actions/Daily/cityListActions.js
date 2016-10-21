@@ -2,7 +2,7 @@ import * as types from '../actionTypes';
 import HTTPUtil from '../../common/utils/HTTPUtil';
 
 let fetchCities = (success=()=>{}, error=()=>{}) => {
-  let url = 'http://www.91buyin.com/city?country=中国'
+  let url = 'https://api.91buyin.com/city?country=中国'
   let city = []
   return dispatch => {
     dispatch(fetchCityList());

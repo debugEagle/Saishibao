@@ -2,7 +2,7 @@ import * as types from '../actionTypes';
 import HTTPUtil from '../../common/utils/HTTPUtil'
 
 let fetchHots = (args,success=()=>{},error=()=>{}) => {
-  let url = 'http://www.91buyin.com/texas/big/serie/hot';
+  let url = 'https://api.91buyin.com/texas/big/serie/hot';
   let hots = [];
   let oArguments = {
     start: true,

@@ -9,7 +9,7 @@ let fetchHotIntro = (bigMatchSerie_id, isLoading, success=()=>{}, error=()=>{}) 
     // intro_title: 'APPT 韩国首尔',
     // intro_content: '',
   }
-  let url = 'http://www.91buyin.com/texas/big/serie/' + bigMatchSerie_id;
+  let url = 'https://api.91buyin.com/texas/big/serie/' + bigMatchSerie_id;
 
   return dispatch => {
     dispatch(fetchIntro());

@@ -123,7 +123,7 @@ class WxTest extends Component {
 
     buy() {
         httpx.request({
-            url: 'https://www.91buyin.com/buy',
+            url: 'https://api.91buyin.com/buy',
             method: 'POST',
             timeout: 5
         }, (error, res) => {
@@ -142,8 +142,8 @@ class WxTest extends Component {
           code: code,
         })
         httpx.request({
-            // url: 'https://www.91buyin.com/users/wxlogin',
-            url: 'https://www.91buyin.com/user/thirdparty/wechat/login',
+            // url: 'https://api.91buyin.com/users/wxlogin',
+            url: 'https://api.91buyin.com/user/thirdparty/wechat/login',
             method: 'POST',
             timeout: 5,
             post: {code: code}
@@ -165,8 +165,8 @@ class WxTest extends Component {
 
         AsyncStorage.getItem(Common.userToken).then((userToken) => {
         httpx.request({
-            // url: 'https://www.91buyin.com/users/wxlogin',
-            url: 'https://www.91buyin.com/user/info/bind/wechat',
+            // url: 'https://api.91buyin.com/users/wxlogin',
+            url: 'https://api.91buyin.com/user/info/bind/wechat',
             method: 'POST',
             timeout: 5,
             post: {code: this.state.code},

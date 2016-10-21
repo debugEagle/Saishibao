@@ -6,7 +6,7 @@ import HTTPUtil from '../../common/utils/HTTPUtil';
 
 
 let setRegPwd = (mobile, pwd, token,  success=()=>{}, failed=()=>{}, error=()=>{}) => {
-  let url = 'http://www.91buyin.com/user/register/setpassword';
+  let url = 'https://api.91buyin.com/user/register/setpassword';
 
   return dispatch => {
     dispatch(fetchRegPwd());

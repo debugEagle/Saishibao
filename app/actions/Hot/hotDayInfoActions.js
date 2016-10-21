@@ -5,7 +5,7 @@ let fetchHotDays = (bigMatchSerie_id, success=()=>{}, error=()=>{}) => {
 
   let hotDayList = [];
   let hotDayDetailList = [];
-  let url = 'http://www.91buyin.com/texas/big/serie/match/' + bigMatchSerie_id;
+  let url = 'https://api.91buyin.com/texas/big/serie/match/' + bigMatchSerie_id;
 
   return dispatch => {
 

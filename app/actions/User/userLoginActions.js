@@ -5,7 +5,7 @@ import { AsyncStorage } from 'react-native';
 import Common from '../../common/constants';
 
 let startUserLogin = (mobile, password, success=()=>{}, failed=()=>{}, error=()=>{}) => {
-  let url = 'http://www.91buyin.com/user/login';
+  let url = 'https://api.91buyin.com/user/login';
   post = {mobile: mobile, password: password};
 
   return dispatch => {
@@ -31,7 +31,7 @@ let startUserLogin = (mobile, password, success=()=>{}, failed=()=>{}, error=()=
 }
 
 let startUserLoginWithToken = () => {
-  let url = 'http://www.91buyin.com/user';
+  let url = 'https://api.91buyin.com/user';
   return dispatch => {
     dispatch(fetchUserLoginWithToken());
     AsyncStorage.getItem(Common.userToken).then((userToken)=>{
@@ -70,7 +70,7 @@ let startUserLoginWithToken = () => {
 }
 
 let userLogout = () => {
-  let url = 'https://www.91buyin.com/user';
+  let url = 'https://api.91buyin.com/user';
   return dispatch => {
     console.log('userLogout');
     AsyncStorage.setItem(Common.userToken, '');

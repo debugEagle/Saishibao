@@ -1,4 +1,5 @@
 import Common from '../../common/constants';
+import moment from '../../common/utils/moment'
 import NavBar from '../../components/NavBar';
 import TabBarInner from '../../components/TabBarInner'
 import PullRefreshLoadmoreScrollView from '../../components/PullRefreshLoadmore';
@@ -79,7 +80,7 @@ class AccountTicket extends Component {
             <Text style={styles.ticketInfoText}>
               {ticket.matchName}
             </Text>
-            <Text style={styles.ticketInfoText}>2016.6.25</Text>
+            <Text style={styles.ticketInfoText}>{moment().to(ticket.expire_time)}有效</Text>
           </View>
           <View style={styles.ticketSerial}>
             <Text style={styles.ticketSerialText}>序列号:</Text>
@@ -250,7 +251,7 @@ const styles = StyleSheet.create({
   ticketInfo: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'space-around'
   },
   ticketSerial: {
     flex: 1,
@@ -266,7 +267,8 @@ const styles = StyleSheet.create({
   ticketInfoText: {
     fontSize: 14,
     fontWeight: '400',
-    color: '#787878'
+    color: '#787878',
+    backgroundColor: 'rgba(0,0,0,0)'
   },
   ticketSerialText: {
     fontSize: 15,

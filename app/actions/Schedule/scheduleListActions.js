@@ -3,7 +3,7 @@ import HTTPUtil from '../../common/utils/HTTPUtil';
 
 let fetchSchedule = (area,tour,month,args,success=()=>{},error=()=>{}) => {
 
-  let url = 'http://www.91buyin.com/texas/big/serie?&month=' + month
+  let url = 'https://api.91buyin.com/texas/big/serie?&month=' + month
   let oArguments = {
     start: true,
     offset: 0,
@@ -43,7 +43,7 @@ let fetchSchedule = (area,tour,month,args,success=()=>{},error=()=>{}) => {
 }
 
 let fetchAreaList = (success=()=>{},error=()=>{}) => {
-  let url = 'http://www.91buyin.com/country'
+  let url = 'https://api.91buyin.com/country'
 
   return dispatch => {
 
@@ -66,7 +66,7 @@ let fetchAreaList = (success=()=>{},error=()=>{}) => {
 }
 
 let fetchTourList = (success=()=>{},error=()=>{}) => {
-  let url = 'http://www.91buyin.com/tour'
+  let url = 'https://api.91buyin.com/tour'
 
   return dispatch => {
 

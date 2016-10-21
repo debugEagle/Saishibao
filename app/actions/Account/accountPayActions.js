@@ -4,15 +4,18 @@ import HTTPUtil from '../../common/utils/HTTPUtil';
 
 import { AsyncStorage } from 'react-native';
 
+import TabBarView from '../../containers/TabBarView'
+import AccountTicket from '../../pages/Account/AccountTicket'
+
 import * as WeChat from 'react-native-wechat';
 
 let fetchUserAddOrder = (isDailyMatch, match_id, amount, success=()=>{}, failed=()=>{}, error=()=>{}) => {
   let url ;
   if (isDailyMatch) {
-    url = 'http://www.91buyin.com/texas/daily/match/join/' + match_id;
+    url = 'https://api.91buyin.com/texas/daily/match/join/' + match_id;
   }
   else {
-    url = 'http://www.91buyin.com/texas/big/match/join/' + match_id;
+    url = 'https://api.91buyin.com/texas/big/match/join/' + match_id;
   }
 
   console.log(url);
@@ -25,15 +28,15 @@ let fetchUserAddOrder = (isDailyMatch, match_id, amount, success=()=>{}, failed=
         try {
           console.log(json.code) + console.log(json.msg);
           let orderId = {};
-          console.log('json.value ' + json.value);
           if (json.code === '0') {
+            console.log('json.value ' + json.value);
             orderId = json.value;
             dispatch(receiveAddOrder(orderId));
             success();
           } else {
             if (json.code == '1009') {
               failed('请先登陆');
-            }else {
+            } else {
               failed(json.msg);
             }
           }
@@ -48,11 +51,22 @@ let fetchUserAddOrder = (isDailyMatch, match_id, amount, success=()=>{}, failed=
   }
 }
 
-let fetchUserPayOrder = (order_id, success=()=>{}, failed=()=>{}, error=()=>{}) => {
 
-  let url = 'http://www.91buyin.com/order/pay/' + order_id;
+let pay = async function (data, pay_succuss=()=>{}, pay_failed=()=>{}) {
+  try {
+    let result = await WeChat.pay(data)
+    console.log('pay success');
+    pay_succuss()
+  } catch (e) {
+    console.log('pay failed')
+    pay_failed()
+  }
+}
 
-  console.log(url);
+let fetchUserPayOrder = (order_id, pay_succuss=()=>{}, pay_failed=()=>{}, failed=()=>{}) => {
+
+  let url = 'https://api.91buyin.com/order/pay/' + order_id;
+
   return dispatch => {
     dispatch(fetchPayOrder());
     //type = 0 微信支付
@@ -60,21 +74,8 @@ let fetchUserPayOrder = (order_id, success=()=>{}, failed=()=>{}, error=()=>{}) 
     AsyncStorage.getItem(Common.userToken).then((userToken)=>{
       HTTPUtil.post(url, postBody, userToken).then((json) => {
         try {
-          // console.log(json.code + json.msg);
-          // let wxInfo = {}
           if (json.code === '0') {
-            // wxInfo = json.value;
-            console.log(json.value);
-            WeChat.pay(json.value).then(
-              (returnKey)=>{
-                success()
-                console.log('pay success: ' + returnKey);
-              },
-              (errCode)=>{
-                failed(errCode)
-                console.log('pay failed: ' + errCode)
-              }
-            )
+            pay(json.value, pay_succuss, pay_failed)
           } else {
             if (json.code == '1009') {
               failed('请先登陆');
@@ -88,7 +89,7 @@ let fetchUserPayOrder = (order_id, success=()=>{}, failed=()=>{}, error=()=>{}) 
         }
       },(connect_error)=>{
         console.log(connect_error.msg);
-        error();
+        failed('内部错误');
       });
     })
   }
@@ -96,7 +97,7 @@ let fetchUserPayOrder = (order_id, success=()=>{}, failed=()=>{}, error=()=>{}) 
 
 // let fetchUserPayOrder= (wxInfo, success=()=>{}, failed=()=>{}, error=()=>{}) => {
 //
-//   let url = 'http://www.91buyin.com/order/pay/' + order_id;
+//   let url = 'https://api.91buyin.com/order/pay/' + order_id;
 //
 //   console.log(url);
 //   return dispatch => {
