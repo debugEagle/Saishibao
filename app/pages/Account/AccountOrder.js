@@ -4,6 +4,7 @@ import TabBarInner from '../../components/TabBarInner'
 import PullRefreshLoadmoreScrollView from '../../components/PullRefreshLoadmore';
 import * as ActionCreator from '../../actions'
 import Toast, {DURATION} from 'react-native-easy-toast';
+import AccountTicket from '../Account/AccountTicket'
 
 import moment from '../../common/utils/moment'
 
@@ -55,13 +56,29 @@ class AccountOrder extends Component {
   _onPressPayBtn(orderId) {
     const { Pay } = this.props;
     console.log('orderId ' + orderId);
-    this.props.actions.fetchUserPayOrder(orderId, ()=>this._userPayOrderSuccess(), (msg)=>this._fetchFailed(msg));
+    this.props.actions.fetchUserPayOrder(orderId, ()=>this._userPayOrderSuccess(),()=>{}, (msg)=>this._fetchFailed(msg));
   }
 
   _userPayOrderSuccess() {
-
+    console.log('success');
+    const { actions } = this.props
+    actions.fetchAccountTicket({start: true,used: 0,offset: 0,limit: 10},
+      this.userPayOrderSuccess())
   }
 
+  userPayOrderSuccess() {
+    this.props.navigator.immediatelyResetRouteStack([
+      {
+        component: TabBarView,
+        passProps: {
+          page: 3
+        }
+      },
+      {
+        component: AccountTicket
+      }
+    ]);
+  }
   _fetchFailed(msg) {
     this.refs.toast.show(msg);
   }
