@@ -77,15 +77,19 @@ class AccountTicket extends Component {
             </Text>
           </View>
           <View style={styles.ticketInfo}>
-            <Text style={styles.ticketInfoText}>
-              {ticket.matchName}
-            </Text>
-            <Text style={styles.ticketInfoText}>{moment().to(ticket.expire_time)}有效</Text>
+            <View style={{flex: 1}}>
+              <Text style={styles.ticketNameText}>
+                {ticket.matchName}
+              </Text>
+            </View>
+            <View style={{flex: 1, marginTop: 8}}>
+              <Text style={styles.ticketDateText}>{moment().to(ticket.expire_time)}有效</Text>
+            </View>
           </View>
           <View style={styles.ticketSerial}>
-            <Text style={styles.ticketSerialText}>序列号:</Text>
+            <Text style={styles.ticketSerialText}>序列号:  </Text>
             <Text style={{fontWeight: 'bold',color: '#ff875c'}}>
-              {ticket.seria_No}
+              {`${ticket.seria_No.substring(0, 4)}  ${ticket.seria_No.substring(4, 8)}  ${ticket.seria_No.substring(8)}`}
             </Text>
           </View>
         </Image>
@@ -104,15 +108,19 @@ class AccountTicket extends Component {
             </Text>
           </View>
           <View style={styles.ticketInfo}>
-            <Text style={styles.ticketInfoText}>
-              {ticket.matchName}
-            </Text>
-            <Text style={styles.ticketInfoText}>2016.6.25</Text>
+            <View style={{flex: 1}}>
+              <Text style={styles.ticketNameText}>
+                {ticket.matchName}
+              </Text>
+            </View>
+            <View style={{flex: 1, marginTop: 8, marginRight: 50}}>
+              <Text style={styles.ticketDateText}>使用时间：{moment(ticket.create_time).format('YYYY-MM-DD hh:mm:ss')}</Text>
+            </View>
           </View>
           <View style={styles.ticketSerial}>
-            <Text style={styles.ticketSerialText}>序列号:</Text>
+            <Text style={styles.ticketSerialText}>序列号:  </Text>
             <Text style={{fontWeight: 'bold',color: '#ff875c'}}>
-              {ticket.seria_No}
+              {`${ticket.seria_No.substring(0, 4)}  ${ticket.seria_No.substring(4, 8)}  ${ticket.seria_No.substring(8)}`}
             </Text>
           </View>
         </Image>
@@ -243,20 +251,19 @@ const styles = StyleSheet.create({
   ticketTitle: {
     flex: 1,
     marginLeft: 50,
-    marginTop: 10,
+    marginTop: 15,
     alignItems: 'flex-start',
     justifyContent: 'center',
     backgroundColor: 'rgba(0,0,0,0)'
   },
   ticketInfo: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-around'
+    alignItems: 'center'
   },
   ticketSerial: {
     flex: 1,
+    marginLeft: 50,
     alignItems: 'center',
-    justifyContent: 'center',
     flexDirection: 'row'
   },
   ticketTitleText: {
@@ -264,8 +271,14 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     color: '#636363'
   },
-  ticketInfoText: {
+  ticketNameText: {
     fontSize: 14,
+    fontWeight: '500',
+    color: '#636363',
+    backgroundColor: 'rgba(0,0,0,0)'
+  },
+  ticketDateText: {
+    fontSize: 12,
     fontWeight: '400',
     color: '#787878',
     backgroundColor: 'rgba(0,0,0,0)'

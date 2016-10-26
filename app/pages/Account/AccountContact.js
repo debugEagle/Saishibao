@@ -23,7 +23,7 @@ class AccountContact extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <NavBar name='联系我们' navigator={this.props.navigator}/>
+        <NavBar name='关于我们' navigator={this.props.navigator}/>
 
         <View style={styles.titleArea}>
           {/*<Image style={styles.titleImage} source={require('../../imgs/contact_title.png')}/>

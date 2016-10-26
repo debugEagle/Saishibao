@@ -5,8 +5,10 @@ import HTTPUtil from '../../common/utils/HTTPUtil';
 
 
 
-let setRegPwd = (mobile, pwd, token,  success=()=>{}, failed=()=>{}, error=()=>{}) => {
-  let url = 'https://api.91buyin.com/user/register/setpassword';
+let setRegPwd = (mobile, pwd, token, retrieve, success=()=>{}, failed=()=>{}, error=()=>{}) => {
+  const type = retrieve ? 'retrieve' : 'register';
+
+  let url = `https://api.91buyin.com/user/${type}/setpassword`;
 
   return dispatch => {
     dispatch(fetchRegPwd());

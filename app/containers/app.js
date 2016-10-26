@@ -1,5 +1,6 @@
-import StatusBarIOS from '../components/StatusBarIOS';
+import * as WeChat from 'react-native-wechat'
 
+import StatusBarIOS from '../components/StatusBarIOS';
 import TabBarView from './TabBarView';
 import AppIntroPage from '../pages/Other/AppIntroPage'
 import codePush from "react-native-code-push";

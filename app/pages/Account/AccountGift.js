@@ -29,7 +29,7 @@ class AccountInfo extends Component {
 
     return (
       <View style={styles.container}>
-        <NavBar name='礼品兑换' navigator={this.props.navigator}/>
+        <NavBar name='点券兑换' navigator={this.props.navigator}/>
         {/*<View style={styles.top}>
           <Image style={styles.image} source={{uri: mockData.img}}/>
         </View>*/}

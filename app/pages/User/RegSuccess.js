@@ -73,49 +73,67 @@ class RegSuccess extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <NavBar name='注册成功' navigator={this.props.navigator}/>
+        <NavBar name={this.props.retrieve ? '密码重置成功' : '注册成功'} navigator={this.props.navigator}/>
         <View style={styles.infoArea}>
           <View style={styles.title}>
             <Text style={styles.titleText}>
               提示信息
             </Text>
           </View>
-          <View style={styles.detail}>
-            <View style={styles.detailRow}>
-              <Text style={styles.detailText}>
-                报名参赛需完善个人信息
-              </Text>
+          {!this.props.retrieve &&
+            <View style={styles.detail}>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailText}>
+                  报名参赛需完善个人信息
+                </Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailText}>
+                  国内赛事完善真实姓名、昵称、手机
+                </Text>
+              </View>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailText}>
+                  国际赛事需完善护照号
+                </Text>
+              </View>
             </View>
-            <View style={styles.detailRow}>
-              <Text style={styles.detailText}>
-                国内赛事完善真实姓名、昵称、手机
-              </Text>
+          }
+          {this.props.retrieve &&
+            <View style={styles.detail}>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailText}>
+                  当前已使用新密码登录成功
+                </Text>
+              </View>
             </View>
-
-            <View style={styles.detailRow}>
-              <Text style={styles.detailText}>
-                国际赛事需完善护照号
-              </Text>
-            </View>
-
-          </View>
+          }
         </View>
 
-        <View style={styles.btnArea}>
-          <View style={styles.btnBlock}>
-            <TouchableOpacity  style={styles.nextBtn} onPress={() => this._onPressCompleteBtn()}>
-              <Text style={styles.nextBtnText}>完善信息</Text>
-            </TouchableOpacity>
+        {!this.props.retrieve &&
+          <View style={styles.btnArea}>
+            <View style={styles.btnBlock}>
+              <TouchableOpacity  style={styles.nextBtn} onPress={() => this._onPressCompleteBtn()}>
+                <Text style={styles.nextBtnText}>完善信息</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.btnBlock}>
+              <TouchableOpacity style={styles.nextBtn} onPress={() => this._onPressLaterBtn()}>
+                <Text style={styles.nextBtnText}>以后填写</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.btnBlock}>
-            <TouchableOpacity style={styles.nextBtn} onPress={() => this._onPressLaterBtn()}>
-              <Text style={styles.nextBtnText}>以后填写</Text>
-            </TouchableOpacity>
+        }
+        {this.props.retrieve &&
+          <View style={styles.btnArea}>
+            <View style={styles.btnBlock}>
+              <TouchableOpacity style={styles.nextBtn} onPress={() => this._onPressLaterBtn()}>
+                <Text style={styles.nextBtnText}>回到首页</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-
+        }
       </View>
-
     );
   }
 }
