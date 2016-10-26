@@ -59,7 +59,7 @@ class RegPwd extends Component {
     }
 
     console.log('mobile ' + this.props.mobile);
-    this.props.actions.setRegPwd(this.props.mobile, this.state.pwd, this.state.token, (token)=>this._fetchSuccess(token), (msg)=>this._fetchFailed(msg));
+    this.props.actions.setRegPwd(this.props.mobile, this.state.pwd, this.state.token, this.props.retrieve, (token)=>this._fetchSuccess(token), (msg)=>this._fetchFailed(msg));
 
   }
 
@@ -67,6 +67,9 @@ class RegPwd extends Component {
     AsyncStorage.setItem(Common.userToken,token).then(()=>{
       this.props.navigator.push({
         component: RegSuccess,
+        passProps: {
+          retrieve: this.props.retrieve
+        }
       });
     })
   }

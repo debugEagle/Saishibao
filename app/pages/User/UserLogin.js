@@ -38,8 +38,6 @@ class UserLogin extends Component {
       mobile: '',
       pwd: '',
     }
-
-
   }
 
   _onLoginBtn() {
@@ -61,43 +59,25 @@ class UserLogin extends Component {
     console.log(userToken);
   }
 
-
-
   _fetchFailed(msg) {
     this.refs.toast.show( msg );
-
   }
 
-  _onRegBtn() {
+  _onRegBtn(retrieve) {
     this.props.navigator.push({
       component: RegGetSmsCode,
-
+      passProps: {
+        retrieve,
+      }
     });
   }
-
-
 
   render() {
     return (
       <View style={styles.container}>
 
         <NavBar name='登录' navigator={this.props.navigator}/>
-
-        <View >
-          <View style={styles.linkReg}>
-            <TouchableOpacity onPress={() => this._onRegBtn()}>
-              <Text style={styles.linkRegText}>
-                注     册
-              </Text>
-            </TouchableOpacity>
-          </View>
-
-        </View>
-
-
-
         <View style={styles.input}>
-
           <View style={styles.inputRowOne}>
             <View style={styles.inputLabel}>
               <Text style={styles.inputLabelText}>手机号码</Text>
@@ -113,7 +93,6 @@ class UserLogin extends Component {
                 onChange={(event) => {
                   this.state.mobile = event.nativeEvent.text;
                 }}
-
               />
             </View>
           </View>
@@ -133,106 +112,106 @@ class UserLogin extends Component {
                 onChange={(event) => {
                   this.state.pwd = event.nativeEvent.text;
                 }}
-
               />
             </View>
           </View>
         </View>
 
-
-
-
-        <View style={{flex: 1, alignItems: 'center'}}>
+        <View style={styles.bottomArea}>
           <TouchableOpacity style={styles.nextBtn} onPress={() => this._onLoginBtn()}>
             <Text style={styles.nextBtnText}>登        录</Text>
           </TouchableOpacity>
+          <View style={{marginTop: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
+            <TouchableOpacity onPress={() => this._onRegBtn(retrieve=true)}>
+              <Text style={{ color: '#aaaaaa' }}>
+                忘记密码？
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this._onRegBtn()}>
+              <Text style={{ color: '#5c6bc0' }}>
+                快速注册
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         <Toast ref="toast" position='top'/>
       </View>
-
     );
   }
-  }
+}
 
-  const inputPadding = 18;
-  const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-    // alignItems: 'center',
-  },
-  input: {
-    marginTop: 40,
-    marginHorizontal: inputPadding,
-    height: 100,
-    width: Common.window.width - inputPadding * 2,
-    borderRadius: 8,
-    borderColor: '#e0eaff',
-    borderWidth: 1,
-  },
-  inputRowOne: {
-    flex: 1,
-    borderColor: '#e0eaff',
-    borderBottomWidth: 1,
-    flexDirection: 'row',
-  },
-  inputRowTwo: {
-    flex: 1,
-    flexDirection: 'row',
-  },
-  inputLabel: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 80,
-  },
-  inputLabelText: {
-    fontSize: 14,
-    color: '#787878',
-    fontWeight: 'bold',
-  },
-  inputBlock: {
-    flex: 1,
+const inputPadding = 18;
+const styles = StyleSheet.create({
+container: {
+  flex: 1,
+  backgroundColor: '#ffffff',
+  // alignItems: 'center',
+},
+input: {
+  marginTop: 40,
+  marginHorizontal: inputPadding,
+  height: 100,
+  width: Common.window.width - inputPadding * 2,
+  borderRadius: 8,
+  borderColor: '#e0eaff',
+  borderWidth: 1,
+},
+inputRowOne: {
+  flex: 1,
+  borderColor: '#e0eaff',
+  borderBottomWidth: 1,
+  flexDirection: 'row',
+},
+inputRowTwo: {
+  flex: 1,
+  flexDirection: 'row',
+},
+inputLabel: {
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: 80,
+},
+inputLabelText: {
+  fontSize: 14,
+  color: '#787878',
+  fontWeight: 'bold',
+},
+inputBlock: {
+  flex: 1,
 
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-  },
-  locationText: {
-    fontSize: 13,
-    color: '#e0e0e0',
-  },
-  inputMobile: {
-    flex: 1,
-    fontSize: 20,
-  },
-  nextBtn: {
-    width: 260,
-    height: 46,
-    backgroundColor: '#5c6bc0',
-    marginTop: 40,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  nextBtnText: {
-    fontSize: 14,
-    color: '#ffffff',
-    fontWeight: 'bold',
+  alignItems: 'flex-end',
+  justifyContent: 'center',
+},
+locationText: {
+  fontSize: 13,
+  color: '#e0e0e0',
+},
+inputMobile: {
+  flex: 1,
+  fontSize: 20,
+},
+bottomArea: {
+  flex: 1,
+  width: Common.window.width - inputPadding * 2,
+  marginLeft: inputPadding
+},
+nextBtn: {
+  width: Common.window.width - inputPadding * 2,
+  height: 46,
+  backgroundColor: '#5c6bc0',
+  marginTop: 30 ,
+  borderRadius: 8,
+  justifyContent: 'center',
+  alignItems: 'center'
+},
+nextBtnText: {
+  fontSize: 14,
+  color: '#ffffff',
+  fontWeight: 'bold',
+},
 
-  },
-  linkReg: {
-    position: 'absolute',
-    marginTop: 10,
-    marginBottom: 10,
-    left: 200,
-    // borderWidth: 1,
-    left: Common.window.width - 80,
-  },
-  linkRegText: {
-    color: '#5c6bc0',
-  }
-
-  });
+});
 
 const mapStateToProps = (state) => ({
   UserLogin: state.User.UserLogin,

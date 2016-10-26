@@ -52,12 +52,11 @@ class RegGetSmsCode extends Component {
     }
 
     if (TimerElse.isRunning) {
-      this.refs.toast.show('请稍后再注册');
+      this.refs.toast.show('请稍后再试');
       return;
     }
 
-    this.props.actions.getSmsCode(this.state.mobile, ()=>this._fetchSuccess(), (msg)=>this._fetchFailed(msg));
-
+    this.props.actions.getSmsCode(this.state.mobile, this.props.retrieve, ()=>this._fetchSuccess(), (msg)=>this._fetchFailed(msg));
 
   }
 
@@ -67,27 +66,19 @@ class RegGetSmsCode extends Component {
       component: RegInputSmsCode,
       passProps: {
         mobile: this.state.mobile,
+        retrieve: this.props.retrieve
       },
     });
-
   }
-
-
 
   _fetchFailed(msg) {
     this.refs.toast.show( msg );
-
-
   }
-
-
-
-
 
   render() {
     return (
       <View style={styles.container}>
-        <NavBar name='注册' navigator={this.props.navigator}/>
+        <NavBar name={this.props.retrieve ? '找回密码' : '注册'} navigator={this.props.navigator}/>
 
         <View style={styles.input}>
 
@@ -104,18 +95,18 @@ class RegGetSmsCode extends Component {
               <Text style={styles.inputLabelText}>手机号码</Text>
             </View>
             <View style={styles.inputBlock}>
-            <TextInput style = {styles.inputMobile}
-              ref="1"
-              multiline={false}
-              autoFocus={true}
-              placeholder= "请输入手机号码"
-              keyboardType= 'number-pad'
-              maxLength={11}
-              onChange={(event) => {
-                this.state.mobile = event.nativeEvent.text;
-              }}
+              <TextInput style = {styles.inputMobile}
+                ref="1"
+                multiline={false}
+                autoFocus={true}
+                placeholder= "请输入手机号码"
+                keyboardType= 'number-pad'
+                maxLength={11}
+                onChange={(event) => {
+                  this.state.mobile = event.nativeEvent.text;
+                }}
 
-            />
+              />
             </View>
           </View>
 

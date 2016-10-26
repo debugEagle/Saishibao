@@ -44,15 +44,11 @@ class RegInputSmsCode extends Component {
   _elseSecondInterval;
 
   _onPressNextBtn() {
-
-
-
     if (this.state.smsCode.length < 4) {
       this.refs.toast.show('校验码长度不正确');
       return;
     }
-    this.props.actions.verifySmsCode(this.props.mobile, this.state.smsCode, (token)=>this._fetchSuccess(token), (msg)=>this._fetchFailed(msg));
-
+    this.props.actions.verifySmsCode(this.props.mobile, this.state.smsCode, this.props.retrieve, (token)=>this._fetchSuccess(token), (msg)=>this._fetchFailed(msg));
   }
 
   _fetchSuccess(token) {
@@ -62,22 +58,19 @@ class RegInputSmsCode extends Component {
       component: RegPwd,
       passProps: {
         mobile: this.props.mobile,
+        retrieve: this.props.retrieve
       },
     });
 
   }
 
-
-
   _fetchFailed(msg) {
     this.refs.toast.show( msg );
-
-
   }
 
   //重发验证码
   _onPressRePushBtn() {
-    this.props.actions.getSmsCode(this.props.mobile);
+    this.props.actions.getSmsCode(this.props.mobile, this.props.retrieve);
     this.props.actions.startTimer();
 
     if (this.state.intervalRePush == null) {
@@ -120,7 +113,7 @@ class RegInputSmsCode extends Component {
 
     return (
       <View style={styles.container}>
-        <NavBar title='填写验证码' navigator={this.props.navigator}/>
+        <NavBar name='填写验证码' navigator={this.props.navigator}/>
         <View style={styles.tintRow}>
           <Text style={styles.tintRowText}>请输入手机号{this.props.mobile}收到的短信校验码</Text>
         </View>

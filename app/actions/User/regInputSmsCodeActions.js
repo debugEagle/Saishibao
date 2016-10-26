@@ -5,8 +5,9 @@ import HTTPUtil from '../../common/utils/HTTPUtil'
 
 
 
-let verifySmsCode = (mobile, smsCode, success=()=>{}, failed=()=>{}, error=()=>{}) => {
-  let url = 'https://api.91buyin.com/user/register/verifysmscode';
+let verifySmsCode = (mobile, smsCode, retrieve, success=()=>{}, failed=()=>{}, error=()=>{}) => {
+  const type = retrieve ? 'retrieve' : 'register';
+  let url = `https://api.91buyin.com/user/${type}/verifysmscode`;
 
   return dispatch => {
     if (mobile.length < 4) {

@@ -1,5 +1,6 @@
-import StatusBarIOS from '../components/StatusBarIOS';
+import * as WeChat from 'react-native-wechat'
 
+import StatusBarIOS from '../components/StatusBarIOS';
 import TabBarView from './TabBarView';
 import AppIntroPage from '../pages/Other/AppIntroPage'
 import codePush from "react-native-code-push";
@@ -16,14 +17,12 @@ import {
   AsyncStorage,
 } from 'react-native';
 
-const WeChatAPI = NativeModules.WeChatAPI
-
 let firstView = null;
 class App extends Component {
 
   constructor(props) {
     super(props)
-    WeChatAPI.registerWx((b) => console.log(b))
+    WeChat.registerApp('wx148eb8f66f47fb36')
 
     this.state = {
       haveFinished: false,

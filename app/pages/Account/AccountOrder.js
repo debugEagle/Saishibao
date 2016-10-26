@@ -55,7 +55,7 @@ class AccountOrder extends Component {
   _onPressPayBtn(orderId) {
     const { Pay } = this.props;
     console.log('orderId ' + orderId);
-    this.props.actions.fetchUserPayOrder(orderId, ()=>this._userPayOrderSuccess(), (msg)=>this._fetchFailed(msg));
+    this.props.actions.fetchUserPayOrder(orderId, ()=>this._userPayOrderSuccess(), ()=>{} ,(msg)=>this._fetchFailed(msg));
   }
 
   _userPayOrderSuccess() {
