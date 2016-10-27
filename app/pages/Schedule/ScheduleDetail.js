@@ -43,14 +43,17 @@ class AccountInfo extends Component {
   _renderListTitle() {
     return (
       <View style={styles.title}>
-        <View style={[styles.center, {flex: 1.5, marginBottom: -15}]}>
+        <View style={[styles.center, {flex: 1.2, marginBottom: -15}]}>
           <Text style={styles.titleText}>日期</Text>
         </View>
-        <View style={[styles.center, {flex: 5, marginBottom: -15}]}>
+        <View style={[styles.center, {flex: 4.5, marginBottom: -15}]}>
           <Text style={styles.titleText}>比赛</Text>
         </View>
-        <View style={[styles.center, {flex: 1.5, marginBottom: -15}]}>
+        <View style={[styles.center, {flex: 1.4, marginBottom: -15}]}>
           <Text style={styles.titleText}>买入</Text>
+        </View>
+        <View style={[styles.center, {flex: 1.2, marginBottom: -15}]}>
+          <Text style={styles.titleText}>结果</Text>
         </View>
       </View>
     )
@@ -84,19 +87,22 @@ class AccountInfo extends Component {
 
     return (
       <View style={styles.matchItem}>
-        <View style={[{flex: 1.1}, styles.center]}>
-          <Text style={styles.itemText}>{item.match_day.substring(5)}</Text>
+        <View style={[{flex: 1.3}, styles.center]}>
+          <Text style={styles.itemText}>{item.match_day.substring(5).replace('-', '.')}</Text>
         </View>
         <View style={[{flex: 5}, styles.matchText]}>
-          <Text numberOfLines={2} style={styles.itemText}>{item.name}</Text>
+          <Text numberOfLines={5} style={styles.itemText}>{item.name}</Text>
         </View>
-        <View style={[{flex: 1.2},{justifyContent:'center', paddingHorizontal: 2,alignItems: 'center', marginLeft:10}]}>
+        <View style={[{flex: 1.2}, styles.matchBuy]}>
           <Text numberOfLines={2} style={styles.itemText}>
             {hkd ? 'HK' : null}
             <Icon color="#101010" size={13} name={c_code}/>
             {real_buyin}
           </Text>
         </View>
+        <TouchableOpacity style={[{flex: 1}, styles.matchArrow]}>
+          <Icon color="#e0eaff" size={13} name="chevron-right"/>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -260,6 +266,18 @@ const styles = StyleSheet.create({
     flex: 3.5,
     justifyContent: 'center',
     alignItems: 'flex-start',
+  },
+  matchBuy: {
+    justifyContent:'center',
+    paddingRight: 10,
+    alignItems: 'center',
+    marginHorizontal:10,
+    borderRightWidth: 1,
+    borderRightColor: '#e0eaff'
+  },
+  matchArrow: {
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 

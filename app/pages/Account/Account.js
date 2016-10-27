@@ -12,6 +12,7 @@ import AccountTicket from './AccountTicket'
 import AccountGift from './AccountGift'
 import AccountOrder from './AccountOrder'
 import AccountContact from  './AccountContact';
+import AccountFeedBack from './AccountFeedBack'
 
 import React, { Component } from 'react';
 import {
@@ -75,8 +76,19 @@ class Account extends Component {
 
   _onPressMyGift() {
     this.props.navigator.push({
-        component: AccountGift,
+      component: AccountGift,
     });
+  }
+
+  _onPressFeedBack() {
+    if (this.props.UserLogin.haveLogined) {
+      this.props.navigator.push({
+        component: AccountFeedBack,
+      });
+    } else {
+      this.refs.toast.show('请先登录再操作', 1000)
+    }
+
   }
 
   _onPressContact() {
@@ -174,7 +186,9 @@ class Account extends Component {
                     </Text>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.menuItem, styles.withBorderRight, {flex: 1.2}]}>
+                <TouchableOpacity
+                  onPress={()=>this._onPressFeedBack()}
+                  style={[styles.menuItem, styles.withBorderRight, {flex: 1.2}]}>
                   <View style={styles.menuImageView}>
                     <Image style={styles.menuImage} source={require('../../imgs/account_feedback.png')}/>
                   </View>

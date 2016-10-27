@@ -255,6 +255,9 @@ class DailyList extends Component {
     return (
       <View style={styles.item}>
         <View style={styles.itemLeft}>
+          {item.cooperated===1 &&
+            <Image style={styles.itemImgCooper} source={require('../../imgs/cooperated.png')}/>
+          }
           <View style={styles.itemImgView}>
             <Image style={styles.itemImg} source={{uri: item.logo_url}}/>
           </View>
@@ -398,7 +401,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     marginTop: 20,
-    marginBottom: 10
+    marginBottom: 10,
+  },
+  itemImgCooper: {
+    height: 25,
+    width: 25,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    resizeMode: Image.resizeMode.contain
   },
   itemImgView: {
     justifyContent: 'center',
