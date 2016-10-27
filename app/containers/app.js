@@ -5,7 +5,8 @@ import TabBarView from './TabBarView';
 import AppIntroPage from '../pages/Other/AppIntroPage'
 import codePush from "react-native-code-push";
 import Common from  '../common/constants.js';
-import * as WeChat from 'react-native-wechat'
+import storage from 'react-native-sync-storage';
+
 
 
 import React, { Component } from 'react';
@@ -16,9 +17,15 @@ import {
   StatusBar,
   NativeModules,
   AsyncStorage,
+  InteractionManager,
 } from 'react-native';
 
 let firstView = null;
+
+let haveUsed;
+
+
+
 class App extends Component {
 
   constructor(props) {
@@ -26,7 +33,7 @@ class App extends Component {
     WeChat.registerApp('wx148eb8f66f47fb36')
 
     this.state = {
-      haveFinished: false,
+      haveUsed: 0, //0 初始化 , 1 未读取到， 2 读取到值
       init: true,
     }
 
@@ -34,6 +41,34 @@ class App extends Component {
   }
 
   componentWillMount() {
+
+    InteractionManager.runAfterInteractions(() => {
+      storage.init.then((json) => {
+        if (! storage.get('haveUsed')) {
+          this.setState({
+            haveUsed: 1,
+          })
+        } else {
+          this.setState({
+            haveUsed: 2,
+          })
+        }
+
+
+      });
+    });
+
+    // codePush.checkForUpdate()
+    // .then((update) => {
+    //     if (!update) {
+    //         console.log("The app is up to date!");
+    //     } else {
+    //         console.log("An update is available! Should we download it?");
+    //     }
+    // });
+
+  
+
     // codePush.sync();
     // codePush.sync({updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE});
     codePush.sync({
@@ -44,25 +79,25 @@ class App extends Component {
         optionalUpdateMessage: '赛事宝有新版本了，是否更新？',
         title: '更新提示'
       },
-      installMode: codePush.InstallMode.ON_NEXT_RESTART
+      // installMode: codePush.InstallMode.ON_NEXT_RESTART
+      installMode: codePush.InstallMode.IMMEDIATE
     });
 
-    // AsyncStorage.getItem(Common.haveUsed).then((value)=>{
-    //   this.setState({
-    //     haveFinished: value ,
-    //     init: false,
-    //   })
-    // });
+
+
+
+
   }
 
   _finishIntro(haveFinished) {
     if (haveFinished) {
+
+      console.log('haveUsed');
+      storage.set('haveUsed' , true);
       this.setState({
-        haveFinished: haveFinished,
+        haveUsed: 2,
       })
     }
-    // AsyncStorage.setItem(Common.haveUsed, true);
-
   }
 
 
@@ -72,12 +107,15 @@ class App extends Component {
     return(
 
       <View style={{flex: 1}}>
-      {!this.state.haveFinished ?
+      {this.state.haveUsed == 0 &&
+        null
+      }
+      {this.state.haveUsed == 1 &&
         <AppIntroPage finishIntro={(haveFinished) => this._finishIntro(haveFinished)}/>
-        :
+      }
+      {this.state.haveUsed == 2 &&
         <View style={{flex: 1}}>
           <StatusBarIOS barStyle="light-content"/>
-
           <Navigator
             initialRoute={{name: 'TabBarView', component: TabBarView}}
             configureScene={()=>{
