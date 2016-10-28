@@ -1,9 +1,3 @@
-import NavBar from '../../components/NavBar';
-import Common from '../../common/constants';
-import Toast from 'react-native-easy-toast';
-import LoadingModal from '../../components/LoadingModal';
-import HTTPUtil from '../../common/utils/HTTPUtil';
-
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -13,6 +7,12 @@ import {
   TextInput,
   AsyncStorage
 } from 'react-native';
+import Toast from 'react-native-easy-toast';
+import NavBar from '../../components/NavBar';
+import Common from '../../common/constants';
+import LoadingModal from '../../components/LoadingModal';
+import HTTPUtil from '../../common/utils/HTTPUtil';
+
 
 class AccountContact extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class AccountContact extends Component {
 
     console.log('aaa');
     this.refs.modal.open()
-    AsyncStorage.getItem(Common.userToken).then((userToken)=>{
+    AsyncStorage.getItem('userToken').then((userToken)=>{
       HTTPUtil.post(url, data, userToken).then((json) => {
         try {
           if (json.code === '0') {
@@ -75,7 +75,7 @@ class AccountContact extends Component {
             clearButtonMode='while-editing'
             maxLength={50}
             onChangeText={ (title) => this.setState({title}) }
-            placeholder="请输入标题，不超过五十个字"
+            placeholder="请输入标题，不超过五十字"
           />
         </View>
         <View style={[styles.InputView, { height: 180 }]}>
@@ -84,7 +84,7 @@ class AccountContact extends Component {
             clearButtonMode='while-editing'
             multiline={true}
             maxLength={400}
-            placeholder="请输入正文，不少于四十个字"
+            placeholder="请输入正文，不少于二十字"
             onChangeText={ (content) => this.setState({content}) }
           />
         </View>
