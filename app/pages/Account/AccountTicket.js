@@ -83,7 +83,9 @@ class AccountTicket extends Component {
               </Text>
             </View>
             <View style={{flex: 1, marginTop: 8}}>
-              <Text style={styles.ticketDateText}>{moment().to(ticket.expire_time)}有效</Text>
+              <Text style={styles.ticketDateText}>
+                {moment().isBefore(ticket.expire_time, 'second') ? `${moment().to(ticket.expire_time)}有效` : '已过期'}
+              </Text>
             </View>
           </View>
           <View style={styles.ticketSerial}>

@@ -32,21 +32,6 @@ class AccountInfo extends Component {
     }
     this._bindWechat = this._bindWechat.bind(this)
     this._goBindWechat = this._goBindWechat.bind(this)
-
-    // var listener = NativeAppEventEmitter.addListener(
-    //   'WeChat.Resp',
-    //   (body) => {
-    //     switch (body.type) {
-    //       /* 登录回调 */
-    //       case 'WeChat.Resp.Auth':
-    //         console.log('登录回调' + body.code);
-    //         this._bindWechat(body.code)
-    //         break;
-    //       default:
-    //         console.log(('body.type ' + body.type));
-    //     }
-    //   }
-    // )
   }
 
   componentDidMount() {
@@ -180,27 +165,27 @@ class AccountInfo extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.underLine}/>
-          {/*<View style={[styles.infoItem]}>
+          {/* <View style={[styles.infoItem]}>
             <View style={styles.itemLabel}>
-              <Text style={styles.labelText}>
-                微信号
-              </Text>
+            <Text style={styles.labelText}>
+            微信号
+            </Text>
             </View>
             <TouchableOpacity
-              disabled={!!info.wechat_unionid}
-              onPress={()=>this._goBindWechat()}
-              style={styles.itemValue}>
-              <View style={styles.valueTextView}>
-                <Text style={styles.valueText}>
-                  {info.wechat_unionid ? '已绑定': '点击绑定'}
-                </Text>
-              </View>
-              <View style={styles.itemArrow}>
-                <Icon color="#e0eaff" size={16} name="chevron-right"/>
-              </View>
+            disabled={!!info.wechat_unionid}
+            onPress={()=>this._goBindWechat()}
+            style={styles.itemValue}>
+            <View style={styles.valueTextView}>
+            <Text style={styles.valueText}>
+            {info.wechat_unionid ? '已绑定': '点击绑定'}
+            </Text>
+            </View>
+            <View style={styles.itemArrow}>
+            <Icon color="#e0eaff" size={16} name="chevron-right"/>
+            </View>
             </TouchableOpacity>
-          </View>
-          <View style={styles.underLine}/>*/}
+            </View>
+          <View style={styles.underLine}/> */}
           <View style={[styles.infoItem]}>
             <View style={styles.itemLabel}>
               <Text style={styles.labelText}>

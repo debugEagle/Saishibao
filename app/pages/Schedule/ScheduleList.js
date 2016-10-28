@@ -47,6 +47,7 @@ class ScheduleList extends Component {
       coverViewOpacity: new Animated.Value(0)
 
     }
+
   }
 
   componentWillMount() {
@@ -174,7 +175,7 @@ class ScheduleList extends Component {
             onPress={() => this._handleAreasViewAnimation()}>
             <Text style={styles.selectViewItemText}>选择地区</Text>
             <View style={styles.selectViewItemIcon}>
-             <Icon color="#e0eaff" size={16} name= {this.state.showAreasView ? 'chevron-up' : 'chevron-down'}/>
+              <Icon color="#e0eaff" size={16} name= {this.state.showAreasView ? 'chevron-up' : 'chevron-down'}/>
             </View>
           </TouchableOpacity>
         </View>
@@ -224,64 +225,73 @@ class ScheduleList extends Component {
         outputRange: [0, this.state.selectContentViewHeights]
       })
     });
+    let selectContentViewArea = [styles.selectContentViewArea]
+    selectContentViewArea.push({
+      height: this.state.selectContentViewHeight.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, this.state.selectContentViewHeights]
+      })
+    })
     return (
-      <Animated.View style={selectContentViewStyles}>
-        <View style={[styles.selectContentItemView, styles.selectAreasView]}>
-          <TouchableOpacity style={[styles.selectItem, selectedAreaStyle]} onPress={() => {
-            this._handleSelectViewAnimationVertical();
-            {actions.changeScheduleSelected('全部地区', selectedTour, selectedMonth)}
-            {actions.fetchSchedule('全部地区', selectedTour, selectedMonth, {new: true})};
-          }}>
-            <Text>全部地区</Text>
-          </TouchableOpacity>
-          {ScheduleList.schedule.areas.map((area, i) => {
-            let selectedStyle = selectedArea === area.country ? styles.currentSelectItem : null;
-            return (
-              <TouchableOpacity key={i} style={[styles.area,styles.selectItem,selectedStyle]} onPress={() => {
-                this._handleSelectViewAnimationVertical();
-                {actions.changeScheduleSelected(area.country, selectedTour, selectedMonth)}
-                {actions.fetchSchedule(area.country, selectedTour, selectedMonth, {new: true})};
-              }}>
-                <Text>{area.country}</Text>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
-        <View style={[styles.selectContentItemView, styles.selectToursView]}>
-          <TouchableOpacity style={[styles.selectItem, selectedTourStyle]} onPress={() => {
-            this._handleSelectViewAnimationVertical();
-            {actions.changeScheduleSelected(selectedArea, 0, selectedMonth)}
-            {actions.fetchSchedule(selectedArea, 0, selectedMonth, {new: true})};
-          }}>
-            <Text>全部赛事</Text>
-          </TouchableOpacity>
-          {ScheduleList.schedule.tours.map((tour, i) => {
-            let selectedStyle = selectedTour === tour.bigMatchTour_id ? styles.currentSelectItem : null;
-            return (
-              <TouchableOpacity key={i} style={[styles.tour,styles.selectItem, selectedStyle]} onPress={() => {
-                this._handleSelectViewAnimationVertical();
-                {actions.changeScheduleSelected(selectedArea, tour.bigMatchTour_id, selectedMonth)}
-                {actions.fetchSchedule(selectedArea, tour.bigMatchTour_id, selectedMonth, {new: true})};
-              }}>
-                <Text>{tour.name}</Text>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
-        <View style={[styles.selectContentItemView, styles.selectMonthsView]}>
-          {ScheduleList.schedule.months.map((month, i) => {
-            let selectedStyle = selectedMonth === month ? styles.currentSelectItem : null;
-            return (
-              <TouchableOpacity key={i} style={[styles.selectItem, selectedStyle]} onPress={() => {
-                this._handleSelectViewAnimationVertical();
-                {actions.changeScheduleSelected(selectedArea, selectedTour, month)}
-                {actions.fetchSchedule(selectedArea, selectedTour, month, {new: true})};
-              }}>
-                <Text>{ i === 7 ? '当前月份' : month.substring(0,4) + '年' + month.substring(4) + '月' }</Text>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
+      <Animated.View style={selectContentViewArea}>
+        <Animated.View style={selectContentViewStyles}>
+          <View style={[styles.selectContentItemView, styles.selectAreasView]}>
+            <TouchableOpacity style={[styles.selectItem, selectedAreaStyle]} onPress={() => {
+              this._handleSelectViewAnimationVertical();
+              {actions.changeScheduleSelected('全部地区', selectedTour, selectedMonth)}
+              {actions.fetchSchedule('全部地区', selectedTour, selectedMonth, {new: true})};
+            }}>
+              <Text>全部地区</Text>
+            </TouchableOpacity>
+            {ScheduleList.schedule.areas.map((area, i) => {
+              let selectedStyle = selectedArea === area.country ? styles.currentSelectItem : null;
+              return (
+                <TouchableOpacity key={i} style={[styles.area,styles.selectItem,selectedStyle]} onPress={() => {
+                  this._handleSelectViewAnimationVertical();
+                  {actions.changeScheduleSelected(area.country, selectedTour, selectedMonth)}
+                  {actions.fetchSchedule(area.country, selectedTour, selectedMonth, {new: true})};
+                }}>
+                  <Text>{area.country}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+          <View style={[styles.selectContentItemView, styles.selectToursView]}>
+            <TouchableOpacity style={[styles.selectItem, selectedTourStyle]} onPress={() => {
+              this._handleSelectViewAnimationVertical();
+              {actions.changeScheduleSelected(selectedArea, 0, selectedMonth)}
+              {actions.fetchSchedule(selectedArea, 0, selectedMonth, {new: true})};
+            }}>
+              <Text>全部赛事</Text>
+            </TouchableOpacity>
+            {ScheduleList.schedule.tours.map((tour, i) => {
+              let selectedStyle = selectedTour === tour.bigMatchTour_id ? styles.currentSelectItem : null;
+              return (
+                <TouchableOpacity key={i} style={[styles.tour,styles.selectItem, selectedStyle]} onPress={() => {
+                  this._handleSelectViewAnimationVertical();
+                  {actions.changeScheduleSelected(selectedArea, tour.bigMatchTour_id, selectedMonth)}
+                  {actions.fetchSchedule(selectedArea, tour.bigMatchTour_id, selectedMonth, {new: true})};
+                }}>
+                  <Text>{tour.name}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+          <View style={[styles.selectContentItemView, styles.selectMonthsView]}>
+            {ScheduleList.schedule.months.map((month, i) => {
+              let selectedStyle = selectedMonth === month ? styles.currentSelectItem : null;
+              return (
+                <TouchableOpacity key={i} style={[styles.selectItem, selectedStyle]} onPress={() => {
+                  this._handleSelectViewAnimationVertical();
+                  {actions.changeScheduleSelected(selectedArea, selectedTour, month)}
+                  {actions.fetchSchedule(selectedArea, selectedTour, month, {new: true})};
+                }}>
+                  <Text>{ i === 7 ? '当前月份' : month.substring(0,4) + '年' + month.substring(4) + '月' }</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        </Animated.View>
       </Animated.View>
     )
   }
@@ -393,18 +403,18 @@ class ScheduleList extends Component {
           <View style={styles.matchDetailView}>
             <View style={styles.matchArea}>
               <Text style={{color:'gray'}}>
-              {country}{' '}{city}
+                {country}{' '}{city}
               </Text>
             </View>
             <View style={styles.matchDate}>
               <Text>
-              {match_date}
+                {match_date}
               </Text>
             </View>
           </View>
         </View>
         <View style={styles.chevronRight}>
-          {/* <Icon color="#e0eaff" size={16} name="chevron-right"/> */}
+          <Icon color="#e0eaff" size={16} name="chevron-right"/>
         </View>
       </TouchableOpacity>
     )
@@ -412,7 +422,6 @@ class ScheduleList extends Component {
 
   render() {
     const {ScheduleList} = this.props;
-
     return (
       <View style={styles.container}>
         <NavBar name='赛事日历' navigator={this.props.navigator}/>
@@ -432,15 +441,15 @@ const styles = StyleSheet.create({
   },
   selectView: {
     height: 40,
-    paddingVertical: 8,
     flexDirection: 'row'
   },
   selectViewItem: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
   },
   selectViewItemView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     flexDirection: 'row'
   },
   selectViewItemIcon: {
@@ -454,6 +463,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#e0eaff'
   },
+  selectContentViewArea:{
+    position: 'absolute',
+    left: 0,
+    height: 0,
+    width: Common.window.width,
+    overflow:'hidden',
+    zIndex: 999
+  },
   selectContentView: {
     position: 'absolute',
     width: Common.window.width * 3,
@@ -464,7 +481,7 @@ const styles = StyleSheet.create({
     zIndex: 999
   },
   selectContentItemView: {
-    flex: 1,
+    width: Common.window.width,
     flexDirection: 'row',
     flexWrap: 'wrap',
     backgroundColor: 'white',
