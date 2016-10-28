@@ -132,6 +132,8 @@ class DailyInfo extends Component {
 
 
   _renderDailyInfoList(item) {
+
+    // console.log('item.cooperated ' +.cooperated);
     return (
 
       <View style={styles.detailItem}>
@@ -168,11 +170,13 @@ class DailyInfo extends Component {
             <Text style={styles.detailStructText}>比赛结构表</Text>
           </TouchableOpacity>
 
+          {this.props.casino.cooperated ?
 
           <TouchableOpacity style={styles.detailJoin} onPress={() => this._onPressJoinMatch(item)}>
             <Text style={styles.detailJoinText}>参加赛事</Text>
           </TouchableOpacity>
-
+          : <View style={styles.detailJoin}>
+          </View>} 
           <TouchableOpacity style={styles.detailResult} onPress={() => this._onPressDetailStruct(item, false)}>
 
             <Text style={styles.detailResultText}>奖金结构表</Text>

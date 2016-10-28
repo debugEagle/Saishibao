@@ -34,18 +34,21 @@ import HTTPUtil from '../../common/utils/HTTPUtil'
 // ],
 // "bonuses":
 //   [
-//     {"ranking": 1, "bonus": 88888, "remark": "3张CPG邀请函+58888积分"},
-//     {"ranking": 2, "bonus": 58888, "remark": "2张CPG邀请函+38888积分" },
-//     {"ranking": 3, "bonus": 38888, "remark": "1张CPG邀请函+28888积分" },
-//     {"ranking": 4, "bonus": 22888, "remark": "1张CPG邀请函+12888积分" },
-//     {"ranking": 5, "bonus": 13888, "remark": "1张CPG邀请函+3888积分"},
-//     {"ranking": 6, "bonus": 10888, "remark": "1张CPG邀请函+888积分" },
-//     {"ranking": 7, "bonus": 8688, "remark": "8688会员积分"},
-//     {"ranking": 8, "bonus": 7588},
-//     {"ranking": 9, "bonus": 6588 },
-//     {"ranking": 10, "bonus": 5588 }
+//     {"ranking": "1", "bonus": 88888, "remark": "3张CPG邀请函+58888积分"},
+//     {"ranking": "2", "bonus": 58888, "remark": "2张CPG邀请函+38888积分" },
+//     {"ranking": "3", "bonus": 38888, "remark": "1张CPG邀请函+28888积分" },
+//     {"ranking": "4", "bonus": 22888, "remark": "1张CPG邀请函+12888积分" },
+//     {"ranking": "5", "bonus": 13888, "remark": "1张CPG邀请函+3888积分"},
+//     {"ranking": "6", "bonus": 10888, "remark": "1张CPG邀请函+888积分" },
+//     {"ranking": "7", "bonus": 8688, "remark": "8688会员积分"},
+//     {"ranking": "8", "bonus": 7588},
+//     {"ranking": "9", "bonus": 6588 },
+//     {"ranking": "10", "bonus": 5588 }
 //   ]
 // };
+
+
+
 
 let fetchMatchSetting = (matchSetting_id, success=()=>{},  failed=()=>{}, error=()=>{}) => {
 

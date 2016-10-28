@@ -84,7 +84,7 @@ class AccountContact extends Component {
             clearButtonMode='while-editing'
             multiline={true}
             maxLength={400}
-            placeholder="请输入正文，不少于四十个字"
+            placeholder="请输入正文，不少于二十个字"
             onChangeText={ (content) => this.setState({content}) }
           />
         </View>

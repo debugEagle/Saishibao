@@ -186,6 +186,7 @@ class HotList extends Component {
       real_buyin = real_buyin + '+' + bigMatch.rake_buyin
     }
 
+    let currency_name = bigMatch.exchangeRate? bigMatch.exchangeRate.currency_name: '￥'
     // console.log('cooperated ' + this.state.cooperated);
     return (
 
@@ -203,9 +204,9 @@ class HotList extends Component {
           <View style={styles.detailPrice}>
             <Text style={styles.detailText}>
               买入:
-              <Icon color='#424242' size={13} name={c_code}/>
+              {/*<Icon color='#424242' size={13} name={c_code}/>*/}
               {' '}
-              {bigMatch.real_buyin}+{bigMatch.rake_buyin}
+              {currency_name + ' ' } {bigMatch.real_buyin}+{bigMatch.rake_buyin}
             </Text>
             {c_code !== 'cny' &&
               <Text style={styles.detailText}>

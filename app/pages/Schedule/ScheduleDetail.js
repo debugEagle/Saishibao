@@ -45,13 +45,13 @@ class AccountInfo extends Component {
   _renderListTitle() {
     return (
       <View style={styles.title}>
-        <View style={[styles.center, {flex: 1.2, marginBottom: -15}]}>
+        <View style={[styles.center, {flex: 1.3, marginBottom: -15}]}>
           <Text style={styles.titleText}>日期</Text>
         </View>
-        <View style={[styles.center, {flex: 4.5, marginBottom: -15}]}>
+        <View style={[styles.center, {flex: 5.0, marginBottom: -15}]}>
           <Text style={styles.titleText}>比赛</Text>
         </View>
-        <View style={[styles.center, {flex: 1.4, marginBottom: -15}]}>
+        <View style={[styles.center, {flex: 2.5, marginBottom: -15}]}>
           <Text style={styles.titleText}>买入</Text>
         </View>
         <View style={[styles.center, {flex: 1.2, marginBottom: -15}]}>
@@ -98,22 +98,25 @@ class AccountInfo extends Component {
       real_buyin = real_buyin + '+' + item.rake_buyin
     }
 
+    let currency_name = item.exchangeRate? item.exchangeRate.currency_name: '￥'
+
     return (
       <View style={styles.matchItem}>
         <View style={[{flex: 1.3}, styles.center]}>
           <Text style={styles.itemText}>{item.match_day.substring(5).replace('-', '.')}</Text>
         </View>
-        <View style={[{flex: 5}, styles.matchText]}>
+        <View style={[{flex: 5.0}, styles.matchText]}>
           <Text numberOfLines={5} style={styles.itemText}>{item.name}</Text>
         </View>
-        <View style={[{flex: 1.2}, styles.matchBuy]}>
-          <Text numberOfLines={2} style={styles.itemText}>
-            {hkd ? 'HK' : null}
-            <Icon color="#101010" size={13} name={c_code}/>
-            {real_buyin}
+        <View style={[{flex: 2.5}, styles.matchBuy]}>
+          <Text numberOfLines={5} style={styles.itemText}>
+            {/*{hkd ? 'HK' : null}
+            <Icon color="#101010" size={13} name={c_code}/>*/}
+            {currency_name+ ' ' + real_buyin}
+
           </Text>
         </View>
-        <TouchableOpacity style={[{flex: 1}, styles.matchArrow]}
+        <TouchableOpacity style={[{flex: 0.8}, styles.matchArrow]}
         onPress={()=>this._onPressMatchResult(item)}>
           <Icon color="#e0eaff" size={13} name="chevron-right"/>
         </TouchableOpacity>
@@ -229,7 +232,7 @@ const styles = StyleSheet.create({
     color: '#424242'
   },
   matchItem: {
-    height: itemHeight,
+    height: itemHeight * 1.5,
     marginHorizontal: 7,
     flexDirection: 'row',
     borderTopColor: '#e0eaff',
