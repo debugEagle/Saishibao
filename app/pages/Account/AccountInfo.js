@@ -180,7 +180,7 @@ class AccountInfo extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.underLine}/>
-          <View style={[styles.infoItem]}>
+          {/*<View style={[styles.infoItem]}>
             <View style={styles.itemLabel}>
               <Text style={styles.labelText}>
                 微信号
@@ -200,7 +200,7 @@ class AccountInfo extends Component {
               </View>
             </TouchableOpacity>
           </View>
-          <View style={styles.underLine}/>
+          <View style={styles.underLine}/>*/}
           <View style={[styles.infoItem]}>
             <View style={styles.itemLabel}>
               <Text style={styles.labelText}>
