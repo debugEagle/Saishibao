@@ -5,6 +5,8 @@ import * as ActionCreator from '../../actions'
 import NavBar from '../../components/NavBar';
 import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MatchResult from '../Other/MatchResult';
+
 
 import React, { Component } from 'react';
 import {
@@ -59,6 +61,17 @@ class AccountInfo extends Component {
     )
   }
 
+  //跳转到比赛结果
+  _onPressMatchResult(match) {
+    this.props.navigator.push({
+      component: MatchResult,
+      passProps: {
+        match: match,
+      },
+    });
+  }
+
+
   _renderListView(matches) {
 
     return (
@@ -100,7 +113,8 @@ class AccountInfo extends Component {
             {real_buyin}
           </Text>
         </View>
-        <TouchableOpacity style={[{flex: 1}, styles.matchArrow]}>
+        <TouchableOpacity style={[{flex: 1}, styles.matchArrow]}
+        onPress={()=>this._onPressMatchResult(item)}>
           <Icon color="#e0eaff" size={13} name="chevron-right"/>
         </TouchableOpacity>
       </View>

@@ -67,7 +67,7 @@ class App extends Component {
     //     }
     // });
 
-  
+
 
     // codePush.sync();
     // codePush.sync({updateDialog: true, installMode: codePush.InstallMode.IMMEDIATE});

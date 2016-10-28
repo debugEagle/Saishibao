@@ -266,17 +266,18 @@ const styles = StyleSheet.create({
   stateView: {
     width: 140,
     height: 30,
-    borderWidth: 2,
-    borderColor: '#e0eaff',
+    // borderWidth: 2,
+    // borderColor: '#e0eaff',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20
+    marginTop: 20,
+    backgroundColor: '#75A0E5',
   },
   stateText: {
     fontSize: 15,
     fontWeight: '800',
-    color: '#bbbbbb'
+    color: '#ffffff'
   },
   menuArea: {
     flex: 4,

@@ -37,8 +37,9 @@ class HotList extends Component {
   }
 
   componentWillMount(){
-    this.props.actions.fetchHots({start: true, limit: 10});
-    // this.props.actions.startUserLoginWithToken();
+    InteractionManager.runAfterInteractions(() => {
+      this.props.actions.fetchHots({start: true, limit: 10});
+    });
   }
 
   _onPressHotItem(hotMatch) {
@@ -95,9 +96,19 @@ class HotList extends Component {
               </View>
             </Image>
             <View style={styles.titleRow}>
-              <Text style={styles.titleText}>
-                {hotMatch.name}
-              </Text>
+              <View>
+                <Text style={styles.titleText}>
+                  {hotMatch.name}
+                </Text>
+              </View>
+              {hotMatch.cooperated?
+              <View style={styles.titleRow_right}>
+                <Text style={styles.titleRow_rightText}>
+                  火热报名中
+                </Text>
+              </View>
+              : null }
+
             </View>
             <View style={styles.locationRow}>
               <Text style={styles.locationText}>
@@ -119,7 +130,7 @@ class HotList extends Component {
     return (
       <View style={styles.container}>
         <NavBar name='热门推荐' navigator={this.props.navigator} />
-        {this._renderListView()}
+          {this._renderListView()}
       </View>
     );
   }
@@ -184,7 +195,23 @@ const styles = StyleSheet.create({
   titleRow: {
     marginTop: 3,
     height: 23,
+    // justifyContent: 'center',
+    // borderWidth: 1,
+    flexDirection: 'row',
+  },
+
+  titleRow_right: {
+    flex: 1,
+    alignItems: 'flex-end',
     justifyContent: 'center',
+
+  },
+  titleRow_rightText: {
+    color: '#ff5511',
+    // color: 'blue',
+
+    fontSize: 15,
+    fontWeight: '900',
   },
   dateText: {
     color: '#ffffff',

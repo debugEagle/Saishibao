@@ -59,7 +59,7 @@ class AccountContact extends Component {
         <View style={styles.bottomArea}>
           <View style={styles.bottomRow}>
             <Text>
-              Copyright©2015-2016-103
+              Copyright©2015-2016(103a)
             </Text>
 
           </View>
@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   titleImage: {
+    marginTop: 20,
     height: 150,
     width: 300,
     resizeMode: Image.resizeMode.contain,

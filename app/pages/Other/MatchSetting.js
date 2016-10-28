@@ -192,7 +192,7 @@ class MatchSetting extends Component {
                 </View>:
               <View>
 
-                {this._renderBonusTitleRow('名次', '姓名', '奖金')}
+                {this._renderBonusTitleRow('名次', '奖励', '说明')}
                 {matchSetting.bonuses? matchSetting.bonuses.map((item, i) => {
                   return (<View key={i}>{this._renderSettingBonusRow(item)}</View>);
             }): null}
