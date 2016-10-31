@@ -2,13 +2,14 @@ import NavBar from '../../components/NavBar';
 import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Swiper from '../../components/swiper.dist';
+import Text from '../../components/Text';
+
 
 
 import React, { Component } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
-  Text,
   View,
   Image,
 } from 'react-native';

@@ -4,11 +4,11 @@ import AccountOrder from '../pages/Account/AccountOrder'
 import TabBarView from '../containers/TabBarView'
 
 import ModalBox from 'react-native-modalbox';
+import Text from './Text';
 
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    Text,
     TouchableOpacity,
     View,
 } from 'react-native';

@@ -1,8 +1,8 @@
 import * as types from '../actionTypes';
 import HTTPUtil from '../../common/utils/HTTPUtil'
 
+//存入json数据模版
 // let matchResult = {
-//   //存入json数据模版
 //   "items":
 //   [
 //     {"rank": 1, "name": "张三", "bonus":10000},

@@ -9,11 +9,12 @@ import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../../components/Loading';
 import HotDayInfo from './HotDayInfo';
+import Text from '../../components/Text';
+
 
 
 import React, { Component } from 'react';
 import {
-  Text,
   View,
   Image,
   ListView,

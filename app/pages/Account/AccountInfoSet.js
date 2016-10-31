@@ -3,11 +3,12 @@ import ConfirmModal from '../../components/ConfirmModal';
 import Common from '../../common/constants';
 
 import Toast, {DURATION} from 'react-native-easy-toast';
+import Text from '../../components/Text';
+
 
 import React, { Component } from 'react'
 import {
   View,
-  Text,
   StyleSheet,
   TextInput
 } from 'react-native'

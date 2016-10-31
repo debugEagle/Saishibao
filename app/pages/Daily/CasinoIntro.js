@@ -10,13 +10,14 @@ import Swiper from '../../components/swiper.dist'
 import MapPage from '../Other/MapPage'
 import { getDataStr } from '../../common/utils/Date';
 import DailyInfo from './DailyInfo';
+import Text from '../../components/Text';
+
 
 
 
 
 import React, { Component } from 'react';
 import {
-  Text,
   View,
   Image,
   ListView,

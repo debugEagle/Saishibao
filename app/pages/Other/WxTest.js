@@ -3,6 +3,7 @@
  * https://github.com/facebook/react-native
  * @flow
  */
+ import Text from '../../components/Text';
 
 import React, { Component } from 'react'
 import {
@@ -11,7 +12,6 @@ import {
   requireNativeComponent,
   NativeModules,
   StyleSheet,
-  Text,
   View,
   ScrollView,
   AlertIOS,

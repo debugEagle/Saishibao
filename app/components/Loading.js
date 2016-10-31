@@ -1,8 +1,9 @@
+import Text from './Text';
+
 import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    Text,
     ActivityIndicator,
 } from 'react-native';
 

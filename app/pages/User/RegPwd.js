@@ -9,10 +9,11 @@ import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast, {DURATION} from 'react-native-easy-toast';
 import RegSuccess  from './RegSuccess';
+import Text from '../../components/Text';
+
 
 import React, { Component } from 'react';
 import {
-  Text,
   View,
   Image,
   ListView,

@@ -9,13 +9,14 @@ import NavBar from '../../components/NavBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MatchSetting from '../Other/MatchSetting';
 import MatchResult from '../Other/MatchResult';
+import Text from '../../components/Text';
+
 
 
 
 
 import React, { Component } from 'react';
 import {
-  Text,
   View,
   Image,
   ListView,

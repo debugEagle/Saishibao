@@ -10,10 +10,11 @@ import AccountInfo from '../Account/AccountInfo'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ActionCreator from '../../actions/'
+import Text from '../../components/Text';
+
 
 import React, { Component } from 'react';
 import {
-  Text,
   View,
   Image,
   ListView,

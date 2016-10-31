@@ -3,12 +3,13 @@ import Common from '../../common/constants';
 import Toast from 'react-native-easy-toast';
 import LoadingModal from '../../components/LoadingModal';
 import HTTPUtil from '../../common/utils/HTTPUtil';
+import Text from '../../components/Text';
+
 
 import React, { Component } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
-  Text,
   View,
   TextInput,
   AsyncStorage

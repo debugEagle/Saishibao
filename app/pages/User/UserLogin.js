@@ -9,11 +9,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast, {DURATION} from 'react-native-easy-toast';
 import TabBarView from '../../containers/TabBarView';
 import RegGetSmsCode from './RegGetSmsCode';
+import Text from '../../components/Text';
+
 
 
 import React, { Component } from 'react';
 import {
-  Text,
   View,
   Image,
   ListView,

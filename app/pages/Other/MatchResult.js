@@ -8,12 +8,13 @@ import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../../components/Loading';
 import Toast, {DURATION} from 'react-native-easy-toast';
+import Text from '../../components/Text';
+
 
 
 
 import React, { Component } from 'react';
 import {
-  Text,
   View,
   Image,
   ListView,
@@ -68,17 +69,20 @@ class MatchResult extends Component {
     this.refs.toast.show(msg);
 
   }
-  _renderTitleRow(item1, item2, item3 ) {
+  _renderTitleRow(item1, item2, item3, item4 ) {
     return (
       <View style={styles.settingTitle}>
-        <View style={[styles.settingTitleBlock, {flex: 1}]}>
+        <View style={[styles.settingTitleBlock, {flex: 0.5}]}>
           <Text style={styles.settingTitleText}>{item1}</Text>
         </View>
-        <View style={[styles.settingTitleBlock, {flex: 2}]}>
+        <View style={[styles.settingTitleBlock, {flex: 1}]}>
           <Text style={styles.settingTitleText}>{item2}</Text>
         </View>
-        <View style={[styles.settingTitleBlock, {flex: 2}]}>
+        <View style={[styles.settingTitleBlock, {flex: 1}]}>
           <Text style={styles.settingTitleText}>{item3}</Text>
+        </View>
+        <View style={[styles.settingTitleBlock, {flex: 1.5}]}>
+          <Text style={styles.settingTitleText}>{item4}</Text>
         </View>
 
 
@@ -96,17 +100,20 @@ class MatchResult extends Component {
     );
   }
 
-  _renderItemRow( rank, name, bonus ) {
+  _renderItemRow( rank, name, bonus, reamark ) {
     return (
       <View style={styles.ItemRow}>
-        <View style={[styles.settingItemBlock, {flex: 1}]}>
+        <View style={[styles.settingItemBlock, {flex: 0.5}]}>
           <Text style={styles.settingText}>{rank}</Text>
         </View>
-        <View style={[styles.settingItemBlock, {flex: 2}]}>
+        <View style={[styles.settingItemBlock, {flex: 1}]}>
           <Text style={styles.settingText}>{name}</Text>
         </View>
-        <View style={[styles.settingItemBlock, {flex: 2}]}>
+        <View style={[styles.settingItemBlock, {flex: 1}]}>
           <Text style={styles.settingText}>{bonus}</Text>
+        </View>
+        <View style={[styles.settingItemBlock, {flex: 1.5}]}>
+          <Text style={styles.settingText}>{reamark}</Text>
         </View>
 
       </View>
@@ -138,7 +145,7 @@ class MatchResult extends Component {
           <Loading />:
         <View style={styles.itemView}>
 
-          {this._renderTitleRow('名次', '姓名', '奖金')}
+          {this._renderTitleRow('名次', '姓名(昵称)', '奖励', '说明')}
           {matchResult.items? matchResult.items.map((item, i) => {
             return (<View key={i}>{this._renderItemRow(item.rank, item.rank, item.bonus)}</View>);
           }): null}

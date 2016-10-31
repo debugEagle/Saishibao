@@ -1,10 +1,10 @@
 import Common from '../common/constants';
+import Text from './Text';
 
 import React, {Component} from 'react';
 import {
   StyleSheet,
   Image,
-  Text,
   TouchableOpacity,
   Animated,
   View

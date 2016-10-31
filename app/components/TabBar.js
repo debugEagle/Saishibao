@@ -1,11 +1,11 @@
 import icons from '../assets/icons';
 import Common from '../common/constants';
+import Text from './Text';
 
 import React, { Component } from 'react';
 import {
   StyleSheet,
   Image,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';

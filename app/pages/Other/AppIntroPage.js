@@ -1,8 +1,9 @@
+import Text from '../../components/Text';
+
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
   View,
   Alert,
   Image,

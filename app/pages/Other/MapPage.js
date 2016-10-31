@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import MapView from '../../components/MapView';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import NavBar from '../../components/NavBar';
+import Text from '../../components/Text';
+
 
 import {
-  Text,
   View,
   Image,
   ListView,

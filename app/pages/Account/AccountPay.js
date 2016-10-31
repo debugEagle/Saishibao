@@ -4,16 +4,17 @@ import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast, {DURATION} from 'react-native-easy-toast';
 
-import TabBarView from '../../containers/TabBarView'
-import AccountTicket from '../Account/AccountTicket'
+import TabBarView from '../../containers/TabBarView';
+import AccountTicket from '../Account/AccountTicket';
+import Text from '../../components/Text';
 
-import * as ActionCreator from '../../actions'
+
+import * as ActionCreator from '../../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   Image,
   TouchableOpacity

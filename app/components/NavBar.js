@@ -1,6 +1,7 @@
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Common from '../common/constants';
 import dismissKeyboard from '../common/mixins/dismiss-keyboard'
+import Text from './Text';
 
 import React, { Component } from "react";
 
@@ -8,7 +9,6 @@ import {
   Image,
   Platform,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';

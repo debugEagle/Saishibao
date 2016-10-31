@@ -9,6 +9,8 @@ import Loading from '../../components/Loading';
 import DailyInfo from './DailyInfo';
 import DailyResultInfo from './DailyResultInfo';
 import { getDataStr } from '../../common/utils/Date';
+import Text from '../../components/Text';
+
 
 
 
@@ -18,7 +20,6 @@ import React, {Component} from 'react';
 import PullRefreshLoadmoreScrollView from '../../components/PullRefreshLoadmore';
 
 import {
-  Text,
   View,
   Image,
   ListView,
@@ -139,12 +140,8 @@ class DailyList extends Component {
     return (
       <TouchableOpacity style={styles.chooseCity} onPress={() => this._handleCityViewAnimation()}>
         <View style={styles.chooseCityView}>
-          <View style={styles.chooseCityTextView}>
-            <Text style={styles.chooseCityText}>{this.props.DailyList.currentCity}</Text>
-          </View>
-          <View style={styles.chooseCityIconView}>
-            <Icon color="white" size={16} name={iconName}/>
-          </View>
+          <Text style={styles.chooseCityText}>{this.props.DailyList.currentCity}</Text>
+          <Icon style={{marginLeft: 5}} color="white" size={16} name={iconName}/>
         </View>
       </TouchableOpacity>
     )
@@ -336,26 +333,16 @@ const styles = StyleSheet.create({
     left: 16,
     zIndex: 999,
     height: 25,
-    width: 60,
+    width: 100,
   },
   chooseCityView: {
     height: 25,
-    width: 60,
     flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  chooseCityTextView: {
-    flex: 2,
     backgroundColor: Common.colors.themeColor
   },
   chooseCityText: {
     color: '#ffffff',
     fontSize: 16,
-  },
-  chooseCityIconView: {
-    flex: 1,
-    backgroundColor: Common.colors.themeColor
-
   },
   city: {
     justifyContent: 'center',

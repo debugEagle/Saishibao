@@ -7,10 +7,11 @@ import Common from '../../common/constants';
 import HotIntro from './HotIntro';
 import Loading from '../../components/Loading';
 import PullRefreshLoadmoreScrollView from '../../components/PullRefreshLoadmore';
+import Text from '../../components/Text';
+
 
 import React, { Component } from 'react';
 import {
-  Text,
   View,
   Image,
   ListView,

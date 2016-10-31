@@ -8,7 +8,8 @@ let fetchHotDays = (bigMatchSerie_id, success=()=>{}, error=()=>{}) => {
   let url = 'https://api.91buyin.com/texas/big/serie/match/' + bigMatchSerie_id;
 
   return dispatch => {
-
+    dispatch(fetchInfo());
+    
     HTTPUtil.get(url).then((json) => {
       try {
         if (json.code === '0') {
@@ -54,7 +55,6 @@ let fetchHotDays = (bigMatchSerie_id, success=()=>{}, error=()=>{}) => {
           }
           success();
         }
-        dispatch(fetchInfo());
         dispatch(receiveInfo(hotDayList, hotDayDetailList));
         dispatch(selectHotDayDetail(hotDayList[0].match_day));
       } catch (e) {

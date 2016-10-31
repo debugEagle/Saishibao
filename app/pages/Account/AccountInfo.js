@@ -7,6 +7,8 @@ import Toast, {DURATION} from 'react-native-easy-toast';
 import HTTPUtil from '../../common/utils/HTTPUtil'
 
 import AccountInfoSet from './AccountInfoSet'
+import Text from '../../components/Text';
+
 
 import * as ActionCreator from '../../actions'
 import { connect } from 'react-redux';
@@ -14,7 +16,6 @@ import { bindActionCreators } from 'redux';
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   NativeAppEventEmitter,
   AsyncStorage,
   View,

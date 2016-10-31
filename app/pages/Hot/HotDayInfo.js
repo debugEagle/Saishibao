@@ -9,12 +9,13 @@ import NavBar from '../../components/NavBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MatchSetting from '../Other/MatchSetting';
 import AccountPay from '../Account/AccountPay';
+import Text from '../../components/Text';
+
 
 
 
 import React, { Component } from 'react';
 import {
-  Text,
   View,
   Image,
   ListView,
@@ -230,7 +231,7 @@ class HotList extends Component {
           <TouchableOpacity style={styles.detailStruct} onPress={() => this._onPressDetailStruct(bigMatch, true)}>
             <Text style={styles.detailStructText}>比赛结构表</Text>
           </TouchableOpacity>
-          {this.state.cooperated?
+          {(this.state.cooperated && bigMatch.unit_price>0)?
           <TouchableOpacity style={styles.detailJoin} onPress={() => this._onPressJoinMatch(bigMatch)}>
             <Text style={styles.detailJoinText}>参加赛事  </Text>
           </TouchableOpacity>

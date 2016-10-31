@@ -7,12 +7,12 @@ import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MatchResult from '../Other/MatchResult';
 
+import Text from '../../components/Text';
 
 import React, { Component } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
-  Text,
   View,
   Image,
   ListView
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     color: '#424242'
   },
   matchItem: {
-    height: itemHeight * 1.5,
+    height: itemHeight * 1.1,
     marginHorizontal: 7,
     flexDirection: 'row',
     borderTopColor: '#e0eaff',

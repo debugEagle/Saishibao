@@ -8,11 +8,12 @@ import Constants from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../../components/Loading';
 import Toast, {DURATION} from 'react-native-easy-toast';
+import Text from '../../components/Text';
+
 
 
 import React, { Component } from 'react';
 import {
-  Text,
   View,
   Image,
   ListView,
@@ -61,15 +62,16 @@ class MatchSetting extends Component {
   _renderBonusTitleRow(item1, item2, item3 ) {
     return (
       <View style={styles.settingBonusTitle}>
-        <View style={styles.settingBonusTitleBlock}>
+        <View style={[styles.settingBonusTitleBlock, {flex: 0.5}]}>
           <Text style={styles.settingTitleText}>{item1}</Text>
         </View>
-        <View style={styles.settingBonusTitleBlock}>
+        <View style={[styles.settingBonusTitleBlock, {flex: 1}]}>
           <Text style={styles.settingTitleText}>{item2}</Text>
         </View>
-        <View style={styles.settingBonusTitleBlock}>
+        <View style={[styles.settingBonusTitleBlock, {flex: 1.5}]}>
           <Text style={styles.settingTitleText}>{item3}</Text>
         </View>
+
 
 
       </View>
@@ -91,6 +93,15 @@ class MatchSetting extends Component {
     </View>
     );
   }
+
+  // _renderItem(item) {
+  //   return (
+  //   <View style={styles.settingItemBlock}>
+  //     <Text style={styles.settingText}>{item}</Text>
+  //   </View>
+  //   );
+  // }
+
 
   _renderItemRow({  level, sb, bb, ante, appText }) {
     return (
@@ -137,16 +148,32 @@ class MatchSetting extends Component {
   }
   _renderSettingBonusRow({  ranking, bonus, remark}) {
     return (
-      <View>
+      // <View style={{flexDirection: 'row'}}>
+      //   {/*<View style={styles.settingItem}>*/}
+      //
+      //   <View>
+      //     <Text style={styles.settingText}>{ranking}</Text>
+      //   </View>
+
         <View style={styles.settingItem}>
+
+          <View style={[styles.settingItemBlock, {flex: 0.5}]}>
+            <Text style={styles.settingText}>{ranking}</Text>
+          </View>
+          <View style={[styles.settingItemBlock, {flex: 1}]}>
+            <Text style={styles.settingText}>{bonus}</Text>
+          </View>
+          <View style={[styles.settingItemBlock, {flex: 1.5}]}>
+            <Text style={styles.settingText}>{remark}</Text>
+          </View>
+          {/*{this._renderItem(ranking)}
           {this._renderItem(ranking)}
           {this._renderItem(bonus)}
-          {this._renderItem(remark)}
-
-
+          {this._renderItem(remark)}*/}
         </View>
 
-      </View>
+
+
     );
   }
 

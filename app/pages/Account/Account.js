@@ -13,12 +13,13 @@ import AccountGift from './AccountGift'
 import AccountOrder from './AccountOrder'
 import AccountContact from  './AccountContact';
 import AccountFeedBack from './AccountFeedBack'
+import Text from '../../components/Text';
+
 
 import React, { Component } from 'react';
 import {
   StyleSheet,
   Image,
-  Text,
   TouchableOpacity,
   View,
   AsyncStorage

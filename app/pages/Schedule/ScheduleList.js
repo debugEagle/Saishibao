@@ -7,12 +7,12 @@ import Common from '../../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../../components/Loading';
 import ScheduleDetail from './ScheduleDetail';
+import Text from '../../components/Text';
 
 
 import React, {Component} from 'react';
 import PullRefreshLoadmoreScrollView from '../../components/PullRefreshLoadmore';
 import {
-  Text,
   View,
   Image,
   ListView,

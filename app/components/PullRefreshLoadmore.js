@@ -3,10 +3,10 @@
 import React, {Component} from 'react';
 import Common from '../common/constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Text from './Text';
 
 import {
     View,
-    Text,
     Image,
     StyleSheet,
     Animated,

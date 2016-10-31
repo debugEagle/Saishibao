@@ -4,6 +4,8 @@ import TabBarInner from '../../components/TabBarInner'
 import PullRefreshLoadmoreScrollView from '../../components/PullRefreshLoadmore';
 import * as ActionCreator from '../../actions'
 import Toast, {DURATION} from 'react-native-easy-toast';
+import Text from '../../components/Text';
+
 
 import moment from '../../common/utils/moment'
 
@@ -14,7 +16,6 @@ import {bindActionCreators} from 'redux';
 import React, {Component} from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   ListView,
   TouchableOpacity,

@@ -3,16 +3,16 @@ import moment from '../../common/utils/moment'
 import NavBar from '../../components/NavBar';
 import TabBarInner from '../../components/TabBarInner'
 import PullRefreshLoadmoreScrollView from '../../components/PullRefreshLoadmore';
-import * as ActionCreator from '../../actions'
+import * as ActionCreator from '../../actions';
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import Text from '../../components/Text';
 
 import React, {Component} from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   ListView,
   TouchableOpacity,
