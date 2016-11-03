@@ -26,6 +26,8 @@
 		06A3D8F01D6C24DF00BFF486 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 06A3D8EF1D6C24DF00BFF486 /* libz.1.2.5.tbd */; };
 		06A3D8F21D6C24FF00BFF486 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 06A3D8F11D6C24FF00BFF486 /* libc++.tbd */; };
 		06A496791D5ADC710012631B /* libRCTMaterialKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06A4966A1D5ADA590012631B /* libRCTMaterialKit.a */; };
+		06F8EC451DC8BAEC00062F7A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06F8EC441DC8BAEC00062F7A /* Security.framework */; };
+		06F8EC4F1DC8C68C00062F7A /* libRCTJPushModule.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 068CB42F1DC83F97002BACE7 /* libRCTJPushModule.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -34,7 +36,6 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		768D153E1D5B1312002701CC /* libPods-SaishibaoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76F0CA2F1D5B126400750B81 /* libPods-SaishibaoTests.a */; };
 		76B460661D5B1107001AED0F /* AMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B460321D5B1107001AED0F /* AMap.m */; };
 		76B460671D5B1107001AED0F /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76B460331D5B1107001AED0F /* AMapFoundationKit.framework */; };
 		76B460681D5B1107001AED0F /* AMapManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B460351D5B1107001AED0F /* AMapManager.m */; };
@@ -108,6 +109,13 @@
 			remoteGlobalIDString = 86D238421BD0BB9E00C75D01;
 			remoteInfo = RCTWeChat;
 		};
+		068CB42E1DC83F97002BACE7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5DAACFB331874927AA299B20 /* RCTJPushModule.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6280980A1CEDC407000D3A81;
+			remoteInfo = RCTJPushModule;
+		};
 		06A496691D5ADA590012631B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 06A496611D5ADA590012631B /* RCTMaterialKit.xcodeproj */;
@@ -176,6 +184,8 @@
 		06A3D8EF1D6C24DF00BFF486 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		06A3D8F11D6C24FF00BFF486 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		06A496611D5ADA590012631B /* RCTMaterialKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTMaterialKit.xcodeproj; path = "../node_modules/react-native-material-kit/iOS/RCTMaterialKit.xcodeproj"; sourceTree = "<group>"; };
+		06F8EC431DC87CE200062F7A /* 赛事宝.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "赛事宝.entitlements"; path = "Saishibao/赛事宝.entitlements"; sourceTree = "<group>"; };
+		06F8EC441DC8BAEC00062F7A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0E01D854CA3CD97680099DB1 /* Pods-SaishibaoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SaishibaoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SaishibaoTests/Pods-SaishibaoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
@@ -188,6 +198,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Saishibao/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		52C12E6D45A930ED150953AB /* libPods-SaishibaoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SaishibaoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DAACFB331874927AA299B20 /* RCTJPushModule.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTJPushModule.xcodeproj; path = "../node_modules/jpush-react-native/ios/RCTJPushModule/RCTJPushModule.xcodeproj"; sourceTree = "<group>"; };
 		76B460311D5B1107001AED0F /* AMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMap.h; sourceTree = "<group>"; };
 		76B460321D5B1107001AED0F /* AMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMap.m; sourceTree = "<group>"; };
 		76B460331D5B1107001AED0F /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AMapFoundationKit.framework; path = Saishibao/3rd/amap/AMapFoundationKit.framework; sourceTree = "<group>"; };
@@ -236,6 +247,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06F8EC4F1DC8C68C00062F7A /* libRCTJPushModule.a in Frameworks */,
+				06F8EC451DC8BAEC00062F7A /* Security.framework in Frameworks */,
 				0653FCFA1DB9F9B800AFD96C /* libRCTWeChat.a in Frameworks */,
 				76B460991D5B116E001AED0F /* libz.tbd in Frameworks */,
 				060C07D91D844B300014A488 /* libCodePush.a in Frameworks */,
@@ -257,7 +270,6 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				768D153E1D5B1312002701CC /* libPods-SaishibaoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +349,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		068CB4271DC83F97002BACE7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				068CB42F1DC83F97002BACE7 /* libRCTJPushModule.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		06A3D8B41D66F90800BFF486 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +400,7 @@
 		13B07FAE1A68108700A75B9A /* Saishibao */ = {
 			isa = PBXGroup;
 			children = (
+				06F8EC431DC87CE200062F7A /* 赛事宝.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -559,6 +580,7 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
+				5DAACFB331874927AA299B20 /* RCTJPushModule.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -598,6 +620,7 @@
 		B77EC4A3ACC9E65C23EF6821 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				06F8EC441DC8BAEC00062F7A /* Security.framework */,
 				CBBB20FD1DB86D8900423804 /* libWeChatSDK.a */,
 				06399B1D1D988A7100EA0F6E /* AMap.bundle */,
 				76F0CA2F1D5B126400750B81 /* libPods-SaishibaoTests.a */,
@@ -641,11 +664,20 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 800;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 59N9798M8S;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -676,6 +708,10 @@
 				{
 					ProductGroup = 00C302BC1ABCB91800DB3ED1 /* Products */;
 					ProjectRef = 00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */;
+				},
+				{
+					ProductGroup = 068CB4271DC83F97002BACE7 /* Products */;
+					ProjectRef = 5DAACFB331874927AA299B20 /* RCTJPushModule.xcodeproj */;
 				},
 				{
 					ProductGroup = 78C398B11ACF4ADC00677621 /* Products */;
@@ -769,6 +805,13 @@
 			fileType = archive.ar;
 			path = libRCTWeChat.a;
 			remoteRef = 0653FCF81DB9F9AA00AFD96C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		068CB42F1DC83F97002BACE7 /* libRCTJPushModule.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTJPushModule.a;
+			remoteRef = 068CB42E1DC83F97002BACE7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		06A4966A1D5ADA590012631B /* libRCTMaterialKit.a */ = {
@@ -897,9 +940,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Saishibao/赛事宝.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 59N9798M8S;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Saishibao/3rd/amap",
@@ -911,11 +956,53 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/**",
 					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
+					"$(SRCROOT)/../node_modules/jpush-react-native/ios/RCTJPushModule/RCTJPushModule",
 				);
 				INFOPLIST_FILE = Saishibao/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/赛事宝\"",
+				);
 				OTHER_LDFLAGS = (
+					"-framework",
+					Adsupport,
+					"-framework",
+					Security,
+					"-framework",
+					UIKit,
+					"-framework",
+					Foundation,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					CoreTelephony,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					CFNetwork,
+					"-lz",
+					"-framework",
+					Adsupport,
+					"-framework",
+					Security,
+					"-framework",
+					UIKit,
+					"-framework",
+					Foundation,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					CoreTelephony,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					CFNetwork,
+					"-lz",
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
@@ -923,6 +1010,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.91buyin.saishibao;
 				PRODUCT_NAME = "赛事宝";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -932,8 +1020,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "Saishibao/赛事宝.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 59N9798M8S;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Saishibao/3rd/amap",
@@ -945,11 +1035,53 @@
 					"$(SRCROOT)/../node_modules/react-native/Libraries/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/**",
 					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
+					"$(SRCROOT)/../node_modules/jpush-react-native/ios/RCTJPushModule/RCTJPushModule",
 				);
 				INFOPLIST_FILE = Saishibao/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/赛事宝\"",
+				);
 				OTHER_LDFLAGS = (
+					"-framework",
+					Adsupport,
+					"-framework",
+					Security,
+					"-framework",
+					UIKit,
+					"-framework",
+					Foundation,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					CoreTelephony,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					CFNetwork,
+					"-lz",
+					"-framework",
+					Adsupport,
+					"-framework",
+					Security,
+					"-framework",
+					UIKit,
+					"-framework",
+					Foundation,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					SystemConfiguration,
+					"-framework",
+					CoreTelephony,
+					"-framework",
+					CoreFoundation,
+					"-framework",
+					CFNetwork,
+					"-lz",
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
@@ -957,6 +1089,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.91buyin.saishibao;
 				PRODUCT_NAME = "赛事宝";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -1005,11 +1138,12 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
+					"$(SRCROOT)/../node_modules/jpush-react-native/ios/RCTJPushModule/RCTJPushModule",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = None;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1051,10 +1185,11 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-update/ios/RCTHotUpdate/**",
+					"$(SRCROOT)/../node_modules/jpush-react-native/ios/RCTJPushModule/RCTJPushModule",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = None;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

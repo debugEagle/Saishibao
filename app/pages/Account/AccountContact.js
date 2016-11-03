@@ -60,7 +60,7 @@ class AccountContact extends Component {
         <View style={styles.bottomArea}>
           <View style={styles.bottomRow}>
             <Text>
-              Copyright©2015-2016(103a)
+              Copyright©2015-2016(110a)
             </Text>
 
           </View>

@@ -285,4 +285,8 @@ let styles = StyleSheet.create({
     }
 })
 
+// your certificate not configured APNs?
+// or current network is not so good so APNs registration failed?
+// or there is no APNs register code? Please refer to JPush docs.
+
 export default WxTest;

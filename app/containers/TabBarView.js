@@ -13,6 +13,8 @@ import React, {Component} from 'react';
 import {TabBarIOS, Text, View} from 'react-native';
 import WxTest from '../pages/Other/WxTest';
 
+
+
 class MainView extends Component {
 
   constructor(props) {

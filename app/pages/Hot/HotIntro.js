@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Loading from '../../components/Loading';
 import HotDayInfo from './HotDayInfo';
 import Text from '../../components/Text';
+import * as WeChat from 'react-native-wechat';
 
 
 
@@ -43,6 +44,25 @@ class HotIntro extends Component {
       component: HotDayInfo,
       passProps: { hotIntro, hotMatch },
     });
+
+
+
+    // try {
+    //   let result =  WeChat.shareToTimeline({
+    //     type: 'news',
+    //     thumbImage: 'http://www.ncloud.hk/email-signature-262x100.png',
+    //     title: 'web image',
+    //     description: 'share web image to time line',
+    //     mediaTagName: 'email signature',
+    //     messageAction: undefined,
+    //     messageExt: undefined,
+    //     webpageUrl: 'https://ht.91buyin.com/'
+    //   });
+    //   console.log('share image url to time line successful:', result);
+    // } catch (e) {
+    //   console.log('share image url to time line failed with:', e);
+    // }
+
   }
 
   componentWillMount() {
