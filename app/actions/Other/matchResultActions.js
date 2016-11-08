@@ -22,10 +22,10 @@ let fetchMatchResult = (isDailyMatch, match_id, success=()=>{}, failed=()=>{}, e
   let url;
 
   if (isDailyMatch) {
-    url = 'http://www.91buyin.com/texas/daily/match/result/' + match_id;
+    url = 'http://api.91buyin.com/texas/daily/match/result/' + match_id;
   }
   else {
-    url = 'http://www.91buyin.com/texas/big/match/result/' + match_id;
+    url = 'http://api.91buyin.com/texas/big/match/result/' + match_id;
   }
 
 
@@ -34,7 +34,7 @@ let fetchMatchResult = (isDailyMatch, match_id, success=()=>{}, failed=()=>{}, e
     HTTPUtil.get(url).then((json) => {
       try {
         let matchResult = {};
-        // console.log(json.code);
+        console.log(json.code);
         if (json.code === '0') {
           matchResult = JSON.parse(json.value.result);
 

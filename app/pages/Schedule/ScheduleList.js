@@ -85,7 +85,7 @@ class ScheduleList extends Component {
     const {ScheduleList, actions} = this.props;
     this.setState({showToursView:false});
     this.setState({showMonthsView:false});
-    this.setState({selectContentViewHeights: (Math.ceil(ScheduleList.schedule.areas.length / 3) * (30 + 10) + 10)});
+    this.setState({selectContentViewHeights: (Math.ceil((ScheduleList.schedule.areas.length + 1) / 3) * (30 + 10) + 10)});
     if (ScheduleList.showSelectContentView) {
       if (this.state.showAreasView) {
         this._handleSelectViewAnimationVertical();
@@ -113,7 +113,7 @@ class ScheduleList extends Component {
     const {ScheduleList, actions} = this.props;
     this.setState({showAreasView:false});
     this.setState({showMonthsView:false});
-    this.setState({selectContentViewHeights: (Math.ceil(ScheduleList.schedule.tours.length / 3) * (30 + 10) + 10)});
+    this.setState({selectContentViewHeights: (Math.ceil((ScheduleList.schedule.tours.length + 1) / 3) * (30 + 10) + 10)});
     if (ScheduleList.showSelectContentView) {
       if (this.state.showToursView) {
         this._handleSelectViewAnimationVertical();

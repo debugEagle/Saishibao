@@ -116,7 +116,7 @@ class AccountTicket extends Component {
               </Text>
             </View>
             <View style={{flex: 1, marginTop: 8, marginRight: 50}}>
-              <Text style={styles.ticketDateText}>使用时间：{moment(ticket.create_time).format('YYYY-MM-DD hh:mm:ss')}</Text>
+              <Text style={styles.ticketDateText}>使用时间：{moment(ticket.used_time).format('YYYY-MM-DD hh:mm:ss')}</Text>
             </View>
           </View>
           <View style={styles.ticketSerial}>
