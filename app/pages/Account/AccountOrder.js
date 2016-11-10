@@ -110,7 +110,7 @@ class AccountOrder extends Component {
             </View>
             <View style={styles.order_bottom}>
               <View style={styles.orderTime}>
-                <Text style={styles.orderTimeText}>订单时间: {moment(order.create_time).format('YYYY-MM-DD hh:mm:ss')}</Text>
+                <Text style={styles.orderTimeText}>订单时间: {moment(order.create_time).format('YYYY-MM-DD HH:mm:ss')}</Text>
               </View>
               {order.have_pay
                 ?
