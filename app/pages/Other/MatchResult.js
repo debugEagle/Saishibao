@@ -147,7 +147,7 @@ class MatchResult extends Component {
 
           {this._renderTitleRow('名次', '姓名(昵称)', '奖励', '说明')}
           {matchResult.items? matchResult.items.map((item, i) => {
-            return (<View key={i}>{this._renderItemRow(item.rank, item.rank, item.bonus)}</View>);
+            return (<View key={i}>{this._renderItemRow(item.rank, item.name, item.bonus)}</View>);
           }): null}
 
 

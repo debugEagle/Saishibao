@@ -15,6 +15,18 @@ import HTTPUtil from '../../common/utils/HTTPUtil'
 //   ]
 // }
 
+// {
+//   "items":
+//   [
+//     {"rank": 1, "name": "张三", "bonus":10000},
+//     {"rank": 2, "name": "李四", "bonus":5000},
+//     {"rank": 3, "name": "王五", "bonus":5000},
+//     {"rank": 4, "name": "老张", "bonus":5000},
+//     {"rank": 5, "name": "叶凡", "bonus":5000},
+//     {"rank": 6, "name": "王大顺", "bonus":5000},
+//     {"rank": 7, "name": "景繁星", "bonus":5000}
+//   ]
+// }
 
 
 

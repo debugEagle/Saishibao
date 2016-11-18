@@ -216,7 +216,7 @@ class AccountInfo extends Component {
             </View>
             <TouchableOpacity
               disabled={!!info.passportID}
-              onPress={()=>this._navigatorToSetValue('passportID','身份证号')}
+              onPress={()=>this._navigatorToSetValue('passportID','护照号码')}
               style={styles.itemValue}>
               <View style={styles.valueTextView}>
                 <Text style={styles.valueText}>

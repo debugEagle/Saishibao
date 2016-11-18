@@ -183,7 +183,7 @@ class Account extends Component {
                   </View>
                   <View style={[styles.menuTextView, {marginLeft: -20}]}>
                     <Text style={styles.menuText}>
-                      点券兑换
+                      点卷兑换
                     </Text>
                   </View>
                 </TouchableOpacity>

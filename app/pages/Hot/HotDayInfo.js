@@ -182,11 +182,21 @@ class HotList extends Component {
       c_code = 'usd'
     }
 
+    let open_time = bigMatch.open_time =='00:00:00'? '--:--:--':bigMatch.open_time ;
+
+    let close_reg_time = bigMatch.close_reg_time =='00:00:00'? '--:--:--':bigMatch.close_reg_time ;
+
+
+
     let real_buyin = bigMatch.real_buyin
     if (bigMatch.rake_buyin !== 0) {
       real_buyin = real_buyin + '+' + bigMatch.rake_buyin
     }
 
+    let noPrice = false;
+    if ((bigMatch.real_buyin == 0) && (bigMatch.rake_buyin == 0)) {
+      noPrice = true;
+    }
     let currency_name = bigMatch.exchangeRate? bigMatch.exchangeRate.currency_name: '￥'
     // console.log('cooperated ' + this.state.cooperated);
     return (
@@ -202,6 +212,7 @@ class HotList extends Component {
         <View style={styles.detailStyle}>
           <Text style={styles.detailText}>类型:{bigMatch.style}</Text>
 
+          {!noPrice ?
           <View style={styles.detailPrice}>
             <Text style={styles.detailText}>
               买入:
@@ -215,14 +226,15 @@ class HotList extends Component {
                 ({' '}<Icon color='#424242' size={13} name={'cny'}/>{bigMatch.unit_price}{' '})
               </Text>}
           </View>
+          :null}
         </View>
 
         <View style={styles.detailTime}>
           <View style={styles.flex}>
-            <Text style={styles.detailTimeText}>开始时间: {bigMatch.open_time}</Text>
+            <Text style={styles.detailTimeText}>开始时间: {open_time}</Text>
           </View>
           <View style={styles.flex}>
-            <Text style={styles.detailTimeText}>关闭注册: {bigMatch.close_reg_time}</Text>
+            <Text style={styles.detailTimeText}>关闭注册: {close_reg_time}</Text>
           </View>
         </View>
 

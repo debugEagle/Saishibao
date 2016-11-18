@@ -29,7 +29,7 @@ class AccountInfo extends Component {
 
     return (
       <View style={styles.container}>
-        <NavBar name='点券兑换' navigator={this.props.navigator}/>
+        <NavBar name='点卷兑换' navigator={this.props.navigator}/>
         {/*<View style={styles.top}>
           <Image style={styles.image} source={{uri: mockData.img}}/>
         </View>*/}
@@ -49,7 +49,7 @@ class AccountInfo extends Component {
           </View>
           <View style={styles.intro}>
             <Text style={styles.introText}>
-            赛事点劵是赛事宝推出的积分系统，您不仅可以通过注册、邀请好友、报名比赛等多种方式快速获得赛事点劵，还可以随心所欲的使用点劵来兑换超值的扑克礼包和高端的扑克奖品等。
+            赛事点卷是赛事宝推出的积分系统，您不仅可以通过注册、邀请好友、报名比赛等多种方式快速获得赛事点卷，还可以随心所欲的使用点卷来兑换超值的扑克礼包和高端的扑克奖品等。
             </Text>
           </View>
           <View style={styles.stamps}>
@@ -57,7 +57,7 @@ class AccountInfo extends Component {
           </View>
           <View style={styles.intro}>
             <Text style={styles.introText}>
-              赛事点劵可以在积分商城中兑换高端扑克礼品、导师培训、扑克周边、赛事参赛卷等各种礼品，还可参与抽奖，参与活动等。
+              赛事点卷可以在积分商城中兑换高端扑克礼品、导师培训、扑克周边、赛事参赛卷等各种礼品，还可参与抽奖，参与活动等。
             </Text>
           </View>
           <View style={styles.stamps}>

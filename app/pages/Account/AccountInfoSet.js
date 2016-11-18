@@ -29,7 +29,7 @@ class AccountInfoSet extends Component {
     this.keyboardType = {
       rickName: 'default',
       realName: 'default',
-      idCard: 'numeric',
+      idCard: 'default',
       passportID: 'default'
     }
   }

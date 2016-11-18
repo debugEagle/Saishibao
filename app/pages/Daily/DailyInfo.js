@@ -134,6 +134,9 @@ class DailyInfo extends Component {
 
   _renderDailyInfoList(item) {
 
+    let start_time = item.start_time == '00:00:00' ? '--:--:--' :item.start_time  ;
+    let close_reg_time = item.close_reg_time == '00:00:00' ? '--:--:--' :item.close_reg_time  ;
+
     // console.log('item.cooperated ' +.cooperated);
     return (
 
@@ -158,10 +161,12 @@ class DailyInfo extends Component {
 
         <View style={styles.detailRow}>
           <View style={styles.detailBlock}>
-            <Text style={styles.detailText}>开始时间: {item.start_time || item.open_time} </Text>
+            {/*<Text style={styles.detailText}>开始时间: {item.start_time || item.open_time} </Text>*/}
+            <Text style={styles.detailText}>开始时间: {item.start_time} </Text>
+
           </View>
           <View style={styles.detailBlock}>
-            <Text style={styles.detailText}>关闭注册: {item.close_reg_time}</Text>
+            <Text style={styles.detailText}>关闭注册: {close_reg_time}</Text>
           </View>
         </View>
 

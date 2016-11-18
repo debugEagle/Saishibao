@@ -7,6 +7,8 @@ import codePush from "react-native-code-push";
 import Common from  '../common/constants.js';
 import storage from 'react-native-sync-storage';
 
+import HTTPUtil from '../common/utils/HTTPUtil'
+
 
 
 import React, { Component } from 'react';
@@ -18,6 +20,9 @@ import {
   NativeModules,
   AsyncStorage,
   InteractionManager,
+  Alert,
+  Linking,
+  Platform
 } from 'react-native';
 
 let firstView = null;
@@ -83,10 +88,34 @@ class App extends Component {
       installMode: codePush.InstallMode.IMMEDIATE
     });
 
+    const url = 'https://api.91buyin.com/version';
+    const currentVersion = '1.1.3'
+    HTTPUtil.get(url).then((json) => {
+      try {
+        console.log(json.value.version);
+        if (currentVersion < json.value.version) {
+          const APP_STORE_LINK = 'itms://itunes.apple.com/cn/app/sai-shi-bao-pai-shou-yi-dong/id1153049809?mt=8';
 
+          Alert.alert(
+              '赛事宝有新版本啦',
+              '您可以前往app store下载。',
+              [
+                {text: '立即更新', onPress: () => {
+                    if(Platform.OS =='ios'){
+                        Linking.openURL(APP_STORE_LINK).catch(err => console.log('An error occurred', err));
+                    }
+                    else{
+                        Linking.openURL(PLAY_STORE_LINK).catch(err => console.log('An error occurred', err));
+                    }
+                }},
+              ]
+          );
+        }
 
-
-
+      } catch (e) {
+        console.log(e.name)
+      }
+    });
   }
 
   _finishIntro(haveFinished) {

@@ -110,10 +110,7 @@ class AccountInfo extends Component {
         </View>
         <View style={[{flex: 2.5}, styles.matchBuy]}>
           <Text numberOfLines={5} style={styles.itemText}>
-            {/*{hkd ? 'HK' : null}
-            <Icon color="#101010" size={13} name={c_code}/>*/}
             {currency_name+ ' ' + real_buyin}
-
           </Text>
         </View>
         <TouchableOpacity style={[{flex: 0.8}, styles.matchArrow]}
